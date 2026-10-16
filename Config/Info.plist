@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	Merged with the build-setting-generated Info.plist (Debug and Release).
+	ATS: NSAllowsArbitraryLoads only, because user-entered plain-HTTP providers redirect
+	media to changing hosts and IP addresses that no per-domain exception can name, and
+	NSAllowsArbitraryLoadsForMedia was measured to have no effect on such HLS. Other ATS keys
+	are deliberately absent: their presence makes iOS ignore NSAllowsArbitraryLoads.
+	Certificate validation is never disabled; HTTPS sources are never downgraded by the app.
+	Rationale and App Review notes: docs/adr/0004-network-security-ats.md.
+	-->
+	<!-- Picture in Picture and sound with the app in the background (AVPlayer and VLC). -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
+	<!-- Launch screen: the app icon on its own navy (BrandNavy). -->
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>LaunchBackground</string>
+		<key>UIImageName</key>
+		<string>LaunchMark</string>
+		<key>UIImageRespectsSafeAreaInsets</key>
+		<false/>
+	</dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+</dict>
+</plist>

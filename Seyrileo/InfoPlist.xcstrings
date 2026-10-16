@@ -1,0 +1,14 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "NSFaceIDUsageDescription" : {
+      "comment" : "Face ID permission text.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Face ID unlocks content protected by parental controls." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Face ID, ebeveyn denetimiyle korunan içeriklerin kilidini açar." } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

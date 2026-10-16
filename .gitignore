@@ -1,0 +1,13 @@
+.DS_Store
+xcuserdata/
+DerivedData/
+.build/
+.swiftpm/
+*.xcuserstate
+build/
+# Never commit real provider credentials. Use environment variables or this untracked file.
+Config/Local.xcconfig
+*.local.env
+
+# Third-party binaries fetched by scripts/fetch-vlckit.sh
+Vendor/

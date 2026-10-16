@@ -1,0 +1,4484 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%@ h": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ sa"
+          }
+        }
+      }
+    },
+    "%@ left": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ kaldı"
+          }
+        }
+      }
+    },
+    "%@–%@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@–%2$@"
+          }
+        }
+      }
+    },
+    "%lld channels have programme information.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld kanalın program bilgisi var."
+          }
+        }
+      }
+    },
+    "%lld entries from the provider could not be read and were skipped.": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld entry from the provider could not be read and was skipped."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld entries from the provider could not be read and were skipped."
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcıdan gelen %lld kayıt okunamadı ve atlandı."
+          }
+        }
+      }
+    },
+    "%lld movies · %lld series · updated %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld film · %2$lld dizi · %3$@ güncellendi"
+          }
+        }
+      }
+    },
+    "1. Open Control Center (swipe down from the top-right corner).": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Denetim Merkezi'ni aç (sağ üst köşeden aşağı kaydır)."
+          }
+        }
+      }
+    },
+    "2. Tap Screen Mirroring.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Ekran Yansıtma'ya dokun."
+          }
+        }
+      }
+    },
+    "3. Choose your TV or Apple TV.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3. TV'ni veya Apple TV'ni seç."
+          }
+        }
+      }
+    },
+    "About": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hakkında"
+          }
+        }
+      }
+    },
+    "Account details come from the provider and may be incomplete.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesap bilgileri sağlayıcıdan gelir ve eksik olabilir."
+          }
+        }
+      }
+    },
+    "Account status": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesap durumu"
+          }
+        }
+      }
+    },
+    "Account status: %@ · Connections: %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesap durumu: %1$@ · Bağlantılar: %2$@"
+          }
+        }
+      }
+    },
+    "Active": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etkin"
+          }
+        }
+      }
+    },
+    "Add or select a source in Settings.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayarlar'dan bir kaynak ekle veya seç."
+          }
+        }
+      }
+    },
+    "Add source": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaynak ekle"
+          }
+        }
+      }
+    },
+    "Add the sample experience": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Örnek deneyimi ekle"
+          }
+        }
+      }
+    },
+    "Add to collection": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koleksiyona ekle"
+          }
+        }
+      }
+    },
+    "Add to favorites": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favorilere ekle"
+          }
+        }
+      }
+    },
+    "Add your source": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaynağını ekle"
+          }
+        }
+      }
+    },
+    "AirPlay": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AirPlay"
+          }
+        }
+      }
+    },
+    "AirPlay device selected: %@. Video is not playing on it yet.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AirPlay cihazı seçildi: %@. Görüntü henüz bu cihazda oynatılmıyor."
+          }
+        }
+      }
+    },
+    "All categories": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tüm kategoriler"
+          }
+        }
+      }
+    },
+    "App Transport Security refused a plain-HTTP connection. This is not expected with the current app configuration.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Transport Security düz HTTP bağlantısını reddetti. Uygulamanın mevcut yapılandırmasında bu beklenmiyor."
+          }
+        }
+      }
+    },
+    "Ask your provider for a valid HTTPS address.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcından geçerli bir HTTPS adresi iste."
+          }
+        }
+      }
+    },
+    "Ask your provider for an HTTPS address.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcından bir HTTPS adresi iste."
+          }
+        }
+      }
+    },
+    "Ask your provider for the correct server address.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcından doğru sunucu adresini iste."
+          }
+        }
+      }
+    },
+    "Audio": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ses"
+          }
+        }
+      }
+    },
+    "Audio & subtitle selection": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ses ve altyazı seçimi"
+          }
+        }
+      }
+    },
+    "Audio and subtitles": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ses ve altyazı"
+          }
+        }
+      }
+    },
+    "Buffering…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arabelleğe alınıyor…"
+          }
+        }
+      }
+    },
+    "Can't reach the source": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaynağa ulaşılamıyor"
+          }
+        }
+      }
+    },
+    "Can't reach the stream": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yayına ulaşılamıyor"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vazgeç"
+          }
+        }
+      }
+    },
+    "Cancelled": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İptal edildi"
+          }
+        }
+      }
+    },
+    "Cast": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oyuncular"
+          }
+        }
+      }
+    },
+    "Categories": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategoriler"
+          }
+        }
+      }
+    },
+    "Category": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategori"
+          }
+        }
+      }
+    },
+    "Change PIN": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PIN'i değiştir"
+          }
+        }
+      }
+    },
+    "Channel": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kanal"
+          }
+        }
+      }
+    },
+    "Channel %lld": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kanal %lld"
+          }
+        }
+      }
+    },
+    "Channels": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kanallar"
+          }
+        }
+      }
+    },
+    "Channels you watch will appear here.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İzlediğin kanallar burada görünür."
+          }
+        }
+      }
+    },
+    "Check Wi-Fi or mobile data and try again.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wi-Fi'yi veya mobil veriyi kontrol edip tekrar dene."
+          }
+        }
+      }
+    },
+    "Check the address and port.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adresi ve bağlantı noktasını kontrol et."
+          }
+        }
+      }
+    },
+    "Check the address for typos.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adreste yazım hatası olup olmadığını kontrol et."
+          }
+        }
+      }
+    },
+    "Check the address, including any port or path your provider gave you.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcının verdiği bağlantı noktası ve yol dahil adresi kontrol et."
+          }
+        }
+      }
+    },
+    "Check the server address": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu adresini kontrol et"
+          }
+        }
+      }
+    },
+    "Check the server address and port.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu adresini ve bağlantı noktasını kontrol et."
+          }
+        }
+      }
+    },
+    "Check the username and password.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kullanıcı adını ve şifreyi kontrol et."
+          }
+        }
+      }
+    },
+    "Check whether the provider is having problems.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcıda bir sorun olup olmadığını kontrol et."
+          }
+        }
+      }
+    },
+    "Check your account status with your provider.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesap durumunu sağlayıcınla kontrol et."
+          }
+        }
+      }
+    },
+    "Check your connection.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlantını kontrol et."
+          }
+        }
+      }
+    },
+    "Clear filter": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filtreyi temizle"
+          }
+        }
+      }
+    },
+    "Close player": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oynatıcıyı kapat"
+          }
+        }
+      }
+    },
+    "Collection not found": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koleksiyon bulunamadı"
+          }
+        }
+      }
+    },
+    "Collections": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koleksiyonlar"
+          }
+        }
+      }
+    },
+    "Confirm your subscription is active with your provider.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aboneliğinin etkin olduğunu sağlayıcınla doğrula."
+          }
+        }
+      }
+    },
+    "Connected": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlantı kuruldu"
+          }
+        }
+      }
+    },
+    "Connected, but the provider reports this account as %@. Playback will probably fail.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlantı kuruldu ancak sağlayıcı bu hesabın durumunu “%@” olarak bildiriyor. Oynatma büyük olasılıkla başarısız olacak."
+          }
+        }
+      }
+    },
+    "Connecting…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlanıyor…"
+          }
+        }
+      }
+    },
+    "Connection": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlantı"
+          }
+        }
+      }
+    },
+    "Connection diagnostics": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlantı teşhisi"
+          }
+        }
+      }
+    },
+    "Connections": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlantılar"
+          }
+        }
+      }
+    },
+    "Continue %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devam et: %@"
+          }
+        }
+      }
+    },
+    "Continue watching": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İzlemeye devam et"
+          }
+        }
+      }
+    },
+    "Couldn't save the source": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaynak kaydedilemedi"
+          }
+        }
+      }
+    },
+    "Couldn't update. Showing the saved catalogue.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güncellenemedi. Kayıtlı katalog gösteriliyor."
+          }
+        }
+      }
+    },
+    "Couldn't update. Showing the saved library.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güncellenemedi. Kayıtlı kütüphane gösteriliyor."
+          }
+        }
+      }
+    },
+    "Country": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ülke"
+          }
+        }
+      }
+    },
+    "Create": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oluştur"
+          }
+        }
+      }
+    },
+    "Create PIN": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PIN oluştur"
+          }
+        }
+      }
+    },
+    "Current PIN": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mevcut PIN"
+          }
+        }
+      }
+    },
+    "Data": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veriler"
+          }
+        }
+      }
+    },
+    "Delete": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sil"
+          }
+        }
+      }
+    },
+    "Delete collection": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koleksiyonu sil"
+          }
+        }
+      }
+    },
+    "Delete “%@”?": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” silinsin mi?"
+          }
+        }
+      }
+    },
+    "Details": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayrıntılar"
+          }
+        }
+      }
+    },
+    "Details couldn't be loaded: %@. You can still try to play it.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayrıntılar yüklenemedi: %@. Yine de oynatmayı deneyebilirsin."
+          }
+        }
+      }
+    },
+    "Device selected, not playing: %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cihaz seçildi, oynatılmıyor: %@"
+          }
+        }
+      }
+    },
+    "Diagnostics": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teşhis"
+          }
+        }
+      }
+    },
+    "Director": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yönetmen"
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bitti"
+          }
+        }
+      }
+    },
+    "Downloaded when you first open the Library, then updated when older than 12 hours. Details are loaded only when you open a title.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kütüphaneyi ilk açtığında indirilir, 12 saatten eskiyse güncellenir. Ayrıntılar yalnızca bir başlığı açtığında yüklenir."
+          }
+        }
+      }
+    },
+    "Downloading movies and series…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filmler ve diziler indiriliyor…"
+          }
+        }
+      }
+    },
+    "Downloading the catalogue…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Katalog indiriliyor…"
+          }
+        }
+      }
+    },
+    "Empty collection": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koleksiyon boş"
+          }
+        }
+      }
+    },
+    "Empty response": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boş yanıt"
+          }
+        }
+      }
+    },
+    "Ended": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bitti"
+          }
+        }
+      }
+    },
+    "Engine": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Motor"
+          }
+        }
+      }
+    },
+    "Enter PIN": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PIN'i gir"
+          }
+        }
+      }
+    },
+    "Enter a name": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir ad gir"
+          }
+        }
+      }
+    },
+    "Enter the PIN": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PIN'i gir"
+          }
+        }
+      }
+    },
+    "Enter the server address from your provider.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcından aldığın sunucu adresini gir."
+          }
+        }
+      }
+    },
+    "Episodes": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bölümler"
+          }
+        }
+      }
+    },
+    "Event log": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Olay kaydı"
+          }
+        }
+      }
+    },
+    "Exit full screen": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tam ekrandan çık"
+          }
+        }
+      }
+    },
+    "Expires": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bitiş tarihi"
+          }
+        }
+      }
+    },
+    "Favorite": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favori"
+          }
+        }
+      }
+    },
+    "Favorites": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favoriler"
+          }
+        }
+      }
+    },
+    "Film": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Film"
+          }
+        }
+      }
+    },
+    "Filter by category": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategoriye göre süz"
+          }
+        }
+      }
+    },
+    "For example “Evening sports”. Collections are kept only on this device.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Örneğin “Akşam Spor”. Koleksiyonlar yalnızca bu cihazda tutulur."
+          }
+        }
+      }
+    },
+    "Forgot PIN? Remove it with Face ID / Touch ID": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PIN'i mi unuttun? Face ID / Touch ID ile kaldır"
+          }
+        }
+      }
+    },
+    "Full screen": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tam ekran"
+          }
+        }
+      }
+    },
+    "Good afternoon": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İyi günler"
+          }
+        }
+      }
+    },
+    "Good evening": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İyi akşamlar"
+          }
+        }
+      }
+    },
+    "Good morning": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günaydın"
+          }
+        }
+      }
+    },
+    "Good night": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İyi geceler"
+          }
+        }
+      }
+    },
+    "Group channels, films and series your way. Touch and hold an item and choose “Add to collection”.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kanalları, filmleri ve dizileri kendi düzeninde grupla. Bir öğeye basılı tut ve “Koleksiyona ekle”yi seç."
+          }
+        }
+      }
+    },
+    "Guide": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rehber"
+          }
+        }
+      }
+    },
+    "Guide times are shown in your time zone. Only change this if programmes of this source are consistently early or late.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rehber saatleri senin saat diliminde gösterilir. Bunu yalnızca bu kaynağın programları sürekli erken ya da geç görünüyorsa değiştir."
+          }
+        }
+      }
+    },
+    "HLS": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HLS"
+          }
+        }
+      }
+    },
+    "Hidden": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizlenenler"
+          }
+        }
+      }
+    },
+    "Hidden channels and categories": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizlenen kanallar ve kategoriler"
+          }
+        }
+      }
+    },
+    "Hide": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizle"
+          }
+        }
+      }
+    },
+    "Hide channel": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kanalı gizle"
+          }
+        }
+      }
+    },
+    "Hide password": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şifreyi gizle"
+          }
+        }
+      }
+    },
+    "If another device is watching, stop it and try again.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başka bir cihaz izliyorsa onu durdurup tekrar dene."
+          }
+        }
+      }
+    },
+    "If your provider offers HLS (m3u8) output, use it.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcın HLS (m3u8) çıkışı sunuyorsa onu kullan."
+          }
+        }
+      }
+    },
+    "Its saved catalogue, favorites and history are deleted, and its sign-in details are removed from this device's Keychain.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıtlı kataloğu, favorileri ve geçmişi silinir; giriş bilgileri bu cihazın Anahtar Zinciri'nden kaldırılır."
+          }
+        }
+      }
+    },
+    "Library": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kütüphane"
+          }
+        }
+      }
+    },
+    "License text (LGPL 2.1)": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lisans metni (LGPL 2.1)"
+          }
+        }
+      }
+    },
+    "License text (MIT)": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lisans metni (MIT)"
+          }
+        }
+      }
+    },
+    "Live": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Canlı"
+          }
+        }
+      }
+    },
+    "Live MPEG-TS (.ts)": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Canlı MPEG-TS (.ts)"
+          }
+        }
+      }
+    },
+    "Live channels": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Canlı kanallar"
+          }
+        }
+      }
+    },
+    "Loading": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yükleniyor"
+          }
+        }
+      }
+    },
+    "Loading categories…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategoriler yükleniyor…"
+          }
+        }
+      }
+    },
+    "Loading channels…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kanallar yükleniyor…"
+          }
+        }
+      }
+    },
+    "Loading episodes…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bölümler yükleniyor…"
+          }
+        }
+      }
+    },
+    "Loading…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yükleniyor…"
+          }
+        }
+      }
+    },
+    "Lock": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilitle"
+          }
+        }
+      }
+    },
+    "Lock now": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şimdi kilitle"
+          }
+        }
+      }
+    },
+    "Locked": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilitli"
+          }
+        }
+      }
+    },
+    "Locked categories": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilitli kategoriler"
+          }
+        }
+      }
+    },
+    "Locked categories, channels, films and series are hidden and can't be played until the PIN is entered. Controls lock again whenever Seyrileo goes to the background.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilitli kategoriler, kanallar, filmler ve diziler PIN girilene kadar gizlenir ve oynatılamaz. Seyrileo arka plana her geçtiğinde kilit yeniden devreye girer."
+          }
+        }
+      }
+    },
+    "Locked category": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilitli kategori"
+          }
+        }
+      }
+    },
+    "Locked channel": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilitli kanal"
+          }
+        }
+      }
+    },
+    "Locked title": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilitli içerik"
+          }
+        }
+      }
+    },
+    "Minimize player": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oynatıcıyı küçült"
+          }
+        }
+      }
+    },
+    "More": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diğer"
+          }
+        }
+      }
+    },
+    "Movies": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filmler"
+          }
+        }
+      }
+    },
+    "Movies and series": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filmler ve diziler"
+          }
+        }
+      }
+    },
+    "My source": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaynağım"
+          }
+        }
+      }
+    },
+    "Name": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ad"
+          }
+        }
+      }
+    },
+    "Name (e.g. Home)": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ad (ör. Ev)"
+          }
+        }
+      }
+    },
+    "Name too long": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ad çok uzun"
+          }
+        }
+      }
+    },
+    "Needs the parental PIN": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ebeveyn PIN'i gerekir"
+          }
+        }
+      }
+    },
+    "Neither the built-in iOS player nor VLC could decode this stream.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne iOS'un yerleşik oynatıcısı ne de VLC bu yayını çözebildi."
+          }
+        }
+      }
+    },
+    "Network error": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ağ hatası"
+          }
+        }
+      }
+    },
+    "New PIN (4–6 digits)": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeni PIN (4–6 rakam)"
+          }
+        }
+      }
+    },
+    "New collection": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeni koleksiyon"
+          }
+        }
+      }
+    },
+    "Next channel": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonraki kanal"
+          }
+        }
+      }
+    },
+    "Next episode": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonraki bölüm"
+          }
+        }
+      }
+    },
+    "No TV connected yet.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz TV bağlı değil."
+          }
+        }
+      }
+    },
+    "No channels": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kanal yok"
+          }
+        }
+      }
+    },
+    "No episodes": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bölüm yok"
+          }
+        }
+      }
+    },
+    "No events yet.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz olay yok."
+          }
+        }
+      }
+    },
+    "No guide data": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Program bilgisi yok"
+          }
+        }
+      }
+    },
+    "No guide for this channel": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kanal için rehber yok"
+          }
+        }
+      }
+    },
+    "No guide information right now": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şu an yayın akışı bilgisi yok"
+          }
+        }
+      }
+    },
+    "No live categories": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Canlı kategori yok"
+          }
+        }
+      }
+    },
+    "No longer offered": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Artık sunulmuyor"
+          }
+        }
+      }
+    },
+    "No longer offered by this source": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kaynak artık sunmuyor"
+          }
+        }
+      }
+    },
+    "No movie categories": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Film kategorisi yok"
+          }
+        }
+      }
+    },
+    "No picture arrived in time and the player reported no error. The source may be slow, or the stream may not contain media this player can decode.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zamanında görüntü gelmedi ve oynatıcı hata bildirmedi. Kaynak yavaş olabilir ya da yayın bu oynatıcının çözebileceği bir medya içermiyor olabilir."
+          }
+        }
+      }
+    },
+    "No saved catalogue yet": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz kayıtlı katalog yok"
+          }
+        }
+      }
+    },
+    "No series categories": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dizi kategorisi yok"
+          }
+        }
+      }
+    },
+    "No source selected": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seçili kaynak yok"
+          }
+        }
+      }
+    },
+    "None": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yok"
+          }
+        }
+      }
+    },
+    "Not enabled in this build": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu sürümde etkin değil"
+          }
+        }
+      }
+    },
+    "Not enough data arrived to keep playing.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oynatmayı sürdürecek kadar veri gelmedi."
+          }
+        }
+      }
+    },
+    "Not in use": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kullanılmıyor"
+          }
+        }
+      }
+    },
+    "Not reported": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bildirilmedi"
+          }
+        }
+      }
+    },
+    "Not supported": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desteklenmiyor"
+          }
+        }
+      }
+    },
+    "Not verified": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğrulanmadı"
+          }
+        }
+      }
+    },
+    "Nothing here": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Burada bir şey yok"
+          }
+        }
+      }
+    },
+    "Nothing hidden": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizlenen bir şey yok"
+          }
+        }
+      }
+    },
+    "Now": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şimdi"
+          }
+        }
+      }
+    },
+    "Now: %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şimdi: %@"
+          }
+        }
+      }
+    },
+    "OK": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamam"
+          }
+        }
+      }
+    },
+    "Off": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kapalı"
+          }
+        }
+      }
+    },
+    "On-device database. MIT License.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cihaz üzerindeki veritabanı. MIT Lisansı."
+          }
+        }
+      }
+    },
+    "Only on this device. Provider name: %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca bu cihazda. Sağlayıcıdaki adı: %@"
+          }
+        }
+      }
+    },
+    "Open-source licenses": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Açık kaynak lisansları"
+          }
+        }
+      }
+    },
+    "Opens the player": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oynatıcıyı açar"
+          }
+        }
+      }
+    },
+    "Organize": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düzenle"
+          }
+        }
+      }
+    },
+    "Output formats": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çıkış biçimleri"
+          }
+        }
+      }
+    },
+    "PIN": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PIN"
+          }
+        }
+      }
+    },
+    "Parental controls": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ebeveyn denetimi"
+          }
+        }
+      }
+    },
+    "Password": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şifre"
+          }
+        }
+      }
+    },
+    "Pause": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Duraklat"
+          }
+        }
+      }
+    },
+    "Picture in Picture": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resim İçinde Resim"
+          }
+        }
+      }
+    },
+    "Play": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oynat"
+          }
+        }
+      }
+    },
+    "Play %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oynat: %@"
+          }
+        }
+      }
+    },
+    "Play again": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeniden oynat"
+          }
+        }
+      }
+    },
+    "Play from the beginning": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baştan oynat"
+          }
+        }
+      }
+    },
+    "Play next episode": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonraki bölümü oynat"
+          }
+        }
+      }
+    },
+    "Play on this iPhone": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu iPhone'da oynat"
+          }
+        }
+      }
+    },
+    "Playback": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oynatma"
+          }
+        }
+      }
+    },
+    "Playback failed": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oynatma başarısız"
+          }
+        }
+      }
+    },
+    "Player engine": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oynatıcı motoru"
+          }
+        }
+      }
+    },
+    "Playing on %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ cihazında oynatılıyor"
+          }
+        }
+      }
+    },
+    "Playing on the TV": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TV'de oynatılıyor"
+          }
+        }
+      }
+    },
+    "Plays this channel": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kanalı oynatır"
+          }
+        }
+      }
+    },
+    "Plot": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konu"
+          }
+        }
+      }
+    },
+    "Position": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konum"
+          }
+        }
+      }
+    },
+    "Previous channel": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önceki kanal"
+          }
+        }
+      }
+    },
+    "Previous episode": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önceki bölüm"
+          }
+        }
+      }
+    },
+    "Provider": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı"
+          }
+        }
+      }
+    },
+    "Provider address not found": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı adresi bulunamadı"
+          }
+        }
+      }
+    },
+    "Provider name: %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcıdaki adı: %@"
+          }
+        }
+      }
+    },
+    "Provider sign-in": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı girişi"
+          }
+        }
+      }
+    },
+    "Recently watched": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son izlenenler"
+          }
+        }
+      }
+    },
+    "Reconnecting (%lld of %lld)…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeniden bağlanıyor (%1$lld / %2$lld)…"
+          }
+        }
+      }
+    },
+    "Redirect blocked": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yönlendirme engellendi"
+          }
+        }
+      }
+    },
+    "Remove": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaldır"
+          }
+        }
+      }
+    },
+    "Remove PIN": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PIN'i kaldır"
+          }
+        }
+      }
+    },
+    "Remove all data": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tüm verileri kaldır"
+          }
+        }
+      }
+    },
+    "Remove all data?": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tüm veriler kaldırılsın mı?"
+          }
+        }
+      }
+    },
+    "Remove from favorites": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favorilerden çıkar"
+          }
+        }
+      }
+    },
+    "Remove lock": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilidi kaldır"
+          }
+        }
+      }
+    },
+    "Remove the parental controls PIN.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ebeveyn denetimi PIN'ini kaldır."
+          }
+        }
+      }
+    },
+    "Remove the source and add it again.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaynağı kaldırıp yeniden ekle."
+          }
+        }
+      }
+    },
+    "Remove the username and password from the address and use the separate fields.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kullanıcı adını ve şifreyi adresten çıkarıp ayrı alanlara yaz."
+          }
+        }
+      }
+    },
+    "Remove this source?": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kaynak kaldırılsın mı?"
+          }
+        }
+      }
+    },
+    "Removes every source from this device, including saved catalogues, favorites, history and sign-in details stored in the Keychain.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıtlı kataloglar, favoriler, geçmiş ve Anahtar Zinciri'ndeki giriş bilgileri dahil tüm kaynakları bu cihazdan kaldırır."
+          }
+        }
+      }
+    },
+    "Rename": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeniden adlandır"
+          }
+        }
+      }
+    },
+    "Rename channel": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kanalı yeniden adlandır"
+          }
+        }
+      }
+    },
+    "Rename collection": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koleksiyonu yeniden adlandır"
+          }
+        }
+      }
+    },
+    "Reorder categories": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorileri sırala"
+          }
+        }
+      }
+    },
+    "Reorder channels": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kanalları sırala"
+          }
+        }
+      }
+    },
+    "Repeat new PIN": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeni PIN'i tekrar gir"
+          }
+        }
+      }
+    },
+    "Report this title to your provider.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu içeriği sağlayıcına bildir."
+          }
+        }
+      }
+    },
+    "Requested format": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İstenen biçim"
+          }
+        }
+      }
+    },
+    "Response too large": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yanıt çok büyük"
+          }
+        }
+      }
+    },
+    "Restore provider order": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı sırasına dön"
+          }
+        }
+      }
+    },
+    "Resume from %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ konumundan devam et"
+          }
+        }
+      }
+    },
+    "S%lld E%lld": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld. Sezon %2$lld. Bölüm"
+          }
+        }
+      }
+    },
+    "Sample": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Örnek"
+          }
+        }
+      }
+    },
+    "Sample (fixture)": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Örnek (test verisi)"
+          }
+        }
+      }
+    },
+    "Sample experience": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Örnek deneyim"
+          }
+        }
+      }
+    },
+    "Sample streams are served from this phone only. An AirPlay receiver cannot reach them.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Örnek yayınlar yalnızca bu telefondan sunulur. AirPlay alıcısı bunlara erişemez."
+          }
+        }
+      }
+    },
+    "Sample streams are served from this phone only; an AirPlay receiver cannot reach them.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Örnek yayınlar yalnızca bu telefondan sunulur; AirPlay alıcısı bunlara erişemez."
+          }
+        }
+      }
+    },
+    "Sample · synthetic local data": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Örnek · yapay yerel veri"
+          }
+        }
+      }
+    },
+    "Save": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydet"
+          }
+        }
+      }
+    },
+    "Save anyway": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yine de kaydet"
+          }
+        }
+      }
+    },
+    "Saved catalogue": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıtlı katalog"
+          }
+        }
+      }
+    },
+    "Saved sign-in details are missing": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıtlı giriş bilgileri bulunamadı"
+          }
+        }
+      }
+    },
+    "Search": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ara"
+          }
+        }
+      }
+    },
+    "Search all categories": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tüm kategorilerde ara"
+          }
+        }
+      }
+    },
+    "Search failed": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arama başarısız"
+          }
+        }
+      }
+    },
+    "Search in": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arama alanı"
+          }
+        }
+      }
+    },
+    "Search in this category": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kategoride ara"
+          }
+        }
+      }
+    },
+    "Search live channels": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Canlı kanallarda ara"
+          }
+        }
+      }
+    },
+    "Search movies": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filmlerde ara"
+          }
+        }
+      }
+    },
+    "Search series": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dizilerde ara"
+          }
+        }
+      }
+    },
+    "Search works on the downloaded catalogue. It will be available after the first update.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arama, indirilen katalog üzerinde çalışır. İlk güncellemeden sonra kullanılabilir."
+          }
+        }
+      }
+    },
+    "Searched only in “%@”.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca “%@” içinde arandı."
+          }
+        }
+      }
+    },
+    "Searching…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aranıyor…"
+          }
+        }
+      }
+    },
+    "Season": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sezon"
+          }
+        }
+      }
+    },
+    "Season %lld": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld. Sezon"
+          }
+        }
+      }
+    },
+    "Secure connection failed": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güvenli bağlantı kurulamadı"
+          }
+        }
+      }
+    },
+    "Series": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diziler"
+          }
+        }
+      }
+    },
+    "Server": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu"
+          }
+        }
+      }
+    },
+    "Server address": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu adresi"
+          }
+        }
+      }
+    },
+    "Server not found": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu bulunamadı"
+          }
+        }
+      }
+    },
+    "Server: %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu: %@"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayarlar"
+          }
+        }
+      }
+    },
+    "Seyrileo couldn't open its data": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seyrileo verilerini açamadı"
+          }
+        }
+      }
+    },
+    "Seyrileo is a media player. It doesn't provide channels, subscriptions or content.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seyrileo bir medya oynatıcıdır. Kanal, abonelik veya içerik sağlamaz."
+          }
+        }
+      }
+    },
+    "Seyrileo is a player. It doesn't sell or include any channels. Add a source you're authorized to use.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seyrileo bir oynatıcıdır; kanal satmaz ve içermez. Kullanma yetkin olan bir kaynağı ekle."
+          }
+        }
+      }
+    },
+    "Seyrileo then shows only the video on the TV and keeps the controls on this iPhone.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seyrileo TV'de yalnızca videoyu gösterir; kontroller bu iPhone'da kalır."
+          }
+        }
+      }
+    },
+    "Share a redacted diagnostics report with support.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maskelenmiş teşhis raporunu destekle paylaş."
+          }
+        }
+      }
+    },
+    "Share redacted report": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maskelenmiş raporu paylaş"
+          }
+        }
+      }
+    },
+    "Show": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Göster"
+          }
+        }
+      }
+    },
+    "Show channel": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kanalı göster"
+          }
+        }
+      }
+    },
+    "Show password": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şifreyi göster"
+          }
+        }
+      }
+    },
+    "Showing the first %lld results. Type more to narrow down.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlk %lld sonuç gösteriliyor. Daraltmak için yazmaya devam et."
+          }
+        }
+      }
+    },
+    "Something went wrong": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir şeyler ters gitti"
+          }
+        }
+      }
+    },
+    "Source": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaynak"
+          }
+        }
+      }
+    },
+    "Sources": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaynaklar"
+          }
+        }
+      }
+    },
+    "State": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Durum"
+          }
+        }
+      }
+    },
+    "Status": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Durum"
+          }
+        }
+      }
+    },
+    "Stream host": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yayın sunucusu"
+          }
+        }
+      }
+    },
+    "Stream unavailable": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yayın kullanılamıyor"
+          }
+        }
+      }
+    },
+    "Subtitles": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altyazılar"
+          }
+        }
+      }
+    },
+    "Swipe left on a channel, or touch and hold it, to add it to your favorites.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir kanalı favorilere eklemek için sola kaydır ya da basılı tut."
+          }
+        }
+      }
+    },
+    "Synthetic test patterns served from this device. These are not real channels.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu cihazdan sunulan yapay test desenleri. Bunlar gerçek kanallar değildir."
+          }
+        }
+      }
+    },
+    "TV connected. The video is shown on the TV in full screen.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TV bağlı. Video TV'de tam ekran gösteriliyor."
+          }
+        }
+      }
+    },
+    "TV guide": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Program rehberi"
+          }
+        }
+      }
+    },
+    "Tap a source to make it active. Swipe to remove it.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etkinleştirmek için bir kaynağa dokun. Kaldırmak için kaydır."
+          }
+        }
+      }
+    },
+    "Test & Save": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Test et ve kaydet"
+          }
+        }
+      }
+    },
+    "Test connection": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlantıyı test et"
+          }
+        }
+      }
+    },
+    "Testing connection…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlantı test ediliyor…"
+          }
+        }
+      }
+    },
+    "The PIN could not be saved on this device.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PIN bu cihaza kaydedilemedi."
+          }
+        }
+      }
+    },
+    "The PIN is needed to change what is locked.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilitli içerikleri değiştirmek için PIN gerekir."
+          }
+        }
+      }
+    },
+    "The PIN is stored only on this device, as a one-way hash. If you forget it, remove it with Face ID or Touch ID.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PIN yalnızca bu cihazda, geri çevrilemeyen bir özet olarak saklanır. Unutursan Face ID ya da Touch ID ile kaldırabilirsin."
+          }
+        }
+      }
+    },
+    "The address could not be read.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adres okunamadı."
+          }
+        }
+      }
+    },
+    "The address has no host name.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adreste sunucu adı yok."
+          }
+        }
+      }
+    },
+    "The address must start with http:// or https://.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adres http:// veya https:// ile başlamalı."
+          }
+        }
+      }
+    },
+    "The catalogue is saved on this device and opens instantly. It updates automatically when it is older than 6 hours. A failed update keeps the saved catalogue.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Katalog bu cihazda saklanır ve anında açılır. 6 saatten eskiyse otomatik güncellenir. Başarısız bir güncelleme kayıtlı kataloğu korur."
+          }
+        }
+      }
+    },
+    "The channels and titles stay in your source; only this list is removed.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kanallar ve içerikler kaynağında kalır; yalnızca bu liste silinir."
+          }
+        }
+      }
+    },
+    "The connection failed. The exact cause is not known.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlantı kurulamadı. Kesin nedeni bilinmiyor."
+          }
+        }
+      }
+    },
+    "The connection timed out.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlantı zaman aşımına uğradı."
+          }
+        }
+      }
+    },
+    "The current PIN is wrong.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mevcut PIN yanlış."
+          }
+        }
+      }
+    },
+    "The details for this source could not be read from this device's Keychain.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kaynağın bilgileri cihazın Anahtar Zinciri'nden okunamadı."
+          }
+        }
+      }
+    },
+    "The exact cause is not known.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kesin nedeni bilinmiyor."
+          }
+        }
+      }
+    },
+    "The last catalogue update failed.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son katalog güncellemesi başarısız oldu."
+          }
+        }
+      }
+    },
+    "The name can't be empty.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ad boş olamaz."
+          }
+        }
+      }
+    },
+    "The on-device sample server could not start: %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cihazdaki örnek sunucu başlatılamadı: %@"
+          }
+        }
+      }
+    },
+    "The player reported an error and the exact cause is not known.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oynatıcı bir hata bildirdi; kesin nedeni bilinmiyor."
+          }
+        }
+      }
+    },
+    "The provider answered and rejected these sign-in details.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı yanıt verdi ve bu giriş bilgilerini reddetti."
+          }
+        }
+      }
+    },
+    "The provider answered with no data.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı veri içermeyen bir yanıt verdi."
+          }
+        }
+      }
+    },
+    "The provider denied access": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı erişimi reddetti"
+          }
+        }
+      }
+    },
+    "The provider denied this stream": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı bu yayına erişimi reddetti"
+          }
+        }
+      }
+    },
+    "The provider did not respond in time": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı zamanında yanıt vermedi"
+          }
+        }
+      }
+    },
+    "The provider did not say which file format this title uses, so its address is unknown.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı bu başlığın dosya biçimini bildirmedi, bu yüzden adresi bilinmiyor."
+          }
+        }
+      }
+    },
+    "The provider doesn't publish programme information for this channel.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı bu kanal için program bilgisi yayınlamıyor."
+          }
+        }
+      }
+    },
+    "The provider has no video for this title": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcıda bu içeriğin videosu yok"
+          }
+        }
+      }
+    },
+    "The provider is limiting requests right now.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı şu anda istekleri sınırlıyor."
+          }
+        }
+      }
+    },
+    "The provider lists no episodes for this series.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı bu dizi için bölüm listelemiyor."
+          }
+        }
+      }
+    },
+    "The provider refused the sign-in": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı girişi reddetti"
+          }
+        }
+      }
+    },
+    "The provider reports this account as %@. Playback will probably fail.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı bu hesabın durumunu “%@” olarak bildiriyor. Oynatma büyük olasılıkla başarısız olacak."
+          }
+        }
+      }
+    },
+    "The provider returned an error": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı bir hata döndürdü"
+          }
+        }
+      }
+    },
+    "The provider returned no programmes for this channel right now.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı şu anda bu kanal için program döndürmedi."
+          }
+        }
+      }
+    },
+    "The provider says this stream does not exist right now (404). The channel may be offline.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı bu yayının şu anda mevcut olmadığını bildiriyor (404). Kanal kapalı olabilir."
+          }
+        }
+      }
+    },
+    "The provider sent more data than Seyrileo accepts in one response.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı, Seyrileo'nun tek yanıtta kabul ettiğinden fazla veri gönderdi."
+          }
+        }
+      }
+    },
+    "The provider tried to redirect to a different address or from HTTPS to HTTP. Seyrileo did not follow it so your sign-in details are not sent elsewhere.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı farklı bir adrese ya da HTTPS'den HTTP'ye yönlendirmeye çalıştı. Giriş bilgilerin başka yere gönderilmesin diye Seyrileo bu yönlendirmeyi izlemedi."
+          }
+        }
+      }
+    },
+    "The provider's answer could not be read. It may be incompatible or temporarily broken.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcının yanıtı okunamadı. Uyumsuz ya da geçici olarak bozuk olabilir."
+          }
+        }
+      }
+    },
+    "The provider's server answered with an empty page instead of the video file. The file is probably missing on their side; this is not a format or app problem.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcının sunucusu video dosyası yerine boş bir sayfa döndürdü. Dosya büyük olasılıkla onların tarafında eksik; bu bir biçim ya da uygulama sorunu değil."
+          }
+        }
+      }
+    },
+    "The report leaves out passwords, usernames and stream addresses. Nothing is sent unless you share it.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rapor şifreleri, kullanıcı adlarını ve yayın adreslerini içermez. Sen paylaşmadıkça hiçbir şey gönderilmez."
+          }
+        }
+      }
+    },
+    "The request was cancelled.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İstek iptal edildi."
+          }
+        }
+      }
+    },
+    "The sample uses synthetic test patterns served from this device. No real channels.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Örnek deneyim bu cihazdan sunulan yapay test desenlerini kullanır. Gerçek kanal yoktur."
+          }
+        }
+      }
+    },
+    "The saved catalogue could not be searched.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıtlı katalogda arama yapılamadı."
+          }
+        }
+      }
+    },
+    "The server answered 401 (unauthorized).": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu 401 (yetkisiz) yanıtı verdi."
+          }
+        }
+      }
+    },
+    "The server answered 403 (forbidden). It did not say why. Possible reasons include an inactive account, a blocked region or network, or a connection limit.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu 403 (yasak) yanıtı verdi ve nedenini belirtmedi. Olası nedenler arasında etkin olmayan hesap, engellenmiş bölge veya ağ ya da bağlantı sınırı bulunur."
+          }
+        }
+      }
+    },
+    "The server answered 404. The server address or its path may be wrong.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu 404 yanıtı verdi. Sunucu adresi veya yolu yanlış olabilir."
+          }
+        }
+      }
+    },
+    "The server answered with HTTP status %lld.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu HTTP %lld durum koduyla yanıt verdi."
+          }
+        }
+      }
+    },
+    "The server answered with a web page instead of data. The address may point to a website or an error page.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu veri yerine bir web sayfasıyla yanıt verdi. Adres bir web sitesini ya da hata sayfasını gösteriyor olabilir."
+          }
+        }
+      }
+    },
+    "The server could not be reached or the connection dropped.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucuya ulaşılamadı ya da bağlantı koptu."
+          }
+        }
+      }
+    },
+    "The server name could not be found.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu adı bulunamadı."
+          }
+        }
+      }
+    },
+    "The server's HTTPS certificate could not be verified. Seyrileo does not bypass certificate checks.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucunun HTTPS sertifikası doğrulanamadı. Seyrileo sertifika denetimlerini atlamaz."
+          }
+        }
+      }
+    },
+    "The sign-in details could not be stored in this device's Keychain.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giriş bilgileri bu cihazın Anahtar Zinciri'ne kaydedilemedi."
+          }
+        }
+      }
+    },
+    "The stream didn't start": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yayın başlamadı"
+          }
+        }
+      }
+    },
+    "The stream keeps stalling": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yayın sürekli takılıyor"
+          }
+        }
+      }
+    },
+    "The stream server answered %lld. It did not say why. Possible reasons include an inactive account, a connection limit or a regional restriction.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yayın sunucusu %lld yanıtı verdi ve nedenini belirtmedi. Olası nedenler arasında etkin olmayan hesap, bağlantı sınırı veya bölgesel kısıtlama bulunur."
+          }
+        }
+      }
+    },
+    "The stream server answered with HTTP status %lld.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yayın sunucusu HTTP %lld durum koduyla yanıt verdi."
+          }
+        }
+      }
+    },
+    "The stream server could not be reached.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yayın sunucusuna ulaşılamadı."
+          }
+        }
+      }
+    },
+    "The stream server delivers media in a way neither the built-in iOS player nor VLC could use.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yayın sunucusu medyayı, ne iOS'un yerleşik oynatıcısının ne de VLC'nin kullanabildiği bir biçimde iletiyor."
+          }
+        }
+      }
+    },
+    "The stream server had a problem": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yayın sunucusunda bir sorun oluştu"
+          }
+        }
+      }
+    },
+    "The stream server refused access. It did not say why. Possible reasons include an inactive account, a connection limit or a regional restriction.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yayın sunucusu erişimi reddetti ve nedenini belirtmedi. Olası nedenler arasında etkin olmayan hesap, bağlantı sınırı veya bölgesel kısıtlama bulunur."
+          }
+        }
+      }
+    },
+    "The two PINs don't match.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İki PIN aynı değil."
+          }
+        }
+      }
+    },
+    "These are your provider's details, not a Seyrileo account. They're stored only in this device's Keychain.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bunlar sağlayıcının bilgileridir, bir Seyrileo hesabı değildir. Yalnızca bu cihazın Anahtar Zinciri'nde saklanır."
+          }
+        }
+      }
+    },
+    "This category is empty.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kategori boş."
+          }
+        }
+      }
+    },
+    "This collection was deleted or belongs to another source.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu koleksiyon silinmiş ya da başka bir kaynağa ait."
+          }
+        }
+      }
+    },
+    "This content is protected by parental controls.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu içerik ebeveyn denetimiyle korunuyor."
+          }
+        }
+      }
+    },
+    "This device has no internet connection.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu cihazın internet bağlantısı yok."
+          }
+        }
+      }
+    },
+    "This doesn't look like an Xtream-compatible server": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu, Xtream uyumlu bir sunucuya benzemiyor"
+          }
+        }
+      }
+    },
+    "This format isn't supported by this player": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu biçim bu oynatıcıda desteklenmiyor"
+          }
+        }
+      }
+    },
+    "This happened during AirPlay. The receiver loads the stream itself and may not reach the source or support its format. Try playing on this device to compare.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu sorun AirPlay sırasında oluştu. Alıcı yayını kendisi yükler; kaynağa erişemiyor ya da biçimini desteklemiyor olabilir. Karşılaştırmak için bu cihazda oynatmayı dene."
+          }
+        }
+      }
+    },
+    "This source doesn't list any here.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kaynak burada bir şey listelemiyor."
+          }
+        }
+      }
+    },
+    "This source doesn't publish programme information for its channels.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kaynak kanalları için program bilgisi yayınlamıyor."
+          }
+        }
+      }
+    },
+    "This source has no live TV categories.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kaynakta canlı TV kategorisi yok."
+          }
+        }
+      }
+    },
+    "This source no longer lists this title.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kaynak artık bu başlığı listelemiyor."
+          }
+        }
+      }
+    },
+    "This stream type isn't supported by this player": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu yayın türü bu oynatıcıda desteklenmiyor"
+          }
+        }
+      }
+    },
+    "This title can't be opened": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu başlık açılamıyor"
+          }
+        }
+      }
+    },
+    "This title is a %@ file. Neither the built-in iOS player nor VLC could play it.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu başlık bir %@ dosyası. Ne iOS'un yerleşik oynatıcısı ne de VLC oynatabildi."
+          }
+        }
+      }
+    },
+    "This title plays in VLC: AirPlay sends only its sound. Tap the TV button to show the picture on the TV with Screen Mirroring.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu başlık VLC ile oynuyor: AirPlay yalnızca sesini gönderir. Görüntüyü Ekran Yansıtma ile TV'de göstermek için TV düğmesine dokun."
+          }
+        }
+      }
+    },
+    "Time correction": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saat düzeltmesi"
+          }
+        }
+      }
+    },
+    "Times are shown in your time zone (%@).": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saatler senin saat diliminde gösteriliyor (%@)."
+          }
+        }
+      }
+    },
+    "Today": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugün"
+          }
+        }
+      }
+    },
+    "Tomorrow": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yarın"
+          }
+        }
+      }
+    },
+    "Too many requests": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çok fazla istek"
+          }
+        }
+      }
+    },
+    "Too many wrong attempts. Try again %@.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çok fazla yanlış deneme. %@ yeniden dene."
+          }
+        }
+      }
+    },
+    "Touch and hold a channel or swipe a category to hide it.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizlemek için bir kanala basılı tut ya da bir kategoriyi kaydır."
+          }
+        }
+      }
+    },
+    "Touch and hold a channel, film or series and choose “Add to collection”.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir kanala, filme ya da diziye basılı tut ve “Koleksiyona ekle”yi seç."
+          }
+        }
+      }
+    },
+    "Try a smaller category.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daha küçük bir kategori dene."
+          }
+        }
+      }
+    },
+    "Try again": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tekrar dene"
+          }
+        }
+      }
+    },
+    "Try again in a moment.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Birazdan tekrar dene."
+          }
+        }
+      }
+    },
+    "Try again later, or ask your provider.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daha sonra tekrar dene ya da sağlayıcına sor."
+          }
+        }
+      }
+    },
+    "Try again later.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daha sonra tekrar dene."
+          }
+        }
+      }
+    },
+    "Try again.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tekrar dene."
+          }
+        }
+      }
+    },
+    "Try another channel.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başka bir kanal dene."
+          }
+        }
+      }
+    },
+    "Try another episode or season.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başka bir bölüm ya da sezon dene."
+          }
+        }
+      }
+    },
+    "Try another title.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başka bir başlık dene."
+          }
+        }
+      }
+    },
+    "Try the sample experience": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Örnek deneyimi dene"
+          }
+        }
+      }
+    },
+    "Type": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tür"
+          }
+        }
+      }
+    },
+    "Type a name. Turkish characters are optional: “cagri” finds “Çağrı”.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir ad yaz. Türkçe karakter şart değil: “cagri” yazınca “Çağrı” bulunur."
+          }
+        }
+      }
+    },
+    "Unencrypted connection (HTTP): your username, password and what you watch are sent without encryption and could be seen on the network. Use an HTTPS address if your provider offers one.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şifrelenmemiş bağlantı (HTTP): kullanıcı adın, şifren ve izlediklerin şifrelenmeden gönderilir ve ağda görülebilir. Sağlayıcın HTTPS adresi sunuyorsa onu kullan."
+          }
+        }
+      }
+    },
+    "Unknown": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bilinmiyor"
+          }
+        }
+      }
+    },
+    "Unlock": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilidi aç"
+          }
+        }
+      }
+    },
+    "Unlock content protected by parental controls.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ebeveyn denetimiyle korunan içeriğin kilidini aç."
+          }
+        }
+      }
+    },
+    "Unlock with Face ID": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID ile aç"
+          }
+        }
+      }
+    },
+    "Unlock with Touch ID": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touch ID ile aç"
+          }
+        }
+      }
+    },
+    "Unlocked": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Açık"
+          }
+        }
+      }
+    },
+    "Unreadable provider response": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcı yanıtı okunamadı"
+          }
+        }
+      }
+    },
+    "Untitled": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adsız"
+          }
+        }
+      }
+    },
+    "Untitled category": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adsız kategori"
+          }
+        }
+      }
+    },
+    "Untitled channel": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adsız kanal"
+          }
+        }
+      }
+    },
+    "Untitled movie": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adsız film"
+          }
+        }
+      }
+    },
+    "Up next": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sıradaki"
+          }
+        }
+      }
+    },
+    "Update catalogue now": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kataloğu şimdi güncelle"
+          }
+        }
+      }
+    },
+    "Update movies and series now": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filmleri ve dizileri şimdi güncelle"
+          }
+        }
+      }
+    },
+    "Update the library in Settings.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kütüphaneyi Ayarlar'dan güncelle."
+          }
+        }
+      }
+    },
+    "Updated %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ güncellendi"
+          }
+        }
+      }
+    },
+    "Updating catalogue…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Katalog güncelleniyor…"
+          }
+        }
+      }
+    },
+    "Updating library…": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kütüphane güncelleniyor…"
+          }
+        }
+      }
+    },
+    "Use 4 to 6 digits.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "4 ile 6 arasında rakam kullan."
+          }
+        }
+      }
+    },
+    "Use Face ID": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID kullan"
+          }
+        }
+      }
+    },
+    "Use Touch ID": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touch ID kullan"
+          }
+        }
+      }
+    },
+    "Use at most %lld characters.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En fazla %lld karakter kullan."
+          }
+        }
+      }
+    },
+    "Use the provider's name": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağlayıcıdaki adı kullan"
+          }
+        }
+      }
+    },
+    "Used to play formats the built-in iOS player cannot (for example MKV and AVI). Licensed under the GNU Lesser General Public License, version 2.1 or later. It is included unmodified and dynamically linked, so it can be replaced with a compatible build.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS'un yerleşik oynatıcısının açamadığı biçimleri (örneğin MKV ve AVI) oynatmak için kullanılır. GNU Kısıtlı Genel Kamu Lisansı sürüm 2.1 veya sonrası ile lisanslanmıştır. Değiştirilmeden ve dinamik olarak bağlanarak eklenmiştir; uyumlu bir derlemeyle değiştirilebilir."
+          }
+        }
+      }
+    },
+    "Username": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kullanıcı adı"
+          }
+        }
+      }
+    },
+    "Username or password not accepted": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kullanıcı adı veya şifre kabul edilmedi"
+          }
+        }
+      }
+    },
+    "VLC": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VLC"
+          }
+        }
+      }
+    },
+    "Verified on device": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cihazda doğrulandı"
+          }
+        }
+      }
+    },
+    "Version": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sürüm"
+          }
+        }
+      }
+    },
+    "Version %@": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sürüm %@"
+          }
+        }
+      }
+    },
+    "Wait a minute and try again.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir dakika bekleyip tekrar dene."
+          }
+        }
+      }
+    },
+    "Watch": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İzle"
+          }
+        }
+      }
+    },
+    "Watch on TV": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TV'de izle"
+          }
+        }
+      }
+    },
+    "Watch on TV with Screen Mirroring": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekran Yansıtma ile TV'de izle"
+          }
+        }
+      }
+    },
+    "Watched": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İzlendi"
+          }
+        }
+      }
+    },
+    "We split the pasted link into separate fields so your password isn't kept inside an address.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şifren bir adresin içinde kalmasın diye yapıştırılan bağlantıyı ayrı alanlara böldük."
+          }
+        }
+      }
+    },
+    "With Screen Mirroring this iPhone loads and decodes the stream and sends the picture to the TV. It works for every title, including MKV files and channels the provider refuses to send to the TV directly over AirPlay.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekran Yansıtma ile yayını bu iPhone yükleyip çözer ve görüntüyü TV'ye gönderir. MKV dosyaları ve sağlayıcının AirPlay ile doğrudan TV'ye göndermeyi reddettiği kanallar dahil her başlıkta çalışır."
+          }
+        }
+      }
+    },
+    "Wrong PIN.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yanlış PIN."
+          }
+        }
+      }
+    },
+    "Wrong PIN. %lld attempts left before a short wait.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yanlış PIN. Kısa bir beklemeden önce %lld deneme hakkın kaldı."
+          }
+        }
+      }
+    },
+    "Yesterday": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dün"
+          }
+        }
+      }
+    },
+    "You're offline": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çevrimdışısın"
+          }
+        }
+      }
+    },
+    "Your Space": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senin Alanın"
+          }
+        }
+      }
+    },
+    "Your collections": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koleksiyonların"
+          }
+        }
+      }
+    },
+    "Your saved sources could not be read. Nothing was deleted. (%@)": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıtlı kaynakların okunamadı. Hiçbir şey silinmedi. (%@)"
+          }
+        }
+      }
+    },
+    "Your streams. Your space.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kendi yayınların. Kendi düzenin."
+          }
+        }
+      }
+    },
+    "active": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "etkin"
+          }
+        }
+      }
+    },
+    "an AirPlay device": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bir AirPlay cihazı"
+          }
+        }
+      }
+    },
+    "banned": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "engellenmiş"
+          }
+        }
+      }
+    },
+    "disabled": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "devre dışı"
+          }
+        }
+      }
+    },
+    "expired": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "süresi dolmuş"
+          }
+        }
+      }
+    },
+    "file": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dosya"
+          }
+        }
+      }
+    },
+    "iOS blocked an unencrypted connection": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS şifrelenmemiş bir bağlantıyı engelledi"
+          }
+        }
+      }
+    },
+    "unknown": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bilinmiyor"
+          }
+        }
+      }
+    },
+    "unknown device": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bilinmeyen cihaz"
+          }
+        }
+      }
+    },
+    "“Not verified” means the engine can do this in principle, but it has not been tested on a physical device yet.": {
+      "localizations": {
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Doğrulanmadı”, motorun bunu ilke olarak yapabildiği ancak henüz fiziksel bir cihazda test edilmediği anlamına gelir."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
