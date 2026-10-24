@@ -4,7 +4,7 @@ import SwiftUI
 /// source is, and that they may replace it; the full license text is shown here.
 struct LicensesView: View {
     var body: some View {
-        List {
+        BrandList {
             Section {
                 VStack(alignment: .leading, spacing: 6) {
                     Text(verbatim: "MobileVLCKit 3.7.4 (VLCKit / libVLC)").font(.headline)

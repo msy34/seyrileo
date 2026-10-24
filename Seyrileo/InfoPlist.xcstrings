@@ -1,14 +1,54 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "NSFaceIDUsageDescription" : {
-      "comment" : "Face ID permission text.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Face ID unlocks content protected by parental controls." } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Face ID, ebeveyn denetimiyle korunan içeriklerin kilidini açar." } }
+  "sourceLanguage": "en",
+  "strings": {
+    "NSFaceIDUsageDescription": {
+      "comment": "Face ID permission text.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID unlocks content protected by parental controls."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID, ebeveyn denetimiyle korunan içeriklerin kilidini açar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID déverrouille le contenu protégé par le contrôle parental."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID entsperrt durch die Kindersicherung geschützte Inhalte."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID разблокирует контент, защищённый родительским контролем."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يفتح Face ID قفل المحتوى المحمي بالرقابة الأبوية."
+          }
+        },
+        "bs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ID otključava sadržaj zaštićen roditeljskim nadzorom."
+          }
+        }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

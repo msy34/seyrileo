@@ -36,7 +36,7 @@ public final class AppDatabase: Sendable {
         return base.appendingPathComponent("Catalog", isDirectory: true).appendingPathComponent("catalog.sqlite")
     }
 
-    static let migrationIdentifiers = ["v1-catalog", "v2-library", "v3-organization", "v4-parental"]
+    static let migrationIdentifiers = ["v1-catalog", "v2-library", "v3-organization", "v4-parental", "v5-reminders"]
 
     static var migrator: DatabaseMigrator {
         var migrator = DatabaseMigrator()
@@ -258,6 +258,24 @@ public final class AppDatabase: Sendable {
                     remoteID TEXT NOT NULL,
                     PRIMARY KEY (sourceID, scope, remoteID)
                 );
+                """)
+        }
+        // Local programme reminders (notifications are scheduled by the app from these rows).
+        migrator.registerMigration("v5-reminders") { db in
+            try db.execute(sql: """
+                CREATE TABLE reminder (
+                    id TEXT PRIMARY KEY NOT NULL,
+                    sourceID TEXT NOT NULL REFERENCES source(id) ON DELETE CASCADE,
+                    channelRemoteID TEXT NOT NULL,
+                    channelTitle TEXT NOT NULL,
+                    programTitle TEXT NOT NULL,
+                    start DOUBLE NOT NULL,
+                    end DOUBLE NOT NULL,
+                    leadSeconds DOUBLE NOT NULL,
+                    createdAt DOUBLE NOT NULL,
+                    UNIQUE (sourceID, channelRemoteID, start)
+                );
+                CREATE INDEX reminder_start ON reminder(start);
                 """)
         }
         return migrator

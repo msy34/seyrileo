@@ -24,9 +24,18 @@ final class AppModel {
     /// Set while the player is minimized: playback continues in the floating mini player.
     private(set) var miniPresentation: PlayerPresentation?
     @ObservationIgnored private var isMinimizing = false
+    /// Set by a swipe-down minimize: the mini player starts Picture in Picture once it can.
+    @ObservationIgnored private var pictureInPictureRequested = false
 
     let playback: PlaybackCoordinator
     let parental: ParentalModel
+    let reminders = ReminderCenter()
+    let pro = ProStore()
+
+    /// Provider sources (the on-device sample does not count toward the free limit).
+    var realSourceCount: Int { sources.filter { !$0.isFixture }.count }
+    /// A problem opening something from outside the app (e.g. a reminder), shown at the root.
+    var routeIssue: UserIssue?
     @ObservationIgnored let transport: HTTPTransport
     @ObservationIgnored private let credentialStore: CredentialStore
     @ObservationIgnored private let defaults: UserDefaults
@@ -89,6 +98,13 @@ final class AppModel {
         } catch {
             launchState = .failed(String(describing: type(of: error)))
             return
+        }
+        Task { await pro.start() }
+        reminders.isLocked = { [weak self] key in await self?.isLockedForNotifications(key) ?? false }
+        if let database { await reminders.configure(store: ReminderStore(database: database)) }
+        playback.onTracksChosen = { [weak self] item, preference in
+            guard let self else { return }
+            self.saveTrackPreference(preference, key: self.trackKeys[item.id] ?? item.id)
         }
         playback.onPlaybackStarted = { [weak self] item in
             self?.recordPlayed(item)
@@ -192,6 +208,7 @@ final class AppModel {
         if activeCatalog?.source.id == source.id { activate(nil) }
         sources = try await Task.detached { try registry.remove(sourceID: source.id) }.value
         if activeCatalog == nil { activate(sources.first) }
+        await reminders.reconcile()
         if !hasFixtureSource {
             fixtureServer?.stop()
             fixtureServer = nil
@@ -205,12 +222,27 @@ final class AppModel {
         playerPresentation = presentation
     }
 
-    /// Keeps the session and shows it in the mini player while the user browses.
-    func minimizePlayer() {
+    /// Keeps the session and shows it in the mini player while the user browses. With
+    /// `startingPictureInPicture` the mini player also starts PiP when the content supports it.
+    func minimizePlayer(startingPictureInPicture: Bool = false) {
         guard let presentation = playerPresentation else { return }
         isMinimizing = true
+        pictureInPictureRequested = startingPictureInPicture
         miniPresentation = presentation
         playerPresentation = nil
+    }
+
+    /// Read once by the mini player when it appears.
+    func takePictureInPictureRequest() -> Bool {
+        defer { pictureInPictureRequested = false }
+        return pictureInPictureRequested
+    }
+
+    /// Replaces what previous/next walks through (e.g. a series opened from a single episode),
+    /// keeping the same presentation so the player stays on screen.
+    func replacePlayerEntries(_ entries: [PlayableEntry]) {
+        guard let presentation = playerPresentation else { return }
+        playerPresentation = PlayerPresentation(id: presentation.id, entries: entries)
     }
 
     func expandMiniPlayer() {
@@ -249,7 +281,45 @@ final class AppModel {
     /// search, Your Space, collections, guide, switching inside the player) comes through here.
     func playbackItem(for entry: PlayableEntry, start: StartPreference) async throws -> PlaybackItem {
         let item = try await gatedPlaybackItem(for: entry, start: start)
+        trackKeys[item.id] = entry.trackPreferenceKey
         return item.with(trackPreference: await trackPreference(for: entry))
+    }
+
+    // MARK: - Reminders
+
+    /// Locked for notification purposes: a PIN exists and the channel or one of its categories
+    /// is locked (in its own source, which may not be the active one).
+    private func isLockedForNotifications(_ key: MediaKey) async -> Bool {
+        guard parental.gate.isEnabled, let database else { return false }
+        let locks = (try? await ParentalStore(database: database).lockSet(sourceID: key.providerID)) ?? LockSet()
+        guard !locks.isEmpty else { return false }
+        let categories = (try? await CatalogStore(database: database).channel(key))?.categoryIDs ?? []
+        return locks.isLocked(key, categoryIDs: categories)
+    }
+
+    /// Opens the channel of a tapped reminder: switches to its source if needed, then plays it
+    /// through the normal (parental-gated) path.
+    func openChannel(_ key: MediaKey) async {
+        guard let database else { return }
+        guard let source = sources.first(where: { $0.id == key.providerID }) else {
+            routeIssue = UserIssue(LibraryLookupError.notInCatalogue)
+            return
+        }
+        if activeSource?.id != source.id { activate(source) }
+        guard let channel = try? await CatalogStore(database: database).channel(key) else {
+            routeIssue = UserIssue(LibraryLookupError.notInCatalogue)
+            return
+        }
+        do {
+            let entry = PlayableEntry.channel(channel)
+            let item = try await playbackItem(for: entry, start: .resumeIfPossible)
+            AudioSessionController.activateForPlayback()
+            playback.play(item)
+            presentPlayer(PlayerPresentation(entries: [entry]))
+        } catch ParentalLockError.cancelled {
+        } catch {
+            routeIssue = UserIssue(error)
+        }
     }
 
     // MARK: - Audio and subtitle memory
@@ -264,10 +334,16 @@ final class AppModel {
 
     /// Remembers what the user picked so "Continue" and the next episode open the same way.
     func saveTrackPreference(_ preference: TrackPreference, for entry: PlayableEntry) {
+        saveTrackPreference(preference, key: entry.trackPreferenceKey)
+    }
+
+    /// Which title (series/movie/channel) a playing item's track choice belongs to.
+    @ObservationIgnored private var trackKeys: [MediaKey: MediaKey] = [:]
+
+    private func saveTrackPreference(_ preference: TrackPreference, key: MediaKey) {
         guard let catalog = activeCatalog,
               let json = try? String(decoding: JSONEncoder().encode(preference), as: UTF8.self)
         else { return }
-        let key = entry.trackPreferenceKey
         Task { try? await catalog.library.setPreference(json, forKey: TrackPreference.storageKey(for: key), sourceID: key.providerID) }
     }
 
@@ -318,7 +394,7 @@ final class AppModel {
         try await startFixtureServer()
         let endpoint = try XtreamEndpoint(serverAddress: "http://localhost:\(Self.fixturePort)")
         let credentials = XtreamCredentials(username: FixtureServer.username, password: FixtureServer.password)
-        let source = ProviderSource(name: String(localized: "Sample (fixture)"), kind: .fixture, serverURL: endpoint.baseURL)
+        let source = ProviderSource(name: String(app: "Sample (fixture)"), kind: .fixture, serverURL: endpoint.baseURL)
         _ = try await makeClient(endpoint: endpoint, credentials: credentials, providerID: source.id).authenticate()
         try await save(source, credentials: credentials)
     }

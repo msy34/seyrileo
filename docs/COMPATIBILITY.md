@@ -136,6 +136,26 @@ Provider-side missing files. Fix: `MediaPreflight` (range 0–15) before movies/
 empty or HTML/JSON body now shows "The provider has no video for this title" instead of
 trying both players. Errors/timeouts/non-2xx are left to the players.
 
+## Lifecycle measurements (2026-10-17, iPhone 18 Pro simulator, sample source)
+
+`SeyrileoUITests/LifecycleMeasurementTests` (XCTest metrics). Simulator numbers are not device
+numbers, and the sample stream is a small test pattern — real HD streams cost more, especially in
+VLC (software decoding since 2026-10-16). Re-run on a device with the command in the test file.
+
+| Measurement | Result |
+|---|---|
+| Cold launch to first responsive frame (incl. XCTest attach, 3 runs) | 5.56 s average |
+| Live HLS, built-in player, 20 s | memory 61 MB peak; CPU time 1.49 s (≈7 %) |
+| Live HLS + MP2 audio, VLC (frame output, software decoding), 20 s | memory 78 MB peak; CPU time 1.65 s (≈8 %) |
+| Background 8 s during playback, return | same session, playing — **failed before the fix**: AVPlayer paused in the background; fixed with `audiovisualBackgroundPlaybackPolicy = .continuesIfPossible` |
+
+## Reminders (2026-10-17, iPhone 17 simulator, real source)
+
+Reminder set on Trt Spor HD "Hafta Sonu Manşet" (09:30) at 09:03: permission prompt appeared on
+the first reminder only; the system log shows delivery at 09:25:00 (5 minutes before).
+Opening the channel from a reminder (cold start) checked with the DEBUG argument
+`-SeyrileoOpenChannel`; tapping a real banner could not be automated in the simulator.
+
 ## HTTP / ATS
 
 | Case | Result |
@@ -163,3 +183,15 @@ Add a scenario to `FixtureServer.Channel` and a test in `AVPlayerCompatibilityTe
 `swift test --filter AVPlayerCompatibility` (macOS) and
 `xcodebuild test -scheme SeyrileoKit-Package -destination 'platform=iOS Simulator,name=iPhone 17'`
 from `Packages/SeyrileoKit`. Add a "Physical device" result only after running on hardware.
+
+## External IDs in detail answers (real provider "ev", 2026-10-24)
+
+Debug probe (`-SeyrileoProviderProbe`, `XtreamClient.probeDetail`), 6 films + 4 series, catalogue
+requests only. Films (`get_vod_info`): no IMDb field; `tmdb_id` (numeric), `kinopoisk_url`,
+`rating_count_kinopoisk`, `youtube_trailer`, `o_name`, `mpaa_rating`, `age`. Series
+(`get_series_info`): no external ID at all. Mapping TMDb → IMDb would need the TMDb API
+(an external metadata service, deferred in PRODUCT.md) — not done.
+Owner decision (2026-10-25): no IMDb feature unless real IMDb ratings are available. They are
+not available legitimately for this app (IMDb's official
+API is a paid enterprise licence; its free datasets are non-commercial only; OMDb is
+unofficial) — so IMDb is dropped. No TMDb/OMDb links, ratings or trailers added.

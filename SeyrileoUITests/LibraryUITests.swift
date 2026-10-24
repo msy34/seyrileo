@@ -77,6 +77,53 @@ final class LibraryUITests: XCTestCase {
         app.buttons["Close player"].tap()
     }
 
+    func testLibrarySearchFindsSeriesAcrossCategories() throws {
+        app.tabBars.buttons["Library"].firstMatch.tap()
+        app.buttons["Series"].firstMatch.tap()
+        XCTAssertTrue(button(startingWith: "Fixture · Series").waitForExistence(timeout: 30), "library did not load")
+        let field = app.searchFields.firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 5), "no search field in Library:\n\(app.debugDescription)")
+        field.tap()
+        field.typeText("dizi")
+        let result = button(startingWith: "Test Dizi")
+        XCTAssertTrue(result.waitForExistence(timeout: 10), "series not found by search:\n\(app.debugDescription)")
+        result.tap()
+        XCTAssertTrue(button(startingWith: "S1 E1").waitForExistence(timeout: 15))
+    }
+
+    /// Landscape is full screen: previous/next and "Show episodes" are on the video, and an
+    /// episode picked from the list plays in the same player screen.
+    func testLandscapeFullScreenKeepsEpisodeControls() throws {
+        open("Series", category: "Fixture · Series", title: "Test Dizi")
+        let first = button(startingWith: "S1 E1")
+        XCTAssertTrue(first.waitForExistence(timeout: 15))
+        first.tap()
+        waitForState("playing")
+
+        XCUIDevice.shared.orientation = .landscapeLeft
+        defer { XCUIDevice.shared.orientation = .portrait }
+        let next = app.buttons["Next episode"]
+        let closed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "hittable == false"), object: app.buttons["Close player"])
+        XCTAssertEqual(XCTWaiter().wait(for: [closed], timeout: 5), .completed, "header still shown in landscape")
+        if !next.isHittable { app.otherElements["player.video"].firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.1)).tap() }
+        XCTAssertTrue(next.waitForExistence(timeout: 5) && next.isHittable, "no next episode in full screen:\n\(app.debugDescription)")
+        next.tap()
+        waitForState("playing")
+
+        // Back in portrait the header returns, showing the episode the overlay switched to.
+        XCUIDevice.shared.orientation = .portrait
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'S1 E2'")).firstMatch.waitForExistence(timeout: 5))
+        let episodes = app.buttons["Show episodes"].firstMatch
+        XCTAssertTrue(episodes.waitForExistence(timeout: 5), "no Show episodes button:\n\(app.debugDescription)")
+        episodes.tap()
+        let episodeOne = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'S1 E1'")).firstMatch
+        XCTAssertTrue(episodeOne.waitForExistence(timeout: 10), "episode list empty:\n\(app.debugDescription)")
+        episodeOne.tap()
+        waitForState("playing")
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'S1 E1'")).firstMatch.waitForExistence(timeout: 5))
+        app.buttons["Close player"].tap()
+    }
+
     func testMKVPlaysInVLCAndUnknownFormatIsExplained() throws {
         // MKV starts directly in the alternate engine (VLC) and plays.
         open("Movies", category: "Fixture · Films", title: "Test Film MKV")
@@ -92,6 +139,21 @@ final class LibraryUITests: XCTestCase {
         button(startingWith: "Play").tap()
         XCTAssertTrue(app.alerts["This title can't be opened"].waitForExistence(timeout: 10))
         app.alerts.buttons["OK"].tap()
+    }
+
+    /// Closing a VLC title right after it starts: VLC's video thread may still deliver a picture
+    /// after the engine is gone (VLCKit stops asynchronously). This crashed the app once.
+    func testClosingVLCRightAfterStartDoesNotCrash() throws {
+        open("Movies", category: "Fixture · Films", title: "Test Film MKV")
+        for round in 1...6 {
+            let play = button(startingWith: "Play")
+            XCTAssertTrue(play.waitForExistence(timeout: 10), "round \(round): no play button")
+            play.tap()
+            waitForState("playing")
+            app.buttons["Close player"].tap()
+            XCTAssertTrue(session.waitForNonExistence(timeout: 5), "round \(round): player did not close")
+            XCTAssertEqual(app.state, .runningForeground, "round \(round): app is not running")
+        }
     }
 }
 

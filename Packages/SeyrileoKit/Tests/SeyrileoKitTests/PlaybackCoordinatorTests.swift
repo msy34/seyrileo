@@ -96,6 +96,20 @@ struct FakeFactory: PlaybackEngineFactory {
         #expect(coordinator.currentItem == nil)
     }
 
+    @Test func trackChoicesAreForwardedForTheCurrentItemOnly() {
+        let coordinator = makeCoordinator()
+        var received: [(String, TrackPreference)] = []
+        coordinator.onTracksChosen = { item, preference in received.append((item.id.remoteID, preference)) }
+        coordinator.play(Self.item("1"))
+        let first = engines[0]
+        coordinator.play(Self.item("2"))
+        first.emitLate(.tracksChosen(TrackPreference(audio: "stale")))
+        engines[1].emitLate(.tracksChosen(TrackPreference(audio: "English", subtitle: "Turkish")))
+        #expect(received.count == 1)
+        #expect(received.first?.0 == "2")
+        #expect(received.first?.1 == TrackPreference(audio: "English", subtitle: "Turkish"))
+    }
+
     @Test func staleEventsFromPreviousEngineAreIgnored() {
         let coordinator = makeCoordinator()
         coordinator.play(Self.item("1"))

@@ -31,16 +31,16 @@ enum PlayableEntry: Hashable, Identifiable {
     var title: String {
         switch self {
         case .channel(let channel): SourceCatalogModel.title(channel)
-        case .movie(let movie): movie.name.isEmpty ? String(localized: "Untitled movie") : movie.name
+        case .movie(let movie): movie.name.isEmpty ? String(app: "Untitled movie") : movie.name
         case .episode(let episode, let seriesTitle, _): PlayableEntry.episodeTitle(episode, seriesTitle: seriesTitle)
         }
     }
 
     static func episodeLabel(_ episode: Episode) -> String {
         if let number = episode.episodeNumber {
-            return String(localized: "S\(episode.seasonNumber) E\(number)")
+            return String(app: "S\(episode.seasonNumber) E\(number)")
         }
-        return String(localized: "Season \(episode.seasonNumber)")
+        return String(app: "Season \(episode.seasonNumber)")
     }
 
     static func episodeTitle(_ episode: Episode, seriesTitle: String) -> String {

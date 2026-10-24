@@ -7,18 +7,18 @@ struct IssueView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             Label {
-                Text(issue.title).font(.headline)
+                Text(app: issue.title).font(.headline)
             } icon: {
                 Image(systemName: "exclamationmark.circle.fill").foregroundStyle(.orange)
             }
-            Text(issue.detail)
+            Text(app: issue.detail)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
             if !issue.suggestions.isEmpty {
                 VStack(alignment: .leading, spacing: 4) {
                     ForEach(Array(issue.suggestions.enumerated()), id: \.offset) { _, suggestion in
-                        Label { Text(suggestion) } icon: { Image(systemName: "arrow.right.circle") }
+                        Label { Text(app: suggestion) } icon: { Image(systemName: "arrow.right.circle") }
                             .font(.footnote)
                     }
                 }

@@ -1,14 +1,54 @@
 #!/usr/bin/env python3 -I
-"""Builds Seyrileo/Localizable.xcstrings (English source + Turkish).
+"""Builds Seyrileo/Localizable.xcstrings: English source, Turkish (TR below) and the languages
+in scripts/translations/<code>.json (keyed by the English source string).
 
 Keys are extracted by the compiler (SWIFT_EMIT_LOC_STRINGS) into *.stringsdata files in
 DerivedData. Run after a simulator build:
     scripts/build-string-catalog.py build/DerivedData
-The script fails if any extracted key lacks a Turkish translation.
+The script fails if any extracted key lacks a translation in any language.
 """
-import glob, json, sys
+import glob, json, os, sys
 
 TR = {
+"Close": "Kapat",
+"Get Seyrileo Pro": "Seyrileo Pro'yu al",
+"More than one source": "Birden fazla kaynak",
+"One-time purchase. No subscription and no ads. Everything else in Seyrileo stays free, and nothing you created is removed.": "Tek seferlik satın alma. Abonelik ve reklam yok. Seyrileo'nun geri kalanı ücretsiz kalır ve oluşturduğun hiçbir şey silinmez.",
+"Programme reminders": "Program hatırlatmaları",
+"Programme reminders are part of Pro.": "Program hatırlatmaları Pro'ya dahildir.",
+"Rename, hide and reorder channels": "Kanalları yeniden adlandır, gizle ve sırala",
+"Renaming, hiding and reordering are part of Pro.": "Yeniden adlandırma, gizleme ve sıralama Pro'ya dahildir.",
+"Restore purchase": "Satın alımı geri yükle",
+"Seyrileo Pro (development build)": "Seyrileo Pro (geliştirme sürümü)",
+"Seyrileo Pro is active": "Seyrileo Pro etkin",
+"Seyrileo Pro is active. Thank you!": "Seyrileo Pro etkin. Teşekkürler!",
+"The App Store could not verify the purchase.": "App Store satın alımı doğrulayamadı.",
+"The App Store is not reachable right now, so the price can't be shown. Try again later.": "App Store'a şu an ulaşılamıyor, bu yüzden fiyat gösterilemiyor. Daha sonra tekrar dene.",
+"The free version includes one collection.": "Ücretsiz sürümde bir koleksiyon vardır.",
+"The free version includes one source.": "Ücretsiz sürümde bir kaynak vardır.",
+"The purchase could not be completed. Nothing was charged.": "Satın alma tamamlanamadı. Ücret alınmadı.",
+"The purchase is waiting for approval (for example Ask to Buy). Pro unlocks when it is approved.": "Satın alma onay bekliyor (örneğin Satın Almak İçin Sor). Onaylanınca Pro açılır.",
+"Unlimited collections": "Sınırsız koleksiyon",
+"Unlock for %@": "%@ karşılığında aç",
+"A programme is starting soon": "Bir program birazdan başlıyor",
+"It's on a locked channel. The parental PIN is needed to watch.": "Kilitli bir kanalda. İzlemek için ebeveyn PIN'i gerekir.",
+"No reminders": "Hatırlatma yok",
+"Notifications are turned off": "Bildirimler kapalı",
+"Open a channel's TV guide and tap the bell next to an upcoming programme.": "Bir kanalın program rehberini aç ve yaklaşan bir programın yanındaki zile dokun.",
+"Open notification settings": "Bildirim ayarlarını aç",
+"Remind me": "Hatırlat",
+"Reminders": "Hatırlatmalar",
+"Reminders can only be set for programmes that haven't started yet.": "Hatırlatma yalnızca henüz başlamamış programlar için kurulabilir.",
+"Remove a reminder you no longer need.": "Artık gerekmeyen bir hatırlatmayı kaldır.",
+"Remove reminder": "Hatırlatmayı kaldır",
+"Seyrileo can't remind you about programmes without notifications.": "Seyrileo bildirimler olmadan programları hatırlatamaz.",
+"Starts at %@ on %@.": "%1$@ saatinde %2$@ kanalında başlıyor.",
+"This programme has already started": "Bu program zaten başladı",
+"Too many reminders": "Çok fazla hatırlatma",
+"Turn on notifications for Seyrileo in the iOS Settings app.": "iOS Ayarlar uygulamasından Seyrileo için bildirimleri aç.",
+"You can keep up to %lld reminders at a time.": "Aynı anda en fazla %lld hatırlatma tutabilirsin.",
+"You're notified 5 minutes before the programme starts. Reminders for locked channels don't show the channel or programme name.": "Program başlamadan 5 dakika önce bildirim alırsın. Kilitli kanallardaki hatırlatmalar kanal ya da program adını göstermez.",
+"Language": "Dil",
 "Off": "Kapalı",
 "Loading": "Yükleniyor",
 "Good afternoon": "İyi günler",
@@ -17,6 +57,8 @@ TR = {
 "Good night": "İyi geceler",
 "Version %@": "Sürüm %@",
 "Minimize player": "Oynatıcıyı küçült",
+"Now playing": "Şu an oynatılıyor",
+"Show episodes": "Bölümleri göster",
 "Opens the player": "Oynatıcıyı açar",
 "Change PIN": "PIN'i değiştir",
 "Create PIN": "PIN oluştur",
@@ -159,6 +201,7 @@ TR = {
 "Cast": "Oyuncular",
 "Continue %@": "Devam et: %@",
 "Continue watching": "İzlemeye devam et",
+"Curl up. Press play.": "Kıvrıl, keyfini seyret.",
 "Couldn't update. Showing the saved library.": "Güncellenemedi. Kayıtlı kütüphane gösteriliyor.",
 "Country": "Ülke",
 "Details": "Ayrıntılar",
@@ -368,6 +411,8 @@ TR = {
 "Seyrileo is a player. It doesn't sell or include any channels. Add a source you're authorized to use.": "Seyrileo bir oynatıcıdır; kanal satmaz ve içermez. Kullanma yetkin olan bir kaynağı ekle.",
 "Share redacted report": "Maskelenmiş raporu paylaş",
 "Show password": "Şifreyi göster",
+"Show all (%lld)": "Tümünü göster (%lld)",
+"Show less": "Daha az göster",
 "Something went wrong": "Bir şeyler ters gitti",
 "Source": "Kaynak",
 "Sources": "Kaynaklar",
@@ -470,13 +515,21 @@ def main(derived):
         for entries in json.load(open(path)).get("tables", {}).values():
             keys.update(e["key"] for e in entries)
     keys.discard("")
-    missing = sorted(k for k in keys if k not in TR)
+    languages = {"tr": TR}
+    here = os.path.dirname(os.path.abspath(__file__))
+    for path in sorted(glob.glob(os.path.join(here, "translations", "*.json"))):
+        languages[os.path.splitext(os.path.basename(path))[0]] = json.load(open(path, encoding="utf-8"))
+    problems = []
+    for code, table in languages.items():
+        missing = sorted(k for k in keys if k not in table)
+        if missing:
+            problems.append(f"Missing {code} translations:\n" + "\n".join(missing))
+    if problems:
+        sys.exit("\n\n".join(problems))
     unused = sorted(k for k in TR if k not in keys)
-    if missing:
-        sys.exit("Missing Turkish translations:\n" + "\n".join(missing))
     strings = {}
     for key in sorted(keys):
-        loc = {"tr": {"stringUnit": {"state": "translated", "value": TR[key]}}}
+        loc = {code: {"stringUnit": {"state": "translated", "value": table[key]}} for code, table in languages.items()}
         if key in EN_PLURALS:
             loc["en"] = {"variations": {"plural": {
                 form: {"stringUnit": {"state": "translated", "value": text}}
@@ -486,7 +539,7 @@ def main(derived):
     with open("Seyrileo/Localizable.xcstrings", "w", encoding="utf-8") as f:
         json.dump(catalog, f, ensure_ascii=False, indent=2, sort_keys=True)
         f.write("\n")
-    print(f"{len(keys)} keys written; unused translations: {unused}")
+    print(f"{len(keys)} keys written in {len(languages) + 1} languages; unused Turkish translations: {unused}")
 
 if __name__ == "__main__":
     main(sys.argv[1] if len(sys.argv) > 1 else "build/DerivedData")

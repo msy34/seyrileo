@@ -213,7 +213,7 @@ final class SourceCatalogModel {
     }
 
     static func title(_ channel: LiveChannel) -> String {
-        channel.displayName.isEmpty ? String(localized: "Untitled channel") : channel.displayName
+        channel.displayName.isEmpty ? String(app: "Untitled channel") : channel.displayName
     }
 
     // MARK: - Personal organization

@@ -178,6 +178,11 @@
 			knownRegions = (
 				en,
 				tr,
+				fr,
+				ar,
+				ru,
+				de,
+				bs,
 				Base,
 			);
 			mainGroup = 5928955287B8089ED2177128;

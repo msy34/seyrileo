@@ -58,6 +58,8 @@ struct MiniPlayerOverlay: View {
 
 private struct MiniPlayerCard: View {
     @Environment(AppModel.self) private var app
+    /// Swipe-down minimize: start Picture in Picture when the content supports it.
+    @State private var startsPictureInPicture = false
 
     private var playback: PlaybackCoordinator { app.playback }
 
@@ -69,9 +71,12 @@ private struct MiniPlayerCard: View {
                     VLCSurface(engine: vlc)
                         .id(ObjectIdentifier(vlc))
                         // Draw here again (the full-screen player may have sent it to the TV).
-                        .onAppear { vlc.render(into: nil) }
+                        .onAppear {
+                            vlc.render(into: nil)
+                            vlc.onRestoreFromPictureInPicture = { [weak app] in app?.expandMiniPlayer() }
+                        }
                 } else if let player = (playback.engine as? AVPlayerEngine)?.player {
-                    PiPPlayerLayerView(player: player) { app.expandMiniPlayer() }
+                    PiPPlayerLayerView(player: player, startsPictureInPicture: startsPictureInPicture) { app.expandMiniPlayer() }
                         .id(ObjectIdentifier(player))
                 }
                 stateBadge
@@ -112,6 +117,11 @@ private struct MiniPlayerCard: View {
         .shadow(color: .black.opacity(0.35), radius: 12, y: 4)
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("player.mini")
+        // Read once; the AVPlayer layer view picks it up on its next update.
+        .onAppear { startsPictureInPicture = app.takePictureInPictureRequest() }
+        .onChange(of: startsPictureInPicture) { _, starts in
+            if starts, let vlc = playback.engine as? VLCEngine { vlc.startPictureInPicture() }
+        }
     }
 
     @ViewBuilder
@@ -132,6 +142,7 @@ private struct MiniPlayerCard: View {
 /// full-screen player uses AVPlayerViewController's own PiP.
 struct PiPPlayerLayerView: UIViewRepresentable {
     let player: AVPlayer
+    var startsPictureInPicture = false
     let restore: () -> Void
 
     final class LayerView: UIView {
@@ -142,6 +153,8 @@ struct PiPPlayerLayerView: UIViewRepresentable {
     final class Coordinator: NSObject, AVPictureInPictureControllerDelegate {
         var controller: AVPictureInPictureController?
         var restore: () -> Void = {}
+        let starter = PictureInPictureStarter()
+        var startedOnce = false
 
         func pictureInPictureController(
             _ pictureInPictureController: AVPictureInPictureController,
@@ -172,9 +185,14 @@ struct PiPPlayerLayerView: UIViewRepresentable {
     func updateUIView(_ view: LayerView, context: Context) {
         if view.playerLayer.player !== player { view.playerLayer.player = player }
         context.coordinator.restore = restore
+        if startsPictureInPicture, !context.coordinator.startedOnce, let controller = context.coordinator.controller {
+            context.coordinator.startedOnce = true
+            context.coordinator.starter.start(controller)
+        }
     }
 
     static func dismantleUIView(_ view: LayerView, coordinator: Coordinator) {
+        coordinator.starter.cancel()
         coordinator.controller?.delegate = nil
         coordinator.controller = nil
         view.playerLayer.player = nil

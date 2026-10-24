@@ -138,6 +138,21 @@ enum ProviderProbe {
                 "count=\(probe.itemCount) dropped=\(probe.droppedCount) bytes=\(probe.byteCount)"
             }
         }
+        // Detail shape for a few films and series (catalogue requests only; no stream is opened).
+        if let movies = try? await client.vodStreams() {
+            for movie in movies.items.prefix(6) {
+                await timed("vod info shape", { try await client.probeDetail(movie.key) }) { probe in
+                    "keys=\(probe.infoKeys) external=\(probe.externalIDs)"
+                }
+            }
+        }
+        if let series = try? await client.seriesList() {
+            for item in series.items.prefix(4) {
+                await timed("series info shape", { try await client.probeDetail(item.key) }) { probe in
+                    "keys=\(probe.infoKeys) external=\(probe.externalIDs)"
+                }
+            }
+        }
         if let query = mediaQuery {
             await probeSeriesEpisode(query: query, client: client, into: &lines)
         }

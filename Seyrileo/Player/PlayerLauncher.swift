@@ -3,9 +3,14 @@ import SeyrileoKit
 import SwiftUI
 
 struct PlayerPresentation: Identifiable {
-    let id = UUID()
+    let id: UUID
     /// What previous/next walks through (channels of a list, or episodes of a series).
     let entries: [PlayableEntry]
+
+    init(id: UUID = UUID(), entries: [PlayableEntry]) {
+        self.id = id
+        self.entries = entries
+    }
 }
 
 /// Starts playback from any list (channels, movies, episodes); the root view presents the
@@ -55,13 +60,13 @@ private struct PlayerPresentationModifier: ViewModifier {
         content
             .onAppear { launcher.attach(app) }
             .alert(
-                launcher.error.map { Text($0.title) } ?? Text(verbatim: ""),
+                launcher.error.map { Text(app: $0.title) } ?? Text(verbatim: ""),
                 isPresented: Binding(get: { launcher.error != nil }, set: { if !$0 { launcher.error = nil } }),
                 presenting: launcher.error
             ) { _ in
                 Button("OK", role: .cancel) {}
             } message: { issue in
-                Text(issue.detail)
+                Text(app: issue.detail)
             }
     }
 }

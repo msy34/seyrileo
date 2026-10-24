@@ -115,10 +115,17 @@ Last updated: 2026-10-15 (end of Milestone 2).
 | Personal channel order per category and category order (survive refresh; new channels last; reset) | tested | — | pending |
 | Collections of channels, films, series (create, rename, reorder, delete; unavailable items kept) | tested + UI-tested | — | pending |
 | Organization survives catalogue refresh; removed with the source; migration v3 | tested | — | — |
-| Free-tier collection limit (1) | not enforced until StoreKit (M5) | — | — |
+| Free-tier collection limit (1) | enforced (M5), UI-tested | — | pending |
 | Mini player while browsing (minimize, drag to corners, expand, close; same session) | UI-tested | — | pending |
 | Picture in Picture (AVPlayer: AVKit; VLC: frame output + sample-buffer PiP; automatic when leaving the app) | implemented; sim has no PiP support | — | pending |
 | Remember audio/subtitle choice per series/movie (name, then language match); applied on Continue and next episode (VLC) | tested + sim-checked (real source) | checked | pending |
+| Languages EN (default), TR, FR, AR (RTL), RU, DE, BS with flag picker; live switch | sim-checked (EN/FR/DE/AR) | — | pending |
+| Reminders: bell on upcoming programmes; notification 5 min before; permission asked on first reminder | sim-checked (real source, delivery logged) | checked | pending |
+| Reminders: locked channels masked in notifications; tap opens channel through the parental gate; max 60; ended pruned; removed with source | tested + sim-checked (open path via DEBUG arg) | — | pending |
+| Lifecycle: background during playback keeps the session (fixed); launch/memory/CPU measured (sim) | UI-tested + measured | — | pending |
+| Remembered audio/subtitles also in the built-in player (MP4): applied on load, AVKit menu changes saved | tested (fixture MP4 with EN/TR audio + subtitles, macOS AVFoundation) | — | pending |
+| Seyrileo Pro paywall, purchase, restore; DEBUG unlock, `-SeyrileoFreeTier` | UI-tested (paywall + free limits) | — | pending |
+| Privacy manifest; Release build; accessibility audit (6 screens) | done / built / 44→39 findings | — | — |
 | Brand: icon used in launch screen, welcome, Your Space, Settings; icon-derived palette | sim-checked | — | pending |
 | Parental PIN (4–6 digits; PBKDF2-SHA256 + salt in Keychain, this device only) | tested | — | pending |
 | Wrong-PIN lockout (5 free, then 30 s doubling to 15 min; survives restart) | tested | — | pending |
@@ -140,6 +147,6 @@ Last updated: 2026-10-15 (end of Milestone 2).
 | 7 | Collections, aliases, hide/reorder | done (simulator; free-tier limit in M5) |
 | 8 | Parental PIN/biometrics on all routes | done (simulator); device + Face ID pending; reminders/deep links will reuse the same gate |
 | 9 | Audio/subtitle selection, PiP, AirPlay where verified | partial: AVKit native menus/route button present, all unverified; PiP not enabled |
-| 10 | Diagnostics, bounded retries, redacted export, data deletion, cache mgmt, a11y, TR/EN | partial (cache mgmt N/A until M2; a11y audit pending) |
-| 11 | Local EPG reminders | not started (M4) |
-| 12 | StoreKit 2 Pro | not started (M5); free-tier limits not enforced yet |
+| 10 | Diagnostics, bounded retries, redacted export, data deletion, cache mgmt, a11y, languages | done in simulator; automated a11y audit run (see docs/RELEASE.md); 7 languages |
+| 11 | Local EPG reminders | done (simulator, real source); device pending |
+| 12 | StoreKit 2 Pro | implemented (M5): non-consumable, free limits enforced in Release; real product + sandbox purchase pending owner (docs/RELEASE.md) |

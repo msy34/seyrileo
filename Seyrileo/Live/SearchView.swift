@@ -51,7 +51,7 @@ private struct CatalogSearch: View {
     }
 
     var body: some View {
-        List {
+        BrandList {
             Section {
                 Picker("Search in", selection: $scope) {
                     Text("Live").tag(MediaKind.live)

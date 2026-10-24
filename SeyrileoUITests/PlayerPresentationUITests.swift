@@ -126,6 +126,34 @@ final class PlayerPresentationUITests: XCTestCase {
         XCTAssertTrue(mini.waitForNonExistence(timeout: 5))
     }
 
+    func testLiveTabSearchPlaysAChannel() throws {
+        let sample = app.buttons["Try the sample experience"]
+        if sample.waitForExistence(timeout: 10) { sample.tap() }
+        app.tabBars.buttons["Live"].firstMatch.tapIfExists()
+        let field = app.searchFields.firstMatch
+        XCTAssertTrue(field.waitForExistence(timeout: 20), "no search field in Live:\n\(app.debugDescription)")
+        field.tap()
+        field.typeText("pattern b")
+        let channel = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Pattern B (HLS)")).firstMatch
+        XCTAssertTrue(channel.waitForExistence(timeout: 10), "channel not found by search:\n\(app.debugDescription)")
+        channel.tap()
+        waitForState("playing")
+        app.buttons["Close player"].tap()
+    }
+
+    func testSwipeDownMinimizesToTheMiniPlayer() throws {
+        openSampleChannel()
+        let before = sessionValue
+        app.otherElements["player.video"].firstMatch.swipeDown(velocity: .fast)
+        let mini = app.otherElements["player.mini"].firstMatch
+        XCTAssertTrue(mini.waitForExistence(timeout: 5), "swipe down did not minimize:\n\(app.debugDescription)")
+        XCTAssertTrue(app.tabBars.buttons["Live"].firstMatch.isHittable, "tabs are not back")
+        mini.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Pattern A'")).firstMatch.tap()
+        waitForState("playing")
+        XCTAssertEqual(sessionValue.split(separator: "|").last, before.split(separator: "|").last)
+        app.buttons["Close player"].tap()
+    }
+
     func testAirPlayRoutePickerIsNativeAndPresent() throws {
         openSampleChannel()
         let picker = app.buttons["AirPlay"].firstMatch

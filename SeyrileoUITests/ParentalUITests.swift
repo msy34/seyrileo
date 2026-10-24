@@ -70,7 +70,8 @@ final class ParentalUITests: XCTestCase {
         // The PIN prompt appears instead of the player; a wrong PIN is refused.
         type("1111", into: "parental.pin")
         app.navigationBars.buttons["Unlock"].tap()
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Wrong PIN'")).firstMatch.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Wrong PIN'")).firstMatch.waitForExistence(timeout: 5),
+                      "no wrong-PIN message:\n\(app.debugDescription)")
         XCTAssertFalse(app.otherElements["player.session"].exists)
         app.navigationBars.buttons["Cancel"].tap()
         XCTAssertFalse(app.otherElements["player.session"].waitForExistence(timeout: 2), "played without PIN")

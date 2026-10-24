@@ -72,34 +72,83 @@ actor PosterLoader {
 }
 
 /// Provider artwork with a monogram fallback (missing URL, failed or slow download).
+/// With `width: nil` the poster fills the width it is given (grid tiles) and the fallback is a
+/// colour cover with the full title.
 struct PosterImage: View {
     let url: URL?
     let title: String
-    var width: CGFloat = 60
+    var width: CGFloat? = 60
     var aspect: CGFloat = 2.0 / 3.0
     @State private var image: UIImage?
     @Environment(\.displayScale) private var scale
 
     var body: some View {
-        let height = width / aspect
+        if let width {
+            poster
+                .frame(width: width, height: width / aspect)
+                .clipShape(RoundedRectangle(cornerRadius: max(6, width * 0.08), style: .continuous))
+        } else {
+            Color.clear
+                .aspectRatio(aspect, contentMode: .fit)
+                .overlay { poster }
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .strokeBorder(.white.opacity(0.1), lineWidth: 1)
+                }
+        }
+    }
+
+    private var poster: some View {
         ZStack {
-            Color.accent.opacity(0.14)
+            if width == nil {
+                Self.cover(for: title)
+            } else {
+                Color.accent.opacity(0.14)
+            }
             if let image {
                 Image(uiImage: image).resizable().scaledToFill()
+            } else if width == nil {
+                Text(verbatim: title)
+                    .font(.system(.subheadline, design: .rounded).weight(.heavy))
+                    .foregroundStyle(.white.opacity(0.92))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(4)
+                    .minimumScaleFactor(0.7)
+                    .padding(10)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
             } else {
+                // Scales with Dynamic Type but always fits the fixed poster frame.
                 Text(Self.initials(title))
-                    .font(.system(size: max(12, width * 0.28), weight: .semibold))
+                    .font(.title3.weight(.bold))
+                    .minimumScaleFactor(0.3)
+                    .lineLimit(1)
+                    .padding(4)
                     .foregroundStyle(Color.accent)
             }
         }
-        .frame(width: width, height: height)
-        .clipShape(RoundedRectangle(cornerRadius: max(6, width * 0.08), style: .continuous))
         .accessibilityHidden(true)
         .task(id: url) {
             image = nil
             guard let url else { return }
-            image = await PosterLoader.shared.image(for: url, maxPixel: max(width, height) * scale)
+            let side = width.map { max($0, $0 / aspect) } ?? 270
+            image = await PosterLoader.shared.image(for: url, maxPixel: side * scale)
         }
+    }
+
+    /// A stable colour cover per title, in the app's night palette.
+    static func cover(for title: String) -> LinearGradient {
+        let palettes: [(Color, Color)] = [
+            (Color(red: 0.24, green: 0.16, blue: 0.42), Color(red: 0.07, green: 0.09, blue: 0.23)),
+            (Color(red: 0.48, green: 0.23, blue: 0.12), Color(red: 0.16, green: 0.07, blue: 0.02)),
+            (Color(red: 0.07, green: 0.31, blue: 0.29), Color(red: 0.02, green: 0.13, blue: 0.13)),
+            (Color(red: 0.05, green: 0.30, blue: 0.49), Color(red: 0.00, green: 0.09, blue: 0.24)),
+            (Color(red: 0.42, green: 0.13, blue: 0.22), Color(red: 0.13, green: 0.04, blue: 0.09)),
+            (Color(red: 0.36, green: 0.31, blue: 0.10), Color(red: 0.12, green: 0.10, blue: 0.03)),
+        ]
+        let index = title.unicodeScalars.reduce(0) { ($0 &* 31 &+ Int($1.value)) & 0xFFFF } % palettes.count
+        let (top, bottom) = palettes[index]
+        return LinearGradient(colors: [top, bottom], startPoint: .top, endPoint: .bottom)
     }
 
     static func initials(_ text: String) -> String {

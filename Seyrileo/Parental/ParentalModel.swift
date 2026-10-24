@@ -121,9 +121,9 @@ final class ParentalModel {
     func authenticateWithBiometrics() async -> Bool {
         guard gate.isEnabled else { return true }
         let context = LAContext()
-        context.localizedFallbackTitle = String(localized: "Enter PIN")
+        context.localizedFallbackTitle = String(app: "Enter PIN")
         guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) else { return false }
-        let reason = String(localized: "Unlock content protected by parental controls.")
+        let reason = String(app: "Unlock content protected by parental controls.")
         guard (try? await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)) == true
         else { return false }
         gate.unlockWithDeviceAuthentication()

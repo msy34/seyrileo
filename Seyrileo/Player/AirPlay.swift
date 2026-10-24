@@ -71,7 +71,7 @@ struct RoutePickerButton: UIViewRepresentable {
         view.prioritizesVideoDevices = true
         view.tintColor = .white
         view.activeTintColor = UIColor(named: "AccentColor")
-        view.accessibilityLabel = String(localized: "AirPlay")
+        view.accessibilityLabel = String(app: "AirPlay")
         return view
     }
 
@@ -90,13 +90,13 @@ struct ExternalPlaybackBanner: View {
                 EmptyView()
             case .routeSelected(let name):
                 Label {
-                    Text("AirPlay device selected: \(name ?? String(localized: "unknown device")). Video is not playing on it yet.")
+                    Text("AirPlay device selected: \(name ?? String(app: "unknown device")). Video is not playing on it yet.")
                 } icon: {
                     Image(systemName: "airplayvideo")
                 }
             case .active(let name):
                 Label {
-                    Text("Playing on \(name ?? String(localized: "an AirPlay device"))")
+                    Text("Playing on \(name ?? String(app: "an AirPlay device"))")
                 } icon: {
                     Image(systemName: "tv")
                 }

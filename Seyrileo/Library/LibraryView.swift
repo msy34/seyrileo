@@ -28,9 +28,14 @@ private struct LibraryCategories: View {
     let catalog: SourceCatalogModel
     @Binding var kind: MediaKind
     @Environment(AppModel.self) private var app
+    /// Searches the selected type (movies or series) across all categories.
+    @State private var query = ""
+    @State private var results: (items: [SeyrileoKit.LibraryItem], isTruncated: Bool)?
+
+    private var trimmedQuery: String { query.trimmingCharacters(in: .whitespaces) }
 
     var body: some View {
-        List {
+        BrandList {
             Section {
                 Picker("Type", selection: $kind) {
                     Text("Movies").tag(MediaKind.movie)
@@ -41,7 +46,9 @@ private struct LibraryCategories: View {
                 .listRowInsets(EdgeInsets())
             }
             LibraryStatusSection(library: library)
-            if library.hasLoadedCache, library.status?.hasCatalog == true {
+            if !trimmedQuery.isEmpty, library.status?.hasCatalog == true {
+                searchResults
+            } else if library.hasLoadedCache, library.status?.hasCatalog == true {
                 let categories = library.categories(kind)
                 if categories.isEmpty {
                     ContentUnavailableView(
@@ -73,10 +80,44 @@ private struct LibraryCategories: View {
                 }
             }
         }
+        .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always),
+                    prompt: kind == .movie ? Text("Search movies") : Text("Search series"))
+        .task(id: LibrarySearchQuery(kind: kind, query: trimmedQuery, revision: library.catalogRevision)) {
+            guard !trimmedQuery.isEmpty else { results = nil; return }
+            results = nil
+            do { try await Task.sleep(for: .milliseconds(250)) } catch { return }
+            results = await library.search(kind: kind, query: trimmedQuery, categoryID: nil) ?? ([], false)
+        }
         .libraryDestinations(library: library, catalog: catalog)
         .refreshable { await library.refreshAndWait() }
         .task { await library.start() }
     }
+
+    @ViewBuilder
+    private var searchResults: some View {
+        if let results {
+            if results.items.isEmpty {
+                ContentUnavailableView.search(text: trimmedQuery)
+                    .listRowBackground(Color.clear)
+            } else {
+                Section {
+                    ForEach(results.items) { item in
+                        NavigationLink(value: LibraryItemsView.route(item)) { LibraryRow(item: item) }
+                    }
+                } footer: {
+                    if results.isTruncated { Text("Showing the first \(results.items.count) results. Type more to narrow down.") }
+                }
+            }
+        } else {
+            LoadingRow(text: "Searching…")
+        }
+    }
+}
+
+private struct LibrarySearchQuery: Hashable {
+    let kind: MediaKind
+    let query: String
+    let revision: Int
 }
 
 enum LibraryRoute: Hashable {
@@ -118,7 +159,7 @@ struct LibraryStatusSection: View {
                     VStack(alignment: .leading, spacing: 6) {
                         Label("Couldn't update. Showing the saved library.", systemImage: "exclamationmark.arrow.circlepath")
                             .font(.footnote.weight(.semibold))
-                        Text(issue.title).font(.footnote).foregroundStyle(.secondary)
+                        Text(app: issue.title).font(.footnote).foregroundStyle(.secondary)
                         Button("Try again") { library.refresh() }.font(.footnote)
                     }
                 }
@@ -133,6 +174,7 @@ struct LibraryStatusSection: View {
                     Text("\(status.movieCount) movies · \(status.seriesCount) series · updated \(date, format: .relative(presentation: .named))")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
         }
@@ -156,31 +198,41 @@ private struct LibraryItemsView: View {
     }
 
     private var itemList: some View {
-        List {
-            let shown = query.trimmingCharacters(in: .whitespaces).isEmpty ? items : results
+        let shown = query.trimmingCharacters(in: .whitespaces).isEmpty ? items : results
+        return Group {
             switch shown {
             case nil:
-                LoadingRow(text: "Loading…")
+                BrandList { LoadingRow(text: "Loading…") }
             case let list? where list.isEmpty:
-                if query.isEmpty {
-                    ContentUnavailableView("Nothing here", systemImage: "film", description: Text("This category is empty."))
-                } else {
-                    ContentUnavailableView.search(text: query)
+                BrandList {
+                    if query.isEmpty {
+                        ContentUnavailableView("Nothing here", systemImage: "film", description: Text("This category is empty."))
+                    } else {
+                        ContentUnavailableView.search(text: query)
+                    }
                 }
             case let list?:
-                ForEach(list) { item in
-                    NavigationLink(value: Self.route(item)) { LibraryRow(item: item) }
-                        .contextMenu {
-                            Button {
-                                collecting = CollectableItem(key: item.key, title: item.name)
-                            } label: {
-                                Label("Add to collection", systemImage: "rectangle.stack.badge.plus")
-                            }
-                            if let scope = LockScope.item(for: item.key.kind) {
-                                LockMenuButton(scope: scope, remoteID: item.key.remoteID, isLocked: app.parental.lockSet.contains(scope, item.key.remoteID))
-                            }
+                ScrollView {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 104, maximum: 190), spacing: 14, alignment: .top)], spacing: 20) {
+                        ForEach(list) { item in
+                            NavigationLink(value: Self.route(item)) { PosterTile(item: item) }
+                                .buttonStyle(.plain)
+                                .contextMenu {
+                                    Button {
+                                        collecting = CollectableItem(key: item.key, title: item.name)
+                                    } label: {
+                                        Label("Add to collection", systemImage: "rectangle.stack.badge.plus")
+                                    }
+                                    if let scope = LockScope.item(for: item.key.kind) {
+                                        LockMenuButton(scope: scope, remoteID: item.key.remoteID, isLocked: app.parental.lockSet.contains(scope, item.key.remoteID))
+                                    }
+                                }
                         }
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
                 }
+                .background { BrandBackdrop() }
             }
         }
         .navigationTitle(category.name)
@@ -207,6 +259,62 @@ private struct LibraryItemsView: View {
     }
 }
 
+/// A movie or series in the category grid: poster, title and one line of details.
+struct PosterTile: View {
+    let item: SeyrileoKit.LibraryItem
+    @Environment(AppModel.self) private var app
+
+    var body: some View {
+        if app.parental.isMasked(item.key, categoryIDs: item.categoryIDs) {
+            VStack(alignment: .leading, spacing: 6) {
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .fill(Color.brandRow)
+                    .aspectRatio(2.0 / 3.0, contentMode: .fit)
+                    .overlay { Image(systemName: "lock.fill").font(.title2).foregroundStyle(.secondary) }
+                Text("Locked title").font(.footnote.weight(.semibold)).foregroundStyle(.secondary)
+            }
+            .accessibilityElement(children: .combine)
+        } else {
+            VStack(alignment: .leading, spacing: 6) {
+                PosterImage(url: item.posterURL, title: item.name, width: nil)
+                    .shadow(color: .black.opacity(0.35), radius: 8, y: 4)
+                Text(item.name.isEmpty ? String(app: "Untitled") : item.name)
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                details
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
+            .accessibilityElement(children: .combine)
+        }
+    }
+
+    @ViewBuilder
+    private var details: some View {
+        HStack(spacing: 6) {
+            switch item {
+            case .movie(let movie):
+                if let rating = movie.rating {
+                    Label(rating, systemImage: "star.fill").labelStyle(.titleAndIcon)
+                        .symbolRenderingMode(.palette).foregroundStyle(Color.brandAmber, .secondary)
+                }
+                if let ext = movie.containerExtension { Text(ext.uppercased()) }
+            case .series(let series):
+                if let rating = series.rating {
+                    Label(rating, systemImage: "star.fill").labelStyle(.titleAndIcon)
+                        .symbolRenderingMode(.palette).foregroundStyle(Color.brandAmber, .secondary)
+                }
+                if let genre = series.genre { Text(genre) }
+            }
+        }
+    }
+}
+
 struct LibraryRow: View {
     let item: SeyrileoKit.LibraryItem
     @Environment(AppModel.self) private var app
@@ -223,7 +331,7 @@ struct LibraryRow: View {
         HStack(spacing: 12) {
             PosterImage(url: item.posterURL, title: item.name, width: 48)
             VStack(alignment: .leading, spacing: 4) {
-                Text(item.name.isEmpty ? String(localized: "Untitled") : item.name)
+                Text(item.name.isEmpty ? String(app: "Untitled") : item.name)
                     .lineLimit(2)
                 HStack(spacing: 8) {
                     switch item {
@@ -246,12 +354,13 @@ struct LibraryRow: View {
 
 struct ProgressLine: View {
     let fraction: Double
+    var tint: Color = .accent
 
     var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: .leading) {
                 Capsule().fill(Color.secondary.opacity(0.25))
-                Capsule().fill(Color.accent).frame(width: proxy.size.width * fraction)
+                Capsule().fill(tint).frame(width: proxy.size.width * fraction)
             }
         }
         .frame(height: 4)

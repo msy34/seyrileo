@@ -19,7 +19,7 @@ struct NowNextLine: View {
                             Text("Now").fontWeight(.semibold).foregroundStyle(.tint)
                             Text(verbatim: now.title.isEmpty ? "—" : now.title).lineLimit(1)
                         }
-                        ProgressLine(fraction: now.progress(at: context.date))
+                        ProgressLine(fraction: now.progress(at: context.date), tint: .brandAmber)
                             .frame(maxWidth: compact ? 140 : 220)
                     }
                     if let next = nowNext.next {
@@ -63,6 +63,10 @@ struct ChannelGuideView: View {
     @State private var issue: UserIssue?
     @State private var selectedDay: Date?
     @State private var now = Date()
+    @Environment(AppModel.self) private var app
+    /// Start times of this channel's programmes that have a reminder.
+    @State private var remindedStarts: Set<Date> = []
+    @State private var reminderIssue: UserIssue?
 
     private var days: [Date] {
         let calendar = Calendar.current
@@ -91,7 +95,7 @@ struct ChannelGuideView: View {
                 if channel.epgChannelID == nil {
                     ContentUnavailableView("No guide for this channel", systemImage: "calendar.badge.exclamationmark", description: Text("The provider doesn't publish programme information for this channel."))
                 } else if let issue {
-                    List { IssueView(issue: issue) { Task { await load() } } }
+                    BrandList { IssueView(issue: issue) { Task { await load() } } }
                 } else if let programs {
                     if programs.isEmpty {
                         ContentUnavailableView("No guide data", systemImage: "calendar", description: Text("The provider returned no programmes for this channel right now."))
@@ -119,11 +123,16 @@ struct ChannelGuideView: View {
             }
         }
         .task { await load() }
+        .task(id: app.reminders.revision) {
+            remindedStarts = Set(await app.reminders.upcoming().filter { $0.channel == channel.key }.map(\.start))
+        }
+        .issueAlert($reminderIssue)
+        .proPaywall()
     }
 
     private var guideList: some View {
         ScrollViewReader { proxy in
-            List {
+            BrandList {
                 if days.count > 1 {
                     Section {
                         ScrollViewReader { chips in
@@ -152,7 +161,16 @@ struct ChannelGuideView: View {
                 }
                 Section {
                     ForEach(dayPrograms) { program in
-                        ProgramRow(program: program, now: now).id(program.id)
+                        ProgramRow(
+                            program: program, now: now, hasReminder: remindedStarts.contains(program.start),
+                            toggleReminder: {
+                                // Removing an existing reminder is always allowed.
+                                let isSet = remindedStarts.contains(program.start)
+                                guard isSet || app.pro.require(app.pro.isPro, for: .reminders) else { return }
+                                Task { reminderIssue = await app.reminders.toggle(program, channel: channel) }
+                            }
+                        )
+                        .id(program.id)
                     }
                 } footer: {
                     Text("Times are shown in your time zone (\(TimeZone.current.localizedName(for: .generic, locale: .current) ?? TimeZone.current.identifier)).")
@@ -184,9 +202,9 @@ struct ChannelGuideView: View {
 
     static func dayLabel(_ date: Date) -> String {
         let calendar = Calendar.current
-        if calendar.isDateInToday(date) { return String(localized: "Today") }
-        if calendar.isDateInTomorrow(date) { return String(localized: "Tomorrow") }
-        if calendar.isDateInYesterday(date) { return String(localized: "Yesterday") }
+        if calendar.isDateInToday(date) { return String(app: "Today") }
+        if calendar.isDateInTomorrow(date) { return String(app: "Tomorrow") }
+        if calendar.isDateInYesterday(date) { return String(app: "Yesterday") }
         return date.formatted(.dateTime.weekday(.abbreviated).day().month(.abbreviated))
     }
 }
@@ -194,11 +212,33 @@ struct ChannelGuideView: View {
 private struct ProgramRow: View {
     let program: EPGProgram
     let now: Date
+    var hasReminder = false
+    var toggleReminder: () -> Void = {}
 
     var body: some View {
+        HStack(alignment: .top, spacing: 8) {
+            details
+            Spacer(minLength: 0)
+            // Only upcoming programmes can have a reminder.
+            if program.start > now {
+                Button(action: toggleReminder) {
+                    Image(systemName: hasReminder ? "bell.fill" : "bell")
+                        .font(.body)
+                        .foregroundStyle(hasReminder ? Color.accent : .secondary)
+                        .frame(width: 40, height: 40)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.borderless)
+                .accessibilityLabel(hasReminder ? Text("Remove reminder") : Text("Remind me"))
+                .accessibilityAddTraits(hasReminder ? .isSelected : [])
+            }
+        }
+    }
+
+    private var details: some View {
         let onAir = program.isOnAir(at: now)
         let past = program.end <= now
-        VStack(alignment: .leading, spacing: 4) {
+        return VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 8) {
                 Text("\(program.start, format: .dateTime.hour().minute())–\(program.end, format: .dateTime.hour().minute())")
                     .font(.caption.monospacedDigit())
@@ -232,7 +272,7 @@ struct GuideOverviewView: View {
     @Environment(\.horizontalSizeClass) private var sizeClass
 
     var body: some View {
-        List {
+        BrandList {
             switch channels {
             case nil:
                 LoadingRow(text: "Loading…")

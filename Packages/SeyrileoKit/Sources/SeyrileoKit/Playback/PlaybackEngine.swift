@@ -11,6 +11,8 @@ public enum EngineEvent: Equatable, Sendable {
     case progress(position: TimeInterval, duration: TimeInterval?)
     /// Free-form, already-redacted note for the diagnostics log.
     case note(String)
+    /// The user picked another audio or subtitle track in the engine's own controls.
+    case tracksChosen(TrackPreference)
 }
 
 /// One playback backend instance. The coordinator creates a fresh instance per attempt and

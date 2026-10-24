@@ -26,54 +26,29 @@ private struct CategoryListView: View {
     @Environment(AppModel.self) private var app
     let catalog: SourceCatalogModel
     @State private var editMode: EditMode = .inactive
+    /// Searches channels in every category.
+    @State private var search: ChannelSearchController?
+    @State private var query = ""
+    @State private var player = PlayerLauncher()
 
     var body: some View {
-        List {
-            if catalog.source.isFixture {
-                Section { FixtureBanner() }
-            }
-            if let error = app.fixtureServerError, catalog.source.isFixture {
-                Section {
-                    Label("The on-device sample server could not start: \(error)", systemImage: "exclamationmark.triangle")
-                        .font(.footnote)
-                }
-            }
-            AccountWarningSection(account: catalog.account)
-            RefreshStatusSection(catalog: catalog)
-            if catalog.hasLoadedCache, catalog.status?.hasCatalog == true {
-                if catalog.categories.isEmpty {
-                    ContentUnavailableView("No live categories", systemImage: "tray", description: Text("This source has no live TV categories."))
-                } else {
-                    Section {
-                        ForEach(catalog.categories) { summary in
-                            let locked = app.parental.isLocked(categoryID: summary.id, kind: .live)
-                            NavigationLink(value: summary.category) {
-                                LabeledContent {
-                                    Text(summary.channelCount, format: .number)
-                                } label: {
-                                    CategoryTitle(name: summary.category.name, isLocked: locked, isMasked: locked && app.parental.isRestricting)
-                                }
-                            }
-                            .swipeActions {
-                                Button("Hide", systemImage: "eye.slash") {
-                                    Task { await catalog.setHidden(true, category: summary.category) }
-                                }
-                                .tint(.gray)
-                                if app.parental.gate.isEnabled {
-                                    Button(locked ? "Remove lock" : "Lock", systemImage: locked ? "lock.open" : "lock") {
-                                        Task { await app.parental.setLocked(!locked, scope: .liveCategory, remoteID: summary.id) }
-                                    }
-                                    .tint(.indigo)
-                                }
-                            }
-                        }
-                        .onMove(perform: categoryMove)
-                    } footer: {
-                        DroppedFooter(count: catalog.status?.droppedCount ?? 0)
-                    }
-                }
+        BrandList {
+            if !query.trimmingCharacters(in: .whitespaces).isEmpty, let search {
+                SearchResultsSection(phase: search.phase, query: query, catalog: catalog, player: player)
+            } else {
+                categoryContent
             }
         }
+        .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Search live channels"))
+        .onChange(of: query) { _, value in
+            if !value.isEmpty { editMode = .inactive }
+            search?.query = value
+        }
+        .task(id: [catalog.catalogRevision, catalog.organizationRevision]) {
+            if search == nil { search = catalog.makeSearchController() }
+            search?.refresh()
+        }
+        .playerPresentation(player, catalog: catalog)
         .navigationDestination(for: LiveCategory.self) { category in
             ChannelListView(catalog: catalog, category: category)
         }
@@ -95,7 +70,9 @@ private struct CategoryListView: View {
                     Button("Done") { editMode = .inactive }
                 } else {
                     Menu {
-                        Button("Reorder categories", systemImage: "arrow.up.arrow.down") { editMode = .active }
+                        Button("Reorder categories", systemImage: "arrow.up.arrow.down") {
+                            if app.pro.require(app.pro.isPro, for: .advancedOrganization) { editMode = .active }
+                        }
                             .disabled(catalog.categories.count < 2)
                         Button("Restore provider order", systemImage: "arrow.uturn.backward") {
                             Task { await catalog.resetCategoryOrder() }
@@ -110,6 +87,56 @@ private struct CategoryListView: View {
             }
         }
         .refreshable { await catalog.refreshAndWait() }
+    }
+
+    /// The category list (with the sample banner and refresh state) while not searching.
+    @ViewBuilder
+    private var categoryContent: some View {
+        if catalog.source.isFixture {
+            Section { FixtureBanner() }
+        }
+        if let error = app.fixtureServerError, catalog.source.isFixture {
+            Section {
+                Label("The on-device sample server could not start: \(error)", systemImage: "exclamationmark.triangle")
+                    .font(.footnote)
+            }
+        }
+        AccountWarningSection(account: catalog.account)
+        RefreshStatusSection(catalog: catalog)
+        if catalog.hasLoadedCache, catalog.status?.hasCatalog == true {
+            if catalog.categories.isEmpty {
+                ContentUnavailableView("No live categories", systemImage: "tray", description: Text("This source has no live TV categories."))
+            } else {
+                Section {
+                    ForEach(catalog.categories) { summary in
+                        let locked = app.parental.isLocked(categoryID: summary.id, kind: .live)
+                        NavigationLink(value: summary.category) {
+                            LabeledContent {
+                                Text(summary.channelCount, format: .number)
+                            } label: {
+                                CategoryTitle(name: summary.category.name, isLocked: locked, isMasked: locked && app.parental.isRestricting)
+                            }
+                        }
+                        .swipeActions {
+                            Button("Hide", systemImage: "eye.slash") {
+                                guard app.pro.require(app.pro.isPro, for: .advancedOrganization) else { return }
+                                Task { await catalog.setHidden(true, category: summary.category) }
+                            }
+                            .tint(.gray)
+                            if app.parental.gate.isEnabled {
+                                Button(locked ? "Remove lock" : "Lock", systemImage: locked ? "lock.open" : "lock") {
+                                    Task { await app.parental.setLocked(!locked, scope: .liveCategory, remoteID: summary.id) }
+                                }
+                                .tint(.indigo)
+                            }
+                        }
+                    }
+                    .onMove(perform: categoryMove)
+                } footer: {
+                    DroppedFooter(count: catalog.status?.droppedCount ?? 0)
+                }
+            }
+        }
     }
 
     private var categoryMove: ((IndexSet, Int) -> Void)? {
@@ -143,7 +170,7 @@ struct RefreshStatusSection: View {
                     VStack(alignment: .leading, spacing: 6) {
                         Label("Couldn't update. Showing the saved catalogue.", systemImage: "exclamationmark.arrow.circlepath")
                             .font(.footnote.weight(.semibold))
-                        Text(issue.title).font(.footnote).foregroundStyle(.secondary)
+                        Text(app: issue.title).font(.footnote).foregroundStyle(.secondary)
                         Button("Try again") { catalog.refresh() }.font(.footnote)
                     }
                 }
@@ -191,7 +218,7 @@ private struct ChannelListView: View {
     }
 
     private var channelList: some View {
-        List {
+        BrandList {
             if !query.isEmpty, let search {
                 SearchResultsSection(phase: search.phase, query: query, catalog: catalog, player: player, scopeName: category.name)
             } else {
@@ -208,7 +235,7 @@ private struct ChannelListView: View {
                 }
             }
         }
-        .navigationTitle(isMasked ? String(localized: "Locked category") : category.name)
+        .navigationTitle(isMasked ? String(app: "Locked category") : category.name)
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $query, prompt: Text("Search in this category"))
         .onChange(of: query) { _, value in search?.query = value }
@@ -219,6 +246,7 @@ private struct ChannelListView: View {
             } else if (channels?.count ?? 0) > 1 {
                 Menu {
                     Button("Reorder channels", systemImage: "arrow.up.arrow.down") {
+                        guard app.pro.require(app.pro.isPro, for: .advancedOrganization) else { return }
                         query = ""
                         editMode = .active
                     }
@@ -333,9 +361,15 @@ struct ChannelButton: View {
             } label: {
                 Label("Add to collection", systemImage: "rectangle.stack.badge.plus")
             }
-            Button { renaming = channel } label: { Label("Rename", systemImage: "pencil") }
+            Button {
+                if app.pro.require(app.pro.isPro, for: .advancedOrganization) { renaming = channel }
+            } label: { Label("Rename", systemImage: "pencil") }
             LockMenuButton(scope: .live, remoteID: channel.key.remoteID, isLocked: app.parental.lockSet.contains(.live, channel.key.remoteID))
-            Button { Task { await catalog.setHidden(!channel.isHidden, channel: channel) } } label: {
+            Button {
+                // Showing a hidden channel again is always allowed.
+                guard channel.isHidden || app.pro.require(app.pro.isPro, for: .advancedOrganization) else { return }
+                Task { await catalog.setHidden(!channel.isHidden, channel: channel) }
+            } label: {
                 if channel.isHidden {
                     Label("Show channel", systemImage: "eye")
                 } else {
@@ -428,6 +462,8 @@ struct ChannelRow: View {
 /// third-party artwork in screenshots.
 struct Monogram: View {
     let text: String
+    /// Grows with Dynamic Type so the initials are never clipped.
+    @ScaledMetric(relativeTo: .subheadline) private var side: CGFloat = 44
 
     private var initials: String {
         let words = text.split(whereSeparator: { !$0.isLetter && !$0.isNumber }).prefix(2)
@@ -437,10 +473,20 @@ struct Monogram: View {
 
     var body: some View {
         Text(initials)
-            .font(.subheadline.weight(.semibold))
-            .foregroundStyle(Color.accent)
-            .frame(width: 44, height: 44)
-            .background(Color.accent.opacity(0.14), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+            .font(.system(.subheadline, design: .rounded).weight(.heavy))
+            .minimumScaleFactor(0.6)
+            .lineLimit(1)
+            .foregroundStyle(Color.brandCream)
+            .frame(width: side, height: side)
+            .background {
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(LinearGradient(colors: [Color.accent.opacity(0.28), Color.brandGlow.opacity(0.5)],
+                                         startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .strokeBorder(.white.opacity(0.12), lineWidth: 1)
+                    }
+            }
             .accessibilityHidden(true)
     }
 }
@@ -453,6 +499,7 @@ struct FixtureBanner: View {
                 Text("Synthetic test patterns served from this device. These are not real channels.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         } icon: {
             Image(systemName: "testtube.2").foregroundStyle(.tint)
@@ -504,11 +551,11 @@ struct LoadingRow: View {
 extension AccountInfo.Status {
     var localizedName: String {
         switch self {
-        case .active: String(localized: "active")
-        case .expired: String(localized: "expired")
-        case .banned: String(localized: "banned")
-        case .disabled: String(localized: "disabled")
-        case .unknown(let raw): raw ?? String(localized: "unknown")
+        case .active: String(app: "active")
+        case .expired: String(app: "expired")
+        case .banned: String(app: "banned")
+        case .disabled: String(app: "disabled")
+        case .unknown(let raw): raw ?? String(app: "unknown")
         }
     }
 }
@@ -544,9 +591,9 @@ struct CategoryTitle: View {
         if isMasked {
             Label("Locked category", systemImage: "lock.fill").foregroundStyle(.secondary)
         } else if isLocked {
-            Label(name.isEmpty ? String(localized: "Untitled category") : name, systemImage: "lock.open")
+            Label(name.isEmpty ? String(app: "Untitled category") : name, systemImage: "lock.open")
         } else {
-            Text(name.isEmpty ? String(localized: "Untitled category") : name)
+            Text(name.isEmpty ? String(app: "Untitled category") : name)
         }
     }
 }

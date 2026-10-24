@@ -30,18 +30,29 @@ struct RootView: View {
     }
 }
 
-enum AppTab: Hashable {
+enum AppTab: String, Hashable {
     case yourSpace, live, library, search, settings
 }
 
 struct MainTabView: View {
     @Environment(AppModel.self) private var app
-    @State private var selection: AppTab = .live
+    // Scene storage survives the root rebuild after a language change (stays on Settings).
+    @SceneStorage("selectedTab") private var selection: AppTab = .live
 
     var body: some View {
         @Bindable var app = app
         tabs
             .overlay { MiniPlayerOverlay() }
+            // Reminder taps (also the one that launched the app).
+            .task(id: NotificationRouter.shared.pendingChannel) {
+                guard let key = NotificationRouter.shared.pendingChannel else { return }
+                NotificationRouter.shared.pendingChannel = nil
+                await app.openChannel(key)
+            }
+            // Locks or language changed: notification texts and masking follow.
+            .task(id: app.parental.revision) { await app.reminders.reconcile() }
+            .issueAlert($app.routeIssue)
+            .proPaywall()
             .fullScreenCover(item: $app.playerPresentation, onDismiss: {
                 // The only place a full-screen session ends (unless it was minimized).
                 app.playerDismissed()

@@ -12,6 +12,8 @@ struct FixtureMedia: @unchecked Sendable {
     let rawTS: Data
     let featureMP4: Data
     let shortMKV: Data
+    /// 20 s MP4 with English + Turkish audio and English + Turkish (mov_text) subtitles.
+    let multiLanguageMP4: Data
 
     static let windowSize = 4
 
@@ -33,12 +35,14 @@ struct FixtureMedia: @unchecked Sendable {
         }
         guard let raw = try? Data(contentsOf: root.appendingPathComponent("raw-pattern-a.ts")),
               let mp4 = try? Data(contentsOf: root.appendingPathComponent("vod/feature.mp4")),
-              let mkv = try? Data(contentsOf: root.appendingPathComponent("vod/short.mkv"))
+              let mkv = try? Data(contentsOf: root.appendingPathComponent("vod/short.mkv")),
+              let multi = try? Data(contentsOf: root.appendingPathComponent("vod/multilang.mp4"))
         else { return nil }
         self.loops = loops
         self.rawTS = raw
         self.featureMP4 = mp4
         self.shortMKV = mkv
+        self.multiLanguageMP4 = multi
     }
 
     func segment(directory: String, file: String) -> Data? {

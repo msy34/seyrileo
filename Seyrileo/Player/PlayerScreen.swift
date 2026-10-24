@@ -14,9 +14,14 @@ struct PlayerScreen: View {
     private var playback: PlaybackCoordinator { app.playback }
 
     @State private var switchError: UserIssue?
-    /// VLC only: our own full screen (AVKit provides its own for AVPlayer).
+    /// Our own full screen: video edge to edge, header and bottom bar hidden. Entered by
+    /// turning an iPhone to landscape (or VLC's button); AVKit also has its own for AVPlayer.
     @State private var isImmersive = false
+    /// Previous/next and episodes over AVKit's controls in full screen; hide after a while.
+    @State private var overlayVisible = true
+    @State private var overlayHide: Task<Void, Never>?
     @State private var showTVHelp = false
+    @State private var showEpisodes = false
     private let externalDisplay = ExternalDisplayManager.shared
 
     private var vlcEngine: VLCEngine? { playback.engine as? VLCEngine }
@@ -33,6 +38,21 @@ struct PlayerScreen: View {
     private var currentChannel: LiveChannel? {
         if case .channel(let channel)? = currentEntry { return channel }
         return nil
+    }
+
+    private var currentEpisode: (episode: Episode, seriesTitle: String, posterURL: URL?)? {
+        if case .episode(let episode, let title, let poster)? = currentEntry { return (episode, title, poster) }
+        return nil
+    }
+
+    private var switcher: EntrySwitcher {
+        EntrySwitcher(
+            switches: entries.count > 1,
+            isEpisode: currentEntry?.isEpisode == true,
+            canGoBack: (currentIndex ?? 0) > 0,
+            canGoForward: (currentIndex ?? .max) < entries.count - 1,
+            go: { switchEntry(by: $0) },
+            showEpisodes: currentEpisode == nil ? nil : { showEpisodes = true })
     }
 
     /// The next episode when the current item is an episode and one follows it.
@@ -64,9 +84,15 @@ struct PlayerScreen: View {
                         .foregroundStyle(.white.opacity(0.8))
                         .accessibilityElement(children: .combine)
                     }
-                    VLCControls(engine: vlc, state: playback.state, isImmersive: $isImmersive) { preference in
+                    VLCControls(engine: vlc, state: playback.state, isImmersive: $isImmersive, switcher: switcher) { preference in
                         if let entry = currentEntry { app.saveTrackPreference(preference, for: entry) }
                     }
+                } else if isImmersive {
+                    ImmersiveOverlay(switcher: switcher) { isImmersive = false }
+                        .opacity(overlayVisible ? 1 : 0)
+                        .allowsHitTesting(overlayVisible)
+                        .accessibilityHidden(!overlayVisible)
+                        .animation(.easeInOut(duration: 0.2), value: overlayVisible)
                 }
                 StateOverlay(
                     state: playback.state, isExternal: airPlay.status != .local,
@@ -82,15 +108,26 @@ struct PlayerScreen: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea(edges: isImmersive ? .all : [])
+            // Taps go to AVKit (or VLC's controls) as well; they also bring the overlay back.
+            .simultaneousGesture(TapGesture().onEnded { showOverlay() })
             .accessibilityIdentifier("player.video")
             .overlay(alignment: .topLeading) { SessionProbe(playback: playback) }
             if !isImmersive { footer }
         }
         .statusBarHidden(isImmersive)
         .persistentSystemOverlays(isImmersive ? .hidden : .automatic)
-        .onChange(of: vlcEngine == nil) { _, isAVPlayer in
-            if isAVPlayer { isImmersive = false }
+        // Swipe down: back to the app with the mini player (and PiP when the content allows).
+        .simultaneousGesture(
+            DragGesture(minimumDistance: 30).onEnded { value in
+                let move = value.translation
+                guard move.height > 120, move.height > abs(move.width) * 2 else { return }
+                app.minimizePlayer(startingPictureInPicture: true)
+            })
+        // iPhone landscape is full screen; back to portrait shows the header and bar again.
+        .onChange(of: verticalSizeClass, initial: true) { _, sizeClass in
+            isImmersive = sizeClass == .compact
         }
+        .onChange(of: isImmersive) { _, _ in showOverlay() }
         // Route VLC's picture to the TV while an external display is connected; back to the
         // phone when it disconnects or the engine changes. AVPlayer handles the TV itself.
         .onChange(of: TVRouting(engine: playback.engine.map { ObjectIdentifier($0) }, connected: externalDisplay.isConnected), initial: true) { _, routing in
@@ -110,18 +147,25 @@ struct PlayerScreen: View {
             externalDisplay.setShowingVideo(false)
         }
         .sheet(isPresented: $showTVHelp) { TVOutputSheet() }
+        .sheet(isPresented: $showEpisodes) {
+            if let current = currentEpisode {
+                EpisodesSheet(current: current.episode, seriesTitle: current.seriesTitle, seriesPosterURL: current.posterURL) { entry, all in
+                    open(entry, in: all)
+                }
+            }
+        }
         .parentalPrompt()
         .background(Color.black.ignoresSafeArea())
         // Scoped to the player; preferredColorScheme would also darken the presenting window.
         .environment(\.colorScheme, .dark)
         .alert(
-            switchError.map { Text($0.title) } ?? Text(verbatim: ""),
+            switchError.map { Text(app: $0.title) } ?? Text(verbatim: ""),
             isPresented: Binding(get: { switchError != nil }, set: { if !$0 { switchError = nil } }),
             presenting: switchError
         ) { _ in
             Button("OK", role: .cancel) {}
         } message: { issue in
-            Text(issue.detail)
+            Text(app: issue.detail)
         }
         .sheet(isPresented: $showDiagnostics) {
             DiagnosticsSheet(catalog: catalog, airPlayStatus: airPlay.status)
@@ -140,13 +184,26 @@ struct PlayerScreen: View {
 
     private var activePlayer: AVPlayer? { (playback.engine as? AVPlayerEngine)?.player }
 
+    private func showOverlay() {
+        overlayVisible = true
+        overlayHide?.cancel()
+        guard isImmersive else { return }
+        overlayHide = Task {
+            try? await Task.sleep(for: .seconds(4))
+            guard !Task.isCancelled else { return }
+            overlayVisible = false
+        }
+    }
+
     private var header: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 10) {
             Button {
                 dismiss()
             } label: {
                 Image(systemName: "xmark")
                     .font(.headline)
+                    .frame(width: 40, height: 40)
+                    .background(.white.opacity(0.12), in: Circle())
                     .frame(width: 44, height: 44)
             }
             .accessibilityLabel(Text("Close player"))
@@ -155,110 +212,155 @@ struct PlayerScreen: View {
             } label: {
                 Image(systemName: "chevron.down")
                     .font(.headline)
-                    .frame(width: 36, height: 44)
+                    .frame(width: 40, height: 40)
+                    .background(.white.opacity(0.12), in: Circle())
+                    .frame(width: 44, height: 44)
             }
             .accessibilityLabel(Text("Minimize player"))
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: 3) {
                 Text(playback.currentItem?.title ?? "")
-                    .font(.headline)
-                    .lineLimit(1)
-                if let channel = currentChannel, channel.epgChannelID != nil {
-                    NowTitle(channel: channel, catalog: catalog)
-                } else {
-                    Text(playback.currentItem?.sourceName ?? "")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
+                    .font(.system(.headline, design: .rounded).weight(.bold))
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.85)
+                HStack(spacing: 6) {
+                    if playback.currentItem?.isLive == true {
+                        Text("Live")
+                            .font(.caption2.weight(.heavy))
+                            .textCase(.uppercase)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color.red.opacity(0.85), in: RoundedRectangle(cornerRadius: 5, style: .continuous))
+                    }
+                    if let channel = currentChannel, channel.epgChannelID != nil {
+                        NowTitle(channel: channel, catalog: catalog)
+                    } else if !catalog.source.isFixture {
+                        Text(playback.currentItem?.sourceName ?? "")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
+                    }
+                    if catalog.source.isFixture {
+                        Text("Sample")
+                            .font(.caption2.weight(.semibold))
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color.accent.opacity(0.25), in: Capsule())
+                    }
                 }
             }
-            Spacer(minLength: 0)
-            if vlcEngine != nil {
-                // VLC content: the AirPlay picker would only move the sound. Explain Screen
-                // Mirroring instead, and show when the TV is in use.
-                Button {
-                    showTVHelp = true
-                } label: {
-                    Image(systemName: externalDisplay.isConnected ? "tv.fill" : "tv")
-                        .font(.headline)
-                        .foregroundStyle(externalDisplay.isConnected ? Color.accent : .white)
-                        .frame(width: 44, height: 44)
-                }
-                .accessibilityLabel(Text("Watch on TV"))
-            } else {
-                RoutePickerButton()
-                    .frame(width: 44, height: 44)
-            }
-            if catalog.source.isFixture {
-                Text("Sample")
-                    .font(.caption2.weight(.semibold))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color.accent.opacity(0.2), in: Capsule())
-            }
-            if let channel = currentChannel {
-                let isFavorite = catalog.isFavorite(channel.key)
-                Button {
-                    Task { await catalog.toggleFavorite(channel) }
-                } label: {
-                    Image(systemName: isFavorite ? "star.fill" : "star")
-                        .font(.headline)
-                        .foregroundStyle(isFavorite ? .yellow : .white)
-                        .frame(width: 44, height: 44)
-                }
-                .accessibilityLabel(isFavorite ? Text("Remove from favorites") : Text("Add to favorites"))
-            }
-            Button {
-                showDiagnostics = true
-            } label: {
-                Image(systemName: "stethoscope")
-                    .font(.headline)
-                    .frame(width: 44, height: 44)
-            }
-            .accessibilityLabel(Text("Connection diagnostics"))
+            .frame(maxWidth: .infinity, alignment: .leading)
+            // Landscape: room for the actions here; portrait keeps them in the bottom bar.
+            if verticalSizeClass == .compact { actions }
         }
         .padding(.horizontal, 8)
+        .padding(.vertical, 4)
         .foregroundStyle(.white)
+    }
+
+    /// TV/AirPlay, favorite and diagnostics.
+    @ViewBuilder
+    private var actions: some View {
+        if vlcEngine != nil {
+            // VLC content: the AirPlay picker would only move the sound. Explain Screen
+            // Mirroring instead, and show when the TV is in use.
+            Button {
+                showTVHelp = true
+            } label: {
+                Image(systemName: externalDisplay.isConnected ? "tv.fill" : "tv")
+                    .font(.headline)
+                    .foregroundStyle(externalDisplay.isConnected ? Color.accent : .white)
+                    .frame(width: 44, height: 44)
+            }
+            .accessibilityLabel(Text("Watch on TV"))
+        } else {
+            RoutePickerButton()
+                .frame(width: 44, height: 44)
+        }
+        if let channel = currentChannel {
+            let isFavorite = catalog.isFavorite(channel.key)
+            Button {
+                Task { await catalog.toggleFavorite(channel) }
+            } label: {
+                Image(systemName: isFavorite ? "star.fill" : "star")
+                    .font(.headline)
+                    .foregroundStyle(isFavorite ? Color.brandAmber : .white)
+                    .frame(width: 44, height: 44)
+            }
+            .accessibilityLabel(isFavorite ? Text("Remove from favorites") : Text("Add to favorites"))
+        }
+        if currentEpisode != nil {
+            EpisodesButton { showEpisodes = true }
+        }
+        Button {
+            showDiagnostics = true
+        } label: {
+            Image(systemName: "stethoscope")
+                .font(.headline)
+                .frame(width: 44, height: 44)
+        }
+        .accessibilityLabel(Text("Connection diagnostics"))
     }
 
     @ViewBuilder
     private var footer: some View {
-        // In landscape on iPhone the channel bar would cost video height; AVKit full screen
-        // and portrait still offer it.
-        if entries.count > 1 && verticalSizeClass != .compact {
+        // In landscape on iPhone the bar would cost video height; the actions move to the
+        // header there.
+        if verticalSizeClass != .compact {
             let episodes = currentEntry?.isEpisode == true
-            HStack(spacing: 24) {
-                Button { switchEntry(by: -1) } label: {
-                    if episodes {
-                        Label("Previous episode", systemImage: "backward.end")
-                    } else {
-                        Label("Previous channel", systemImage: "chevron.up")
+            let switches = entries.count > 1
+            HStack(spacing: 4) {
+                if switches {
+                    Button { switchEntry(by: -1) } label: {
+                        if episodes {
+                            Label("Previous episode", systemImage: "backward.end.fill")
+                        } else {
+                            Label("Previous channel", systemImage: "chevron.up")
+                        }
                     }
+                    .frame(width: 44, height: 44)
+                    .disabled((currentIndex ?? 0) == 0)
                 }
-                .disabled((currentIndex ?? 0) == 0)
-                Button { switchEntry(by: 1) } label: {
-                    if episodes {
-                        Label("Next episode", systemImage: "forward.end")
-                    } else {
-                        Label("Next channel", systemImage: "chevron.down")
+                Spacer(minLength: 0)
+                actions
+                Spacer(minLength: 0)
+                if switches {
+                    Button { switchEntry(by: 1) } label: {
+                        if episodes {
+                            Label("Next episode", systemImage: "forward.end.fill")
+                        } else {
+                            Label("Next channel", systemImage: "chevron.down")
+                        }
                     }
+                    .frame(width: 44, height: 44)
+                    .disabled((currentIndex ?? .max) >= entries.count - 1)
                 }
-                .disabled((currentIndex ?? .max) >= entries.count - 1)
             }
-            .labelStyle(.titleAndIcon)
-            .font(.subheadline)
-            .padding(.vertical, 12)
+            .labelStyle(.iconOnly)
+            .font(.headline)
             .tint(.white)
+            .foregroundStyle(.white)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
         }
     }
 
     private func switchEntry(by offset: Int) {
         guard let index = currentIndex, entries.indices.contains(index + offset) else { return }
-        let target = entries[index + offset]
+        open(entries[index + offset])
+    }
+
+    /// Plays `target` in this player; `list` replaces what previous/next walks through.
+    private func open(_ target: PlayableEntry, in list: [PlayableEntry]? = nil) {
         Task {
             do {
                 // The coordinator saves the current item's position, then stops and releases its
                 // stream before opening the next one.
-                playback.play(try await app.playbackItem(for: target, start: .resumeIfPossible))
+                let item = try await app.playbackItem(for: target, start: .resumeIfPossible)
+                if let list, list != entries { app.replacePlayerEntries(list) }
+                playback.play(item)
             } catch ParentalLockError.cancelled {
                 // PIN prompt closed: stay on the current item.
             } catch {
@@ -468,7 +570,7 @@ private struct NowTitle: View {
     @State private var title: String?
 
     var body: some View {
-        Text(title.map { String(localized: "Now: \($0)") } ?? catalog.source.name)
+        Text(title.map { String(app: "Now: \($0)") } ?? catalog.source.name)
             .font(.caption)
             .foregroundStyle(.secondary)
             .lineLimit(1)

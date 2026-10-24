@@ -37,7 +37,7 @@ struct SeriesDetailView: View {
     }
 
     private var page: some View {
-        List {
+        BrandList {
             Section {
                 HStack(alignment: .top, spacing: 16) {
                     PosterImage(url: detail?.posterURL ?? series.posterURL, title: series.name, width: 110)
@@ -99,7 +99,7 @@ struct SeriesDetailView: View {
                 if detail.seasons.count > 1 {
                     Picker("Season", selection: Binding(get: { selected.number }, set: { season = $0 })) {
                         ForEach(detail.seasons) { season in
-                            Text(season.name ?? String(localized: "Season \(season.number)")).tag(season.number)
+                            Text(season.name ?? String(app: "Season \(season.number)")).tag(season.number)
                         }
                     }
                 }
@@ -133,9 +133,11 @@ struct SeriesDetailView: View {
     }
 }
 
-private struct EpisodeRow: View {
+struct EpisodeRow: View {
     let episode: Episode
     let progress: PlaybackProgress?
+    /// The episode open in the player (episode list inside the player).
+    var isCurrent = false
 
     var body: some View {
         HStack(spacing: 12) {
@@ -155,7 +157,13 @@ private struct EpisodeRow: View {
                 }
             }
             Spacer(minLength: 0)
-            Image(systemName: "play.fill").foregroundStyle(.tint).accessibilityHidden(true)
+            if isCurrent {
+                Label("Now playing", systemImage: "speaker.wave.2.fill")
+                    .labelStyle(.iconOnly)
+                    .foregroundStyle(Color.brandAmber)
+            } else {
+                Image(systemName: "play.fill").foregroundStyle(.tint).accessibilityHidden(true)
+            }
         }
         .contentShape(Rectangle())
         .padding(.vertical, 4)

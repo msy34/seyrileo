@@ -48,7 +48,7 @@ struct PINPromptView: View {
                 } header: {
                     Text("This content is protected by parental controls.")
                 } footer: {
-                    if let message { Text(message).foregroundStyle(.red) }
+                    if let message { Text(app: message).foregroundStyle(.red) }
                 }
                 if parental.usesBiometrics, parental.biometryType != .none {
                     Section {
@@ -130,7 +130,7 @@ struct PINSetupView: View {
                     }
                 }
                 if let message {
-                    Section { Text(message).foregroundStyle(.red) }
+                    Section { Text(app: message).foregroundStyle(.red) }
                 }
             }
             .navigationTitle(title)
@@ -207,7 +207,7 @@ struct ParentalSettingsSection: View {
                 Button("Forgot PIN? Remove it with Face ID / Touch ID") {
                     Task {
                         let context = LAContext()
-                        let reason = String(localized: "Remove the parental controls PIN.")
+                        let reason = String(app: "Remove the parental controls PIN.")
                         if (try? await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)) == true {
                             try? parental.gate.removePIN(current: nil, authorized: true)
                         }
@@ -237,7 +237,7 @@ struct LockedContentView: View {
 
     var body: some View {
         let parental = app.parental
-        List {
+        BrandList {
             if unlocked {
                 Picker("Type", selection: $kind) {
                     Text("Live").tag(MediaKind.live)
@@ -256,7 +256,7 @@ struct LockedContentView: View {
                             }
                         }
                     )) {
-                        Text(category.name.isEmpty ? String(localized: "Untitled category") : category.name)
+                        Text(category.name.isEmpty ? String(app: "Untitled category") : category.name)
                     }
                 }
             } else {

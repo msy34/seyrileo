@@ -336,9 +336,9 @@ enum LibraryFixtures {
             credentials: XtreamCredentials(username: FixtureServer.username, password: FixtureServer.password),
             transport: URLSessionTransport(), retryPolicy: .none)
         let store = LibraryCatalogStore(database: bed.database)
-        #expect(try await store.refresh(sourceID: source.id) { try await client.fetchLibrarySnapshot() } == .applied(categories: 2, channels: 5))
+        #expect(try await store.refresh(sourceID: source.id) { try await client.fetchLibrarySnapshot() } == .applied(categories: 2, channels: 6))
         let status = try #require(try await store.status(sourceID: source.id))
-        #expect(status.movieCount == 3 && status.seriesCount == 2 && status.droppedCount == 1)
+        #expect(status.movieCount == 4 && status.seriesCount == 2 && status.droppedCount == 1)
 
         let film = MediaKey(providerID: source.id, kind: .movie, remoteID: "301")
         let detail = try await client.movieDetail(film)

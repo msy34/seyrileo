@@ -158,7 +158,7 @@ struct SourceSetupView: View {
         let credentials = XtreamCredentials(username: username, password: password)
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         let source = ProviderSource(
-            name: trimmedName.isEmpty ? (endpoint.baseURL.host ?? String(localized: "My source")) : trimmedName,
+            name: trimmedName.isEmpty ? (endpoint.baseURL.host ?? String(app: "My source")) : trimmedName,
             kind: .xtream, serverURL: endpoint.baseURL)
         phase = .testing
         focus = nil

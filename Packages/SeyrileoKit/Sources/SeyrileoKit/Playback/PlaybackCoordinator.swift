@@ -25,6 +25,8 @@ public final class PlaybackCoordinator {
     /// On-demand position updates: periodic, plus a final one when the item is stopped or
     /// replaced (so progress is saved even if the player closes between ticks).
     @ObservationIgnored public var onProgress: ((PlaybackItem, TimeInterval, TimeInterval?) -> Void)?
+    /// Called when the user picks audio/subtitles in an engine's own controls (to remember it).
+    @ObservationIgnored public var onTracksChosen: ((PlaybackItem, TrackPreference) -> Void)?
     /// Called when an on-demand item plays to its end.
     @ObservationIgnored public var onEnded: ((PlaybackItem) -> Void)?
     @ObservationIgnored private var lastProgress: (position: TimeInterval, duration: TimeInterval?)?
@@ -204,6 +206,8 @@ public final class PlaybackCoordinator {
             }
         case .note(let message):
             log(message)
+        case .tracksChosen(let preference):
+            if let item = currentItem { onTracksChosen?(item, preference) }
         case .progress(let position, let duration):
             guard let item = currentItem, !item.isLive else { return }
             lastProgress = (position, duration)

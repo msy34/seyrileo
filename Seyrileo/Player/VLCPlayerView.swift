@@ -34,6 +34,8 @@ struct VLCControls: View {
     let engine: VLCEngine
     let state: PlaybackState
     @Binding var isImmersive: Bool
+    /// Previous/next and episodes, shown on the video in full screen (the bottom bar is hidden).
+    var switcher: EntrySwitcher?
     /// Called after the user picks an audio or subtitle track (to remember it).
     var onTracksChosen: (TrackPreference) -> Void = { _ in }
     @State private var visible = true
@@ -84,6 +86,12 @@ struct VLCControls: View {
                     .accessibilityLabel(Text("Picture in Picture"))
                 }
                 Spacer()
+                if isImmersive, let showEpisodes = switcher?.showEpisodes {
+                    EpisodesButton {
+                        showEpisodes()
+                        scheduleHide()
+                    }
+                }
                 trackMenu
                 Button {
                     isImmersive.toggle()
@@ -96,8 +104,16 @@ struct VLCControls: View {
                 .accessibilityLabel(isImmersive ? Text("Exit full screen") : Text("Full screen"))
             }
             Spacer()
-            // While loading, the paw loader is shown in the middle instead.
-            if !isLoading { playPauseButton }
+            HStack(spacing: 40) {
+                if isImmersive, let switcher, switcher.switches { EntrySwitchButton(offset: -1, switcher: switcher) }
+                // While loading, the paw loader is shown in the middle instead.
+                if isLoading {
+                    Color.clear.frame(width: 72, height: 72)
+                } else {
+                    playPauseButton
+                }
+                if isImmersive, let switcher, switcher.switches { EntrySwitchButton(offset: 1, switcher: switcher) }
+            }
             Spacer()
             TimelineView(.periodic(from: .now, by: 0.5)) { _ in
                 positionBar
@@ -170,7 +186,7 @@ struct VLCControls: View {
                 if audio.count > 1 {
                     Section("Audio") {
                         ForEach(audio, id: \.index) { track in
-                            trackButton(track.index < 0 ? String(localized: "Off") : track.name,
+                            trackButton(track.index < 0 ? String(app: "Off") : track.name,
                                         isOn: track.index == engine.currentAudioTrack) {
                                 engine.selectAudioTrack(track.index)
                             }
@@ -180,7 +196,7 @@ struct VLCControls: View {
                 if subtitles.count > 1 {
                     Section("Subtitles") {
                         ForEach(subtitles, id: \.index) { track in
-                            trackButton(track.index < 0 ? String(localized: "Off") : track.name,
+                            trackButton(track.index < 0 ? String(app: "Off") : track.name,
                                         isOn: track.index == engine.currentSubtitleTrack) {
                                 engine.selectSubtitleTrack(track.index)
                             }

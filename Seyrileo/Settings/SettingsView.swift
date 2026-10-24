@@ -12,11 +12,23 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationStack {
-            List {
+            BrandList {
                 Section {
                     AboutHeader()
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)
+                }
+
+                LanguageSettingsSection()
+
+                ProSettingsSection()
+
+                Section {
+                    NavigationLink {
+                        RemindersView()
+                    } label: {
+                        Label("Reminders", systemImage: "bell")
+                    }
                 }
                 Section {
                     ForEach(app.sources) { source in
@@ -32,7 +44,9 @@ struct SettingsView: View {
                         }
                     }
                     Button {
-                        showSetup = true
+                        if app.pro.require(ProPolicy.canAddSource(existingRealSources: app.realSourceCount, isPro: app.pro.isPro), for: .multipleSources) {
+                            showSetup = true
+                        }
                     } label: {
                         Label("Add source", systemImage: "plus")
                     }
@@ -109,7 +123,7 @@ struct SettingsView: View {
                             get: { catalog.epgOffsetHours },
                             set: { value in Task { await catalog.setEPGOffset(hours: value) } }), in: -12...12) {
                             LabeledContent("Time correction", value: catalog.epgOffsetHours == 0
-                                ? String(localized: "None") : String(localized: "\(catalog.epgOffsetHours, format: .number.sign(strategy: .always())) h"))
+                                ? String(app: "None") : String(app: "\(catalog.epgOffsetHours, format: .number.sign(strategy: .always())) h"))
                         }
                     } header: {
                         Text("TV guide")
@@ -216,7 +230,7 @@ private struct SourceRow: View {
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 2) {
                 Text(source.name)
-                Text(source.isFixture ? String(localized: "Sample · synthetic local data") : Redactor.describe(source.serverURL))
+                Text(source.isFixture ? String(app: "Sample · synthetic local data") : Redactor.describe(source.serverURL))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -251,7 +265,7 @@ private struct AboutHeader: View {
                     .foregroundStyle(.white)
                 Text("Version \(version)")
                     .font(.caption)
-                    .foregroundStyle(Color.brandCream.opacity(0.75))
+                    .foregroundStyle(Color.brandCream)
             }
             .padding(.vertical, 22)
         }

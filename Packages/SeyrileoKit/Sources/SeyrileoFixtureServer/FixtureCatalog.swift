@@ -43,7 +43,8 @@ enum FixtureCatalog {
         [{"num":1,"name":"Test Film A","stream_type":"movie","stream_id":301,"stream_icon":"","rating":"7.5","added":"1767225600","category_id":"10","container_extension":"mp4"},\
         {"num":2,"name":"Test Film MKV","stream_type":"movie","stream_id":"302","rating":"","added":1767225600,"category_id":10,"container_extension":"mkv"},\
         {"num":3,"name":"Test Film (no container)","stream_type":"movie","stream_id":303,"category_id":"10"},\
-        {"num":4,"name":"Entry without stream id","category_id":"10"}]
+        {"num":4,"name":"Entry without stream id","category_id":"10"},\
+        {"num":5,"name":"Test Film Languages","stream_type":"movie","stream_id":304,"category_id":"10","container_extension":"mp4"}]
         """
 
     static func vodInfoJSON(id: String) -> String {
@@ -52,6 +53,8 @@ enum FixtureCatalog {
             return #"{"info":{"name":"Test Film A","plot":"A synthetic colour-bar film used to test playback and resume.","genre":"Test","cast":"","director":"Seyrileo","releasedate":"2026-01-01","duration_secs":"180","rating":"7.5"},"movie_data":{"stream_id":301,"name":"Test Film A","container_extension":"mp4"}}"#
         case "302":
             return #"{"info":{"name":"Test Film MKV","duration_secs":10},"movie_data":{"stream_id":"302","container_extension":"mkv"}}"#
+        case "304":
+            return #"{"info":{"name":"Test Film Languages","plot":"Two audio languages and two subtitle tracks.","duration_secs":"20"},"movie_data":{"stream_id":304,"container_extension":"mp4"}}"#
         case "303":
             return #"{"info":[],"movie_data":{"stream_id":303}}"#
         default:

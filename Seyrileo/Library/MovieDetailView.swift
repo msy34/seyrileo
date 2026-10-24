@@ -20,7 +20,7 @@ struct MovieDetailView: View {
     }
 
     private var page: some View {
-        List {
+        BrandList {
             Section {
                 HStack(alignment: .top, spacing: 16) {
                     PosterImage(url: detail?.posterURL ?? movie.posterURL, title: movie.name, width: 110)
@@ -44,7 +44,7 @@ struct MovieDetailView: View {
             }
             if let detailIssue {
                 Section {
-                    Text("Details couldn't be loaded: \(Text(detailIssue.title)). You can still try to play it.")
+                    Text("Details couldn't be loaded: \(Text(app: detailIssue.title)). You can still try to play it.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }

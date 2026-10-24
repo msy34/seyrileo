@@ -14,7 +14,7 @@ struct DiagnosticsSheet: View {
 
     var body: some View {
         NavigationStack {
-            List {
+            BrandList {
                 Section("Playback") {
                     LabeledContent("State", value: playback.state.diagnosticName)
                     if let item = playback.currentItem {
@@ -43,13 +43,13 @@ struct DiagnosticsSheet: View {
                     LabeledContent("Server", value: Redactor.describe(catalog.source.serverURL))
                     if let account {
                         LabeledContent("Account status", value: account.status.localizedName)
-                        LabeledContent("Expires", value: account.expiresAt.map { $0.formatted(date: .abbreviated, time: .omitted) } ?? String(localized: "Unknown"))
+                        LabeledContent("Expires", value: account.expiresAt.map { $0.formatted(date: .abbreviated, time: .omitted) } ?? String(app: "Unknown"))
                         LabeledContent("Connections", value: Self.connections(account))
                         LabeledContent(
                             "Output formats",
-                            value: account.allowedOutputFormats.isEmpty ? String(localized: "Not reported") : account.allowedOutputFormats.joined(separator: ", "))
+                            value: account.allowedOutputFormats.isEmpty ? String(app: "Not reported") : account.allowedOutputFormats.joined(separator: ", "))
                     } else {
-                        LabeledContent("Account status", value: String(localized: "Unknown"))
+                        LabeledContent("Account status", value: String(app: "Unknown"))
                     }
                 } header: {
                     Text("Provider")
@@ -160,9 +160,9 @@ extension Bundle {
 extension ExternalPlaybackMonitor.Status {
     var diagnosticName: String {
         switch self {
-        case .local: String(localized: "Not in use")
-        case .routeSelected(let name): String(localized: "Device selected, not playing: \(name ?? "?")")
-        case .active(let name): String(localized: "Playing on \(name ?? "?")")
+        case .local: String(app: "Not in use")
+        case .routeSelected(let name): String(app: "Device selected, not playing: \(name ?? "?")")
+        case .active(let name): String(app: "Playing on \(name ?? "?")")
         }
     }
 }

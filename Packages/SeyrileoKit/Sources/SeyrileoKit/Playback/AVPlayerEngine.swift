@@ -37,9 +37,17 @@ public final class AVPlayerEngine: PlaybackEngine {
     private var isSeekingToStart = false
     private var playRequested = false
     private var timeObserver: Any?
+    private var trackPreference: TrackPreference?
+    /// Media selection changes before this are the player's defaults or ours, not the user's.
+    private var userSelectionsCount = false
 
     public init() {
         player.automaticallyWaitsToMinimizeStalling = true
+        #if os(iOS)
+        // Keep playing (sound) when the app goes to the background without PiP; by default
+        // iOS pauses video players there. Measured in LifecycleMeasurementTests.
+        player.audiovisualBackgroundPlaybackPolicy = .continuesIfPossible
+        #endif
         // AirPlay video: hand the item to the receiver (it fetches the stream itself). During
         // Screen Mirroring the app instead draws the phone-decoded video on the external display
         // (some providers refuse the receiver's own request), so no automatic switch here.
@@ -53,6 +61,8 @@ public final class AVPlayerEngine: PlaybackEngine {
         guard !isStopped else { return }
         redactor = item.redactor
         isLive = item.isLive
+        trackPreference = item.trackPreference
+        userSelectionsCount = false
         pendingStart = item.startPosition
         isSeekingToStart = item.startPosition > 0
         let asset = AVURLAsset(url: item.url)
@@ -118,9 +128,70 @@ public final class AVPlayerEngine: PlaybackEngine {
         item = nil
     }
 
+    // MARK: - Audio and subtitle choice
+
+    /// Track names are taken in English so they compare with names saved from VLC
+    /// ("Track 1 - [English]") and do not change with the app language.
+    private static func name(_ option: AVMediaSelectionOption) -> String {
+        option.displayName(with: Locale(identifier: "en"))
+    }
+
+    private func groups() async -> (audio: AVMediaSelectionGroup?, legible: AVMediaSelectionGroup?) {
+        guard let asset = item?.asset else { return (nil, nil) }
+        let audio = try? await asset.loadMediaSelectionGroup(for: .audible)
+        let legible = try? await asset.loadMediaSelectionGroup(for: .legible)
+        return (audio, legible)
+    }
+
+    private func applyTrackPreference() async {
+        defer {
+            // Later changes come from AVKit's own audio/subtitle menu, i.e. the user.
+            Task { @MainActor [weak self] in
+                try? await Task.sleep(for: .seconds(1))
+                self?.userSelectionsCount = true
+            }
+        }
+        guard let preference = trackPreference, let item, !isStopped else { return }
+        let (audio, legible) = await groups()
+        if let wanted = preference.audio, let audio {
+            let tracks = audio.options.enumerated().map { (index: Int32($0.offset), name: Self.name($0.element)) }
+            if let index = TrackMatcher.bestMatch(wanted, among: tracks) {
+                item.select(audio.options[Int(index)], in: audio)
+            }
+        }
+        if let legible {
+            if preference.subtitlesOff {
+                if legible.allowsEmptySelection { item.select(nil, in: legible) }
+            } else if let wanted = preference.subtitle {
+                let tracks = legible.options.enumerated().map { (index: Int32($0.offset), name: Self.name($0.element)) }
+                if let index = TrackMatcher.bestMatch(wanted, among: tracks) {
+                    item.select(legible.options[Int(index)], in: legible)
+                }
+            }
+        }
+        emit(.note("Applied remembered audio/subtitle choice"))
+    }
+
+    private func reportUserTrackChoice() async {
+        guard userSelectionsCount, let item, !isStopped else { return }
+        let (audio, legible) = await groups()
+        let selection = item.currentMediaSelection
+        let audioName = audio.flatMap { selection.selectedMediaOption(in: $0) }.map(Self.name)
+        let subtitle = legible.flatMap { selection.selectedMediaOption(in: $0) }
+        emit(.tracksChosen(TrackPreference(
+            audio: audioName, subtitle: subtitle.map(Self.name), subtitlesOff: legible != nil && subtitle == nil)))
+    }
+
     // MARK: - Observation
 
     private func observe(_ playerItem: AVPlayerItem) {
+        notificationTokens.append(NotificationCenter.default.addObserver(
+            forName: AVPlayerItem.mediaSelectionDidChangeNotification, object: playerItem, queue: .main
+        ) { [weak self] _ in
+            MainActor.assumeIsolated {
+                Task { [weak self] in await self?.reportUserTrackChoice() }
+            }
+        })
         observations.append(playerItem.observe(\.status, options: [.new]) { [weak self] item, _ in
             let status = item.status
             Task { @MainActor [weak self] in self?.itemStatusChanged(status) }
@@ -169,6 +240,7 @@ public final class AVPlayerEngine: PlaybackEngine {
                 initialSeekFinished()
             }
             emit(.readyToPlay)
+            Task { [weak self] in await self?.applyTrackPreference() }
         case .failed: reportItemFailure()
         case .unknown: break
         @unknown default: break

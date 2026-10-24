@@ -2,6 +2,7 @@ import AVFoundation
 import Observation
 import SwiftUI
 import UIKit
+import UserNotifications
 
 /// TV output for content the VLC engine plays. AirPlay *video* exists only for AVPlayer
 /// (the receiver fetches the stream, and Apple TV cannot open MKV), so VLC content reaches
@@ -105,6 +106,12 @@ final class ExternalDisplaySceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        // Set before launch finishes so a tap that launched the app is delivered.
+        UNUserNotificationCenter.current().delegate = NotificationRouter.shared
+        return true
+    }
+
     func application(
         _ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession,
         options: UIScene.ConnectionOptions
@@ -124,7 +131,7 @@ struct TVOutputSheet: View {
 
     var body: some View {
         NavigationStack {
-            List {
+            BrandList {
                 Section {
                     Label {
                         Text(display.isConnected ? "TV connected. The video is shown on the TV in full screen." : "No TV connected yet.")

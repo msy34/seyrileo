@@ -19,9 +19,6 @@ nonisolated final class VLCFrameOutput: @unchecked Sendable {
     let primaryLayer = AVSampleBufferDisplayLayer()
     private let lock = NSLock()
     private var extraLayers: [AVSampleBufferDisplayLayer] = []
-    private var pool: CVPixelBufferPool?
-    private var width = 0
-    private var height = 0
     /// Source pixel aspect ratio (anamorphic SD/DVB video has non-square pixels).
     private var pixelAspect: (Int, Int) = (1, 1)
     private var hasShownFrame = false
@@ -31,6 +28,17 @@ nonisolated final class VLCFrameOutput: @unchecked Sendable {
     init() {
         primaryLayer.videoGravity = .resizeAspect
         primaryLayer.backgroundColor = UIColor.black.cgColor
+    }
+
+    /// What libvlc's callbacks point at. VLCKit's `stop()` finishes asynchronously, so VLC's video
+    /// thread can still call back after the engine and this output are released (seen as a
+    /// crash in `show` when a VLC title was closed right after it started). The target is
+    /// therefore never freed (a few bytes per VLC session): it owns the pixel-buffer pool and
+    /// only forwards pictures while the output is still alive.
+    private final class CallbackTarget: @unchecked Sendable {
+        weak var output: VLCFrameOutput?
+        let lock = NSLock()
+        var pool: CVPixelBufferPool?
     }
 
     // MARK: - libvlc C API
@@ -67,7 +75,10 @@ nonisolated final class VLCFrameOutput: @unchecked Sendable {
         guard let setFormat = Self.symbol("libvlc_video_set_format_callbacks", as: SetFormatCallbacks.self),
               let setCallbacks = Self.symbol("libvlc_video_set_callbacks", as: SetCallbacks.self)
         else { return false }
-        let opaque = Unmanaged.passUnretained(self).toOpaque()
+        let target = CallbackTarget()
+        target.output = self
+        // Deliberately retained for the life of the process; see CallbackTarget.
+        let opaque = Unmanaged.passRetained(target).toOpaque()
         setCallbacks(player, Self.lockFrame, Self.unlockFrame, Self.displayFrame, opaque)
         setFormat(player, Self.configure, Self.cleanup)
         return true
@@ -98,7 +109,7 @@ nonisolated final class VLCFrameOutput: @unchecked Sendable {
     /// VLC tells us the decoded size; we ask for NV12 in pixel buffers we own.
     private static let configure: FormatCallback = { opaque, chroma, width, height, pitches, lines in
         guard let context = opaque?.pointee, let chroma, let width, let height, let pitches, let lines else { return 0 }
-        let output = Unmanaged<VLCFrameOutput>.fromOpaque(context).takeUnretainedValue()
+        let target = Unmanaged<CallbackTarget>.fromOpaque(context).takeUnretainedValue()
         // Even dimensions (4:2:0 chroma planes).
         let w = Int(width.pointee) & ~1
         let h = Int(height.pointee) & ~1
@@ -126,24 +137,20 @@ nonisolated final class VLCFrameOutput: @unchecked Sendable {
         pitches[1] = UInt32(CVPixelBufferGetBytesPerRowOfPlane(probe, 1))
         lines[0] = UInt32(h)
         lines[1] = UInt32(h / 2)
-        output.lock.withLock {
-            output.pool = pool
-            output.width = w
-            output.height = h
-        }
+        target.lock.withLock { target.pool = pool }
         return 3
     }
 
     private static let cleanup: CleanupCallback = { opaque in
         guard let opaque else { return }
-        let output = Unmanaged<VLCFrameOutput>.fromOpaque(opaque).takeUnretainedValue()
-        output.lock.withLock { output.pool = nil }
+        let target = Unmanaged<CallbackTarget>.fromOpaque(opaque).takeUnretainedValue()
+        target.lock.withLock { target.pool = nil }
     }
 
     private static let lockFrame: LockCallback = { opaque, planes in
         guard let opaque, let planes else { return nil }
-        let output = Unmanaged<VLCFrameOutput>.fromOpaque(opaque).takeUnretainedValue()
-        guard let pool = output.lock.withLock({ output.pool }) else { return nil }
+        let target = Unmanaged<CallbackTarget>.fromOpaque(opaque).takeUnretainedValue()
+        guard let pool = target.lock.withLock({ target.pool }) else { return nil }
         var buffer: CVPixelBuffer?
         CVPixelBufferPoolCreatePixelBuffer(nil, pool, &buffer)
         guard let buffer else { return nil }
@@ -161,9 +168,10 @@ nonisolated final class VLCFrameOutput: @unchecked Sendable {
 
     private static let displayFrame: DisplayCallback = { opaque, picture in
         guard let opaque, let picture else { return }
-        let output = Unmanaged<VLCFrameOutput>.fromOpaque(opaque).takeUnretainedValue()
+        let target = Unmanaged<CallbackTarget>.fromOpaque(opaque).takeUnretainedValue()
         let buffer = Unmanaged<CVPixelBuffer>.fromOpaque(picture).takeRetainedValue()
-        output.show(buffer)
+        // The player was closed: drop the late picture (the buffer is released here).
+        target.output?.show(buffer)
     }
 
     private func show(_ buffer: CVPixelBuffer) {

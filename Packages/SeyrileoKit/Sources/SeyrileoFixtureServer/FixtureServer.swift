@@ -319,6 +319,8 @@ public final class FixtureServer: @unchecked Sendable {
         switch (kind, file) {
         case ("movie", "301.mp4"), ("series", "501.mp4"), ("series", "502.mp4"), ("series", "503.mp4"):
             return .data(200, "video/mp4", media.featureMP4)
+        case ("movie", "304.mp4"):
+            return .data(200, "video/mp4", media.multiLanguageMP4)
         case ("movie", "302.mkv"):
             return .data(200, "video/x-matroska", media.shortMKV)
         default:

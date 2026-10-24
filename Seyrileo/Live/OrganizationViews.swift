@@ -98,13 +98,13 @@ extension View {
 
     func issueAlert(_ issue: Binding<UserIssue?>) -> some View {
         alert(
-            issue.wrappedValue.map { Text($0.title) } ?? Text(verbatim: ""),
+            issue.wrappedValue.map { Text(app: $0.title) } ?? Text(verbatim: ""),
             isPresented: Binding(get: { issue.wrappedValue != nil }, set: { if !$0 { issue.wrappedValue = nil } }),
             presenting: issue.wrappedValue
         ) { _ in
             Button("OK", role: .cancel) {}
         } message: { issue in
-            Text(issue.detail)
+            Text(app: issue.detail)
         }
     }
 }
@@ -120,10 +120,13 @@ struct CollectableItem: Identifiable, Hashable {
 
 /// Toggle membership of one item in the user's collections, or create a new collection.
 struct AddToCollectionView: View {
+    @Environment(AppModel.self) private var app
     let item: CollectableItem
     let catalog: SourceCatalogModel
     @Environment(\.dismiss) private var dismiss
     @State private var collections: [UserCollection]?
+    @State private var expanded: Set<String> = []
+    @Environment(\.editMode) private var editMode
     @State private var memberOf: Set<UUID> = []
     @State private var newName = ""
     @State private var issue: UserIssue?
@@ -131,7 +134,7 @@ struct AddToCollectionView: View {
 
     var body: some View {
         NavigationStack {
-            List {
+            BrandList {
                 Section {
                     HStack {
                         TextField("New collection", text: $newName)
@@ -172,6 +175,7 @@ struct AddToCollectionView: View {
             }
             .task { await load() }
             .issueAlert($issue)
+            .proPaywall()
         }
         .presentationDetents([.medium, .large])
     }
@@ -184,6 +188,8 @@ struct AddToCollectionView: View {
 
     private func create() {
         let name = newName
+        guard app.pro.require(ProPolicy.canCreateCollection(existing: collections?.count ?? 0, isPro: app.pro.isPro), for: .unlimitedCollections)
+        else { return }
         Task {
             do {
                 let collection = try await catalog.createCollection(named: name)
@@ -205,10 +211,13 @@ struct AddToCollectionView: View {
 // MARK: - Collections in Your Space
 
 struct CollectionsSection: View {
+    @Environment(AppModel.self) private var app
     let catalog: SourceCatalogModel
+    /// Owned by the screen: a sheet attached to a List section does not present reliably.
+    @Binding var creating: Bool
     @State private var collections: [UserCollection]?
-    @State private var creating = false
-    @State private var issue: UserIssue?
+    @State private var expanded: Set<String> = []
+    @Environment(\.editMode) private var editMode
 
     var body: some View {
         Section {
@@ -218,7 +227,8 @@ struct CollectionsSection: View {
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
-                ForEach(collections) { collection in
+                let showsAll = expanded.contains("collections") || editMode?.wrappedValue.isEditing == true
+                ForEach(showsAll ? collections[...] : collections.prefix(SectionPreview.limit)) { collection in
                     NavigationLink(value: collection) {
                         LabeledContent {
                             Text(collection.itemCount, format: .number)
@@ -238,9 +248,14 @@ struct CollectionsSection: View {
                     self.collections = list
                     Task { await catalog.reorderCollections(list) }
                 }
+                if editMode?.wrappedValue.isEditing != true {
+                    SectionPreview.Toggle(total: collections.count, id: "collections", expanded: $expanded)
+                }
             }
             Button {
-                creating = true
+                if app.pro.require(ProPolicy.canCreateCollection(existing: collections?.count ?? 0, isPro: app.pro.isPro), for: .unlimitedCollections) {
+                    creating = true
+                }
             } label: {
                 Label("New collection", systemImage: "plus")
             }
@@ -248,7 +263,13 @@ struct CollectionsSection: View {
             Text("Collections")
         }
         .task(id: catalog.organizationRevision) { collections = await catalog.collections() }
-        .sheet(isPresented: $creating) {
+    }
+}
+
+extension View {
+    /// The "New collection" name sheet, attached to a whole screen.
+    func newCollectionSheet(isPresented: Binding<Bool>, catalog: SourceCatalogModel) -> some View {
+        sheet(isPresented: isPresented) {
             NameEditorSheet(title: "New collection", initial: "") { name in
                 do {
                     _ = try await catalog.createCollection(named: name)
@@ -258,7 +279,6 @@ struct CollectionsSection: View {
                 }
             }
         }
-        .issueAlert($issue)
     }
 }
 
@@ -284,7 +304,7 @@ struct CollectionDetailView: View {
     private var channels: [LiveChannel] { (items ?? []).compactMap(\.channel) }
 
     var body: some View {
-        List {
+        BrandList {
             switch items {
             case nil:
                 LoadingRow(text: "Loading…")
@@ -430,7 +450,7 @@ struct HiddenItemsView: View {
     @State private var categories: [LiveCategory] = []
 
     var body: some View {
-        List {
+        BrandList {
             if let channels, channels.isEmpty, categories.isEmpty {
                 ContentUnavailableView(
                     "Nothing hidden", systemImage: "eye",
@@ -439,7 +459,7 @@ struct HiddenItemsView: View {
             if !categories.isEmpty {
                 Section("Categories") {
                     ForEach(categories) { category in
-                        LabeledContent(category.name.isEmpty ? String(localized: "Untitled category") : category.name) {
+                        LabeledContent(category.name.isEmpty ? String(app: "Untitled category") : category.name) {
                             Button("Show") { Task { await catalog.setHidden(false, category: category) } }
                         }
                     }

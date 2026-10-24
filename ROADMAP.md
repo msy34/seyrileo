@@ -7,14 +7,14 @@
 | 1.5 | Real-provider check: auth, catalogue, VOD/series list endpoints, ATS diagnosis | **Done** (2026-10-15) |
 | 2 | Transactional local catalogue (GRDB), categories, indexed local search, favorites, recents, multi-source isolation, migration tests; HTTP sources supported | **Done** (2026-10-15, simulator) |
 | 3 | Movies, series, episodes, detail endpoints, persisted progress, continue watching | **Done** (2026-10-15, fixture + simulator); real provider **pending** |
-| 4 | EPG + timezone/DST, collections, alias/hide/reorder, parental locks, reminders, device lifecycle measurements | **In progress**: EPG, organization, parental controls done (simulator); reminders, lifecycle next |
-| 5 | StoreKit 2 Pro, release docs, privacy/attribution review, TestFlight checklist, owner blockers | — |
+| 4 | EPG + timezone/DST, collections, alias/hide/reorder, parental locks, reminders, device lifecycle measurements | **Done (simulator)**: EPG, organization, parental controls, reminders, lifecycle measurements; owner device checks pending |
+| 5 | StoreKit 2 Pro, release docs, privacy/attribution review, TestFlight checklist, owner blockers | **Code done (simulator)**; blocked on owner items in docs/RELEASE.md |
 
 ## Next step (Milestone 4)
 
 Done: Xtream EPG (now/next, guide, DST, manual correction) and personal organization (alias,
 hide, order, collections). Parental PIN/biometric locks are done and enforced through the single playback gate. Next:
-local EPG reminders
+(done) local EPG reminders
 (notification permission asked only when the first reminder is set), then device lifecycle
 measurements. Owner device checks of EPG/organization pending.
 

@@ -83,6 +83,9 @@ struct WelcomeView: View {
             }
             .scrollIndicators(.hidden)
         }
+        .overlay(alignment: .topTrailing) {
+            LanguageMenuButton().padding(.trailing, 20).padding(.top, 8)
+        }
         .environment(\.colorScheme, .dark)
         .sheet(isPresented: $showSetup) {
             SourceSetupView()

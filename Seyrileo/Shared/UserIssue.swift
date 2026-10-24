@@ -48,6 +48,15 @@ extension UserIssue {
             case .collectionNotFound:
                 self.init(title: "Collection not found", detail: "This collection was deleted or belongs to another source.", canRetry: false)
             }
+        case let error as ReminderError:
+            switch error {
+            case .alreadyStarted:
+                self.init(title: "This programme has already started", detail: "Reminders can only be set for programmes that haven't started yet.", canRetry: false)
+            case .tooMany(let limit):
+                self.init(
+                    title: "Too many reminders", detail: "You can keep up to \(limit) reminders at a time.",
+                    suggestions: ["Remove a reminder you no longer need."], canRetry: false)
+            }
         case is CancellationError:
             self.init(title: "Cancelled", detail: "The request was cancelled.", canRetry: true)
         default:
@@ -184,7 +193,7 @@ extension UserIssue {
     init(playback failure: PlaybackFailure, isExternal: Bool, isFixture: Bool, onDemandContainer: String? = nil) {
         self.init(playback: failure)
         if let container = onDemandContainer, failure == .unsupportedFormat || failure == .serverIncompatible {
-            let type = container.isEmpty ? String(localized: "file") : container.uppercased()
+            let type = container.isEmpty ? String(app: "file") : container.uppercased()
             detail = "This title is a \(type) file. Neither the built-in iOS player nor VLC could play it."
             suggestions = ["Try another title."]
             technical = technical ?? type

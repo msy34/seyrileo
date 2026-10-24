@@ -14,7 +14,8 @@ for milestones, [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md) for per-requirement
 - `docs/adr/` — decisions; `docs/COMPATIBILITY.md`, `docs/RISKS.md`.
 - `scripts/generate-fixture-media.sh` — regenerates synthetic fixture media (ffmpeg).
 - `scripts/build-string-catalog.py` — regenerates `Seyrileo/Localizable.xcstrings` from
-  compiler-extracted keys; fails on a missing Turkish translation.
+  compiler-extracted keys (TR inline; FR/AR/RU/DE/BS in `scripts/translations/<code>.json`,
+  keyed by the English text); fails on any missing translation in any language.
 
 ## Commands
 
@@ -35,7 +36,7 @@ xcodebuild test -project Seyrileo.xcodeproj -scheme Seyrileo -only-testing:Seyri
 xcodebuild -project Seyrileo.xcodeproj -scheme Seyrileo -destination 'platform=iOS Simulator,name=iPhone 17' -derivedDataPath build/DerivedData build
 
 # After adding/changing user-facing strings: build, then
-python3 -I scripts/build-string-catalog.py build/DerivedData   # add TR text to the script first
+python3 -I scripts/build-string-catalog.py build/DerivedData   # add TR + every translations/*.json first
 ```
 
 The app scheme's Test action runs the UI tests only; package tests use the package scheme above.
@@ -66,7 +67,8 @@ Milestone 3 adds migration `v2-library` (movies, series, progress). Milestone 4 
 `channelOrder`, `categoryOverride`, `userCollection`, `collectionItem`. These are keyed by
 source + provider ID (never by row) because catalogue refreshes delete and re-insert channels.
 `LiveChannel.name` is always the provider's name; show `displayName`. EPG is never stored:
-`EPGService` caches it in memory per source. `v4-parental` adds `lockedContent`; the PIN is in the
+`EPGService` caches it in memory per source. `v5-reminders` adds `reminder` (notifications are rebuilt from it by `ReminderCenter.reconcile`).
+`v4-parental` adds `lockedContent`; the PIN is in the
 Keychain (`KeychainPINStore`, hash only). Parental enforcement lives in `AppModel.playbackItem`
 (every route plays through it) — never open a stream for an entry without going through it. Movie/episode stream URLs
 use the provider's container extension only (`ContainerExtension.sanitize`); never guess it.
@@ -78,6 +80,11 @@ transaction). User data (favorites, recents, preferences) lives in separate tabl
 
 ## Rules that are easy to break
 
+- Languages: en (default — never the device language, owner decision), tr, fr, ar (RTL), ru, de,
+  bs. Switching is live (`LanguageSettings`, root rebuilt with `.id`). In code use
+  `String(app: "…")` / `Text(app: resource)`, never `String(localized:)`, which stays in the
+  launch language.
+
 - Never log/print a stream URL or `XtreamCredentials`; use `Redactor` / `Redactor.describe`.
 - Never write catalogue rows outside `CatalogStore.apply`; never touch favorite/recent tables in a refresh.
 - Search text goes through `SearchText.normalize` (Turkish İ/ı aware) on both sides.
@@ -86,6 +93,9 @@ transaction). User data (favorites, recents, preferences) lives in separate tabl
 - VLC video goes through `VLCFrameOutput` (libvlc `video_set_callbacks`, resolved with dlsym; player
   handle via VLCKit 3's internal `-libVLCMediaPlayer`). If either is missing the engine falls back to
   VLC's own drawing (no PiP). Callbacks run on VLC's thread: keep that class `nonisolated`.
+- Look: always dark (`.preferredColorScheme(.dark)`, owner decision 2026-10-17). Lists use `BrandList`
+  (night backdrop, glassy rows); cat motifs only as icon, sleeping cat (`CatEmptyState`), paw loader and
+  Pro paw bullets. Owner rejected cat ears on tabs and drawn paws on cards.
 - Brand: colours `BrandNavy/Glow/Teal/Cream` and `BrandMark` (byte-identical copy of the owner's icon)
   in Assets; `LaunchMark` are rounded resized copies for the launch screen. Never alter the icon.
 - VLCKit is LGPL: keep it unmodified and dynamically linked, keep Settings → Open-source licenses
@@ -100,6 +110,10 @@ transaction). User data (favorites, recents, preferences) lives in separate tabl
 - Capability claims change only with evidence (update `EngineCapabilities` + COMPATIBILITY.md).
 - No arbitrary sleeps in tests; inject `Sleeper` / use `AsyncGate`.
 - Don't commit, push or publish without explicit instruction.
+- Pro gates only *new* Pro actions (`app.pro.require`); never remove or hide data when Pro is
+  missing. DEBUG unlocks Pro; test the free tier with `-SeyrileoFreeTier`. Paywall/PIN prompts
+  present from the topmost registered view (`.proPaywall()` / `.parentalPrompt()`), never from a
+  List section (sheets on sections do not present reliably — seen twice).
 
 ## User-verified results (reported by the owner; not reproduced by Claude)
 
@@ -133,6 +147,13 @@ transaction). User data (favorites, recents, preferences) lives in separate tabl
   Claude via `devicectl` (Developer Mode enabled by the owner). The owner reports "everything
   works" after testing on the iPad. Claude did not see which steps were run (requested: sidebar
   layout, live/full screen/rotation, guide, MKV in VLC, organization, Split View, mirroring).
+
+- 2026-10-17 — Owner reports the language build tested on device ("TESTLER DONE"); details per
+  language not given.
+
+- 2026-10-25 — Owner reports on the iPhone 17 Pro (build of 2026-10-24) that subtitles (VLC
+  software decoding), Picture in Picture (leaving the app / swipe-down minimize) and the redesign
+  are **successful**. Per-step details not given; Claude did not observe these runs.
 
 ## Progress record (Claude's own runs)
 
@@ -232,3 +253,34 @@ transaction). User data (favorites, recents, preferences) lives in separate tabl
   (GPU pictures; VLC does not blend subtitles into the callback frames; in the simulator VT fails
   and software decoding showed them). Frame-output mode now forces software decoding
   (`:codec=avcodec`, `:avcodec-hw=none`). Sim re-checked; device result pending owner. Cost: more CPU.
+- 2026-10-16 — Languages: English (default), Türkçe, Français, العربية (RTL), Русский, Deutsch,
+  Bosanski; 447 strings each, validated (count + format specifiers) by the catalog script.
+  Flag picker in Settings and on the welcome screen; switch applies instantly and keeps the tab.
+  Sim-checked EN/FR/DE/AR (incl. RTL and interpolated strings). Package tests 155.
+- 2026-10-17 — Milestone 4 reminders + lifecycle. Reminders (v5, ReminderStore/ReminderCenter):
+  permission on first use, 5 min lead, masked text for locked channels, tap → parental-gated
+  playback (NotificationRouter, DEBUG `-SeyrileoOpenChannel`). Real-source check: delivered at
+  09:25:00 for a 09:30 programme. LifecycleMeasurementTests found AVPlayer pausing in the
+  background (fixed: `audiovisualBackgroundPlaybackPolicy`). Package tests 159.
+- 2026-10-17 (owner away, autonomous) — M4 leftover: track memory for the built-in player
+  (applied on load; AVKit menu changes reported via `EngineEvent.tracksChosen`); fixture film 304
+  with EN/TR audio + subtitles; note: AVPlayer's default selection follows the device language.
+  M5: ProPolicy + ProStore (StoreKit 2) + paywall + gates, StoreKit test file, privacy manifest,
+  Release build check (no DEBUG strings), accessibility audit (44→39), docs/RELEASE.md with owner
+  blockers. Fixed: "New collection" in Your Space did not open its sheet (sheet on a List
+  section). Package tests 164.
+- 2026-10-17 — UI redesign (owner feedback: more professional, icon/cat themed). Always dark, `BrandList`
+  backdrop + glass rows, teal "continue watching" hero card, rounded cream monograms, amber "now" progress,
+  player title no longer truncated (actions moved to a bottom bar; header in landscape), paywall with slogan
+  "Curl up. Press play." (TR "Kıvrıl, keyfini seyret."), sleeping-cat empty favorites. Owner approved the
+  new look from simulator screenshots. UI tests 18/18 (iPhone 18 Pro sim). Not yet on a device.
+- 2026-10-17 — Owner feedback (player + search): iPhone landscape = our own full screen (header/bar
+  hidden; previous/next, "Show episodes" and exit on the side edges over AVKit, auto-hide 4 s; inside
+  VLC's controls for VLC). Swipe down minimizes to the mini player and starts PiP once possible
+  (`PictureInPictureStarter`, KVO on `isPictureInPicturePossible`; choice made by Claude: minimize +
+  PiP rather than PiP alone). `EpisodesSheet` in the player (loads the whole series, replaces the
+  presentation's entries with the same id). Search in Live (all categories) and Library (movies or
+  series, all categories); the Search tab is kept. UI tests: 4 new pass; full run 22/23, the one
+  failure (AVKit full-screen exit button tap) passed 4/4 when rerun alone. iPad landscape is not
+  auto-immersive (vertical size class stays regular). PiP-on-swipe not verifiable in the simulator.
+  Debug build installed on the owner's iPhone; device results pending owner.

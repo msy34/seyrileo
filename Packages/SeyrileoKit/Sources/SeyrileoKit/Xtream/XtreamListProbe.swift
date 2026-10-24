@@ -37,3 +37,34 @@ extension XtreamClient {
             action: action, itemCount: list.elements.count, droppedCount: list.droppedCount, byteCount: data.count)
     }
 }
+
+/// Shape of one detail answer (`get_vod_info` / `get_series_info`): key names of `info` and
+/// whether any external-id-looking field is present. Never reports values (except id formats).
+public struct XtreamDetailProbe: Equatable, Sendable {
+    public let infoKeys: [String]
+    /// Keys whose name mentions imdb/tmdb/kinopoisk, with the shape of their value.
+    public let externalIDs: [String: String]
+}
+
+extension XtreamClient {
+    public func probeDetail(_ key: MediaKey) async throws -> XtreamDetailProbe {
+        let (action, parameter) = key.kind == .series ? ("get_series_info", "series_id") : ("get_vod_info", "vod_id")
+        let data = try await fetchObject(action: action, parameters: [(parameter, key.remoteID)])
+        let root = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] ?? [:]
+        let info = root["info"] as? [String: Any] ?? [:]
+        var external: [String: String] = [:]
+        for (name, value) in info.merging(root.filter { !($0.value is [Any]) && !($0.value is [String: Any]) }, uniquingKeysWith: { a, _ in a }) {
+            let lower = name.lowercased()
+            guard lower.contains("imdb") || lower.contains("tmdb") || lower.contains("kinopoisk") else { continue }
+            let text = "\(value)"
+            let shape: String
+            if text.isEmpty || value is NSNull { shape = "empty" }
+            else if text.range(of: #"^tt\d{5,10}$"#, options: .regularExpression) != nil { shape = "tt-id" }
+            else if text.range(of: #"^\d+$"#, options: .regularExpression) != nil { shape = "number" }
+            else if text.lowercased().contains("imdb.com/title/tt") { shape = "imdb-url" }
+            else { shape = "other(\(text.count) chars)" }
+            external[name] = shape
+        }
+        return XtreamDetailProbe(infoKeys: info.keys.sorted(), externalIDs: external)
+    }
+}

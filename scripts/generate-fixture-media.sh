@@ -41,5 +41,16 @@ ffmpeg -hide_banner -loglevel error -f lavfi -i "$(vod_src)" \
   -c:a aac -b:a 32k -ac 1 -movflags +faststart "$VOD/feature.mp4"
 ffmpeg -hide_banner -loglevel error -f lavfi -i "$(vod_src)" -t 10 \
   -c:v libx264 -preset veryfast -pix_fmt yuv420p -crf 32 "$VOD/short.mkv"
+# Multi-language MP4 (audio + subtitle choice and its memory): English/Turkish audio and subtitles.
+SUBS="$(mktemp -d)"
+printf '1\n00:00:00,500 --> 00:00:19,500\nEnglish subtitle\n' > "$SUBS/en.srt"
+printf '1\n00:00:00,500 --> 00:00:19,500\nTürkçe altyazı\n' > "$SUBS/tr.srt"
+ffmpeg -hide_banner -loglevel error -y -f lavfi -i "smptebars=size=320x180:rate=15" \
+  -f lavfi -i "sine=frequency=440:sample_rate=44100" -f lavfi -i "sine=frequency=660:sample_rate=44100" \
+  -i "$SUBS/en.srt" -i "$SUBS/tr.srt" -t 20 -map 0:v -map 1:a -map 2:a -map 3 -map 4 \
+  -c:v libx264 -profile:v main -preset veryfast -pix_fmt yuv420p -crf 34 -g 30 -c:a aac -b:a 24k -ac 1 -c:s mov_text \
+  -metadata:s:a:0 language=eng -metadata:s:a:0 title=English -metadata:s:a:1 language=tur -metadata:s:a:1 title=Turkish \
+  -metadata:s:s:0 language=eng -metadata:s:s:1 language=tur -disposition:a:0 default -disposition:a:1 0 \
+  -disposition:s:0 0 -disposition:s:1 0 -movflags +faststart "$VOD/multilang.mp4"
 ls -la "$OUT" "$OUT"/pattern-a "$VOD" | head -40
 du -sh "$OUT"

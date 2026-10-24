@@ -28,6 +28,9 @@ final class VLCEngine: NSObject, PlaybackEngine, VLCMediaPlayerDelegate {
     /// Set when VLC's frames go to a sample-buffer layer (needed for PiP).
     private let frameOutput: VLCFrameOutput?
     private var pictureInPicture: AVPictureInPictureController?
+    private let pictureInPictureStarter = PictureInPictureStarter()
+    /// Called when the user returns from PiP to the app (the mini player expands).
+    var onRestoreFromPictureInPicture: (() -> Void)?
     /// TV output view while an external display is connected (frame-output mode).
     private var externalView: SampleBufferView?
 
@@ -100,6 +103,13 @@ final class VLCEngine: NSObject, PlaybackEngine, VLCMediaPlayerDelegate {
         }
     }
 
+    /// Starts PiP once it is possible (after a swipe-down minimize).
+    func startPictureInPicture() {
+        guard let pictureInPicture else { return }
+        pictureInPicture.invalidatePlaybackState()
+        pictureInPictureStarter.start(pictureInPicture)
+    }
+
     func load(_ item: PlaybackItem) {
         guard !isStopped else { return }
         isLive = item.isLive
@@ -138,6 +148,8 @@ final class VLCEngine: NSObject, PlaybackEngine, VLCMediaPlayerDelegate {
         isStopped = true
         stopRequested = true
         onEvent = nil
+        onRestoreFromPictureInPicture = nil
+        pictureInPictureStarter.cancel()
         pictureInPicture?.stopPictureInPicture()
         pictureInPicture?.delegate = nil
         pictureInPicture = nil
@@ -376,6 +388,7 @@ extension VLCEngine: AVPictureInPictureSampleBufferPlaybackDelegate, AVPictureIn
         _ controller: AVPictureInPictureController,
         restoreUserInterfaceForPictureInPictureStopWithCompletionHandler completionHandler: @escaping (Bool) -> Void
     ) {
+        MainActor.assumeIsolated { onRestoreFromPictureInPicture?() }
         completionHandler(true)
     }
 }
