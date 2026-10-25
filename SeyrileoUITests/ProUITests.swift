@@ -10,7 +10,7 @@ final class ProUITests: XCTestCase {
     override func setUp() async throws {
         continueAfterFailure = false
         app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoFixturePort", "47917",
+        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoTestCatalog", "-SeyrileoFixturePort", "47917",
                                 "-SeyrileoResetParental", "-SeyrileoFreeTier"]
         app.launch()
         let sample = app.buttons["Try the sample experience"]
@@ -29,7 +29,30 @@ final class ProUITests: XCTestCase {
         XCTAssertTrue(paywall.waitForNonExistence(timeout: 5))
     }
 
+    /// Version 1 ships without Pro (`ProStore.isOffered = false`): even with `-SeyrileoFreeTier`
+    /// nothing asks for Pro and Settings shows no Pro section.
+    func testVersionOneIsFreeWithoutPaywall() throws {
+        app.tabBars.buttons["Live"].firstMatch.tap()
+        let category = button(startingWith: "Fixture · Pattern Lab")
+        XCTAssertTrue(category.waitForExistence(timeout: 20))
+        category.tap()
+        let channel = button(startingWith: "Pattern A (HLS)")
+        XCTAssertTrue(channel.waitForExistence(timeout: 10))
+        channel.press(forDuration: 1.2)
+        app.buttons["Rename"].firstMatch.tap()
+        XCTAssertTrue(app.textFields["name.field"].firstMatch.waitForExistence(timeout: 5), "no rename sheet:\n\(app.debugDescription)")
+        XCTAssertFalse(paywall.exists)
+        app.navigationBars.buttons["Cancel"].firstMatch.tap()
+
+        app.tabBars.buttons["Settings"].firstMatch.tap()
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 5))
+        for _ in 0..<3 { app.swipeUp() }
+        XCTAssertFalse(app.buttons["Get Seyrileo Pro"].exists)
+        XCTAssertFalse(app.staticTexts["Seyrileo Pro (development build)"].exists)
+    }
+
     func testRenamingIsProAndTheFirstCollectionIsFree() throws {
+        throw XCTSkip("Pro is not offered in version 1 (ProStore.isOffered = false).")
         // Advanced organization opens the paywall in the free tier.
         app.tabBars.buttons["Live"].firstMatch.tap()
         let category = button(startingWith: "Fixture · Pattern Lab")

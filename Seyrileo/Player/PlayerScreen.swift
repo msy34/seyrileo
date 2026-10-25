@@ -239,7 +239,7 @@ struct PlayerScreen: View {
                             .foregroundStyle(.secondary)
                             .lineLimit(1)
                     }
-                    if catalog.source.isFixture {
+                    if catalog.source.isFixture, !AppModel.isScreenshotMode {
                         Text("Sample")
                             .font(.caption2.weight(.semibold))
                             .padding(.horizontal, 6)

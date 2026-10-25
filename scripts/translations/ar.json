@@ -263,7 +263,6 @@
  "Resume from %@": "المتابعة من %@",
  "S%lld E%lld": "م%lld ح%lld",
  "Sample": "تجريبي",
- "Sample (fixture)": "تجريبي (fixture)",
  "Sample experience": "التجربة التجريبية",
  "Sample streams are served from this phone only. An AirPlay receiver cannot reach them.": "تُبث البثوث التجريبية من هذا الهاتف فقط. لا يستطيع جهاز استقبال AirPlay الوصول إليها.",
  "Sample streams are served from this phone only; an AirPlay receiver cannot reach them.": "تُبث البثوث التجريبية من هذا الهاتف فقط؛ لا يستطيع جهاز استقبال AirPlay الوصول إليها.",
@@ -319,7 +318,7 @@
  "Stream unavailable": "البث غير متاح",
  "Subtitles": "الترجمة",
  "Swipe left on a channel, or touch and hold it, to add it to your favorites.": "اسحب قناة إلى اليسار أو المسها مطولًا لإضافتها إلى المفضلة.",
- "Synthetic test patterns served from this device. These are not real channels.": "أنماط اختبار اصطناعية تُبث من هذا الجهاز. ليست قنوات حقيقية.",
+ "A made-up sample catalogue served from this device. These are not real channels.": "كتالوج تجريبي خيالي يُبث من هذا الجهاز. هذه ليست قنوات حقيقية.",
  "TV connected. The video is shown on the TV in full screen.": "تم توصيل التلفاز. يُعرض الفيديو على التلفاز بملء الشاشة.",
  "TV guide": "دليل التلفاز",
  "Tap a source to make it active. Swipe to remove it.": "اضغط على مصدر لتفعيله. اسحب لإزالته.",
@@ -370,7 +369,7 @@
  "The purchase is waiting for approval (for example Ask to Buy). Pro unlocks when it is approved.": "الشراء بانتظار الموافقة (مثل «طلب الشراء»). يُفتح Pro عند الموافقة.",
  "The report leaves out passwords, usernames and stream addresses. Nothing is sent unless you share it.": "لا يتضمن التقرير كلمات السر أو أسماء المستخدمين أو عناوين البث. لا يُرسل شيء ما لم تشاركه.",
  "The request was cancelled.": "تم إلغاء الطلب.",
- "The sample uses synthetic test patterns served from this device. No real channels.": "تستخدم التجربة أنماط اختبار اصطناعية تُبث من هذا الجهاز. لا توجد قنوات حقيقية.",
+ "The sample is a made-up catalogue served from this device. No real channels or films.": "التجربة كتالوج خيالي يُبث من هذا الجهاز. لا توجد قنوات أو أفلام حقيقية.",
  "The saved catalogue could not be searched.": "تعذّر البحث في الكتالوج المحفوظ.",
  "The server answered 401 (unauthorized).": "ردّ الخادم بـ 401 (غير مصرّح).",
  "The server answered 403 (forbidden). It did not say why. Possible reasons include an inactive account, a blocked region or network, or a connection limit.": "ردّ الخادم بـ 403 (محظور) دون ذكر السبب. من الأسباب المحتملة: حساب غير نشط أو منطقة أو شبكة محظورة أو حد للاتصالات.",
@@ -488,5 +487,6 @@
  "iOS blocked an unencrypted connection": "حظر iOS اتصالًا غير مشفّر",
  "unknown": "غير معروف",
  "unknown device": "جهاز غير معروف",
- "“Not verified” means the engine can do this in principle, but it has not been tested on a physical device yet.": "«لم يتم التحقق» يعني أن المحرّك يستطيع ذلك مبدئيًا، لكن لم يُختبر بعد على جهاز حقيقي."
+ "“Not verified” means the engine can do this in principle, but it has not been tested on a physical device yet.": "«لم يتم التحقق» يعني أن المحرّك يستطيع ذلك مبدئيًا، لكن لم يُختبر بعد على جهاز حقيقي.",
+ "Written offer: for at least three years after we last distribute this version, we will give anyone who asks the VLCKit source code it uses and the object files needed to relink Seyrileo with a modified VLCKit, at no more than the cost of providing them. Ask through the support link on Seyrileo's App Store page. You may modify Seyrileo for your own use and reverse engineer it to debug such modifications.": "عرض مكتوب: لمدة ثلاث سنوات على الأقل بعد آخر توزيع لهذا الإصدار، سنقدّم لكل من يطلب الشيفرة المصدرية لـ VLCKit المستخدمة وملفات الكائنات اللازمة لإعادة ربط Seyrileo بنسخة معدّلة من VLCKit، بتكلفة لا تتجاوز تكلفة توفيرها. اطلبها عبر رابط الدعم في صفحة Seyrileo على App Store. يمكنك تعديل Seyrileo لاستخدامك الخاص وإجراء الهندسة العكسية لتصحيح هذه التعديلات."
 }

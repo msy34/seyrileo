@@ -263,7 +263,6 @@
  "Resume from %@": "Fortsetzen ab %@",
  "S%lld E%lld": "S%lld F%lld",
  "Sample": "Demo",
- "Sample (fixture)": "Demo (Fixture)",
  "Sample experience": "Demo",
  "Sample streams are served from this phone only. An AirPlay receiver cannot reach them.": "Demo-Streams kommen nur von diesem Telefon. Ein AirPlay-Empfänger kann sie nicht erreichen.",
  "Sample streams are served from this phone only; an AirPlay receiver cannot reach them.": "Demo-Streams kommen nur von diesem Telefon; ein AirPlay-Empfänger kann sie nicht erreichen.",
@@ -319,7 +318,7 @@
  "Stream unavailable": "Stream nicht verfügbar",
  "Subtitles": "Untertitel",
  "Swipe left on a channel, or touch and hold it, to add it to your favorites.": "Wische auf einem Sender nach links oder halte ihn gedrückt, um ihn zu den Favoriten hinzuzufügen.",
- "Synthetic test patterns served from this device. These are not real channels.": "Synthetische Testbilder, die von diesem Gerät gesendet werden. Das sind keine echten Sender.",
+ "A made-up sample catalogue served from this device. These are not real channels.": "Ein erfundener Beispielkatalog, der von diesem Gerät kommt. Das sind keine echten Sender.",
  "TV connected. The video is shown on the TV in full screen.": "Fernseher verbunden. Das Video wird im Vollbild auf dem Fernseher gezeigt.",
  "TV guide": "TV-Programm",
  "Tap a source to make it active. Swipe to remove it.": "Tippe auf eine Quelle, um sie zu aktivieren. Wische, um sie zu entfernen.",
@@ -370,7 +369,7 @@
  "The purchase is waiting for approval (for example Ask to Buy). Pro unlocks when it is approved.": "Der Kauf wartet auf Genehmigung (zum Beispiel „Kaufanfrage“). Pro wird nach der Genehmigung freigeschaltet.",
  "The report leaves out passwords, usernames and stream addresses. Nothing is sent unless you share it.": "Der Bericht enthält keine Passwörter, Benutzernamen oder Stream-Adressen. Nichts wird gesendet, solange du ihn nicht teilst.",
  "The request was cancelled.": "Die Anfrage wurde abgebrochen.",
- "The sample uses synthetic test patterns served from this device. No real channels.": "Die Demo nutzt synthetische Testbilder von diesem Gerät. Keine echten Sender.",
+ "The sample is a made-up catalogue served from this device. No real channels or films.": "Die Demo ist ein erfundener Katalog von diesem Gerät. Keine echten Sender oder Filme.",
  "The saved catalogue could not be searched.": "Der gespeicherte Katalog konnte nicht durchsucht werden.",
  "The server answered 401 (unauthorized).": "Der Server antwortete mit 401 (nicht autorisiert).",
  "The server answered 403 (forbidden). It did not say why. Possible reasons include an inactive account, a blocked region or network, or a connection limit.": "Der Server antwortete mit 403 (verboten) ohne Begründung. Mögliche Gründe: inaktives Konto, gesperrte Region oder gesperrtes Netz oder ein Verbindungslimit.",
@@ -488,5 +487,6 @@
  "iOS blocked an unencrypted connection": "iOS hat eine unverschlüsselte Verbindung blockiert",
  "unknown": "unbekannt",
  "unknown device": "unbekanntes Gerät",
- "“Not verified” means the engine can do this in principle, but it has not been tested on a physical device yet.": "„Nicht überprüft“ bedeutet, dass die Engine das grundsätzlich kann, es aber noch nicht auf einem echten Gerät getestet wurde."
+ "“Not verified” means the engine can do this in principle, but it has not been tested on a physical device yet.": "„Nicht überprüft“ bedeutet, dass die Engine das grundsätzlich kann, es aber noch nicht auf einem echten Gerät getestet wurde.",
+ "Written offer: for at least three years after we last distribute this version, we will give anyone who asks the VLCKit source code it uses and the object files needed to relink Seyrileo with a modified VLCKit, at no more than the cost of providing them. Ask through the support link on Seyrileo's App Store page. You may modify Seyrileo for your own use and reverse engineer it to debug such modifications.": "Schriftliches Angebot: Mindestens drei Jahre nach der letzten Verbreitung dieser Version geben wir allen, die danach fragen, den verwendeten VLCKit-Quellcode und die Objektdateien, die nötig sind, um Seyrileo mit einem geänderten VLCKit neu zu linken, zu höchstens den Kosten der Bereitstellung. Anfragen über den Support-Link auf der App-Store-Seite von Seyrileo. Du darfst Seyrileo für den eigenen Gebrauch ändern und zur Fehlersuche in solchen Änderungen zurückentwickeln."
 }

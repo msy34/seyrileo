@@ -9,7 +9,7 @@ final class ParentalUITests: XCTestCase {
     override func setUp() async throws {
         continueAfterFailure = false
         app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoFixturePort", "47917", "-SeyrileoResetParental"]
+        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoTestCatalog", "-SeyrileoFixturePort", "47917", "-SeyrileoResetParental"]
         app.launch()
         XCUIDevice.shared.orientation = .portrait
         let sample = app.buttons["Try the sample experience"]

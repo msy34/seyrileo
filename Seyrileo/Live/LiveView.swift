@@ -64,6 +64,7 @@ private struct CategoryListView: View {
                 NavigationLink(value: GuideRoute()) {
                     Label("Guide", systemImage: "calendar")
                 }
+                .accessibilityIdentifier("live.guide")
             }
             ToolbarItem(placement: .topBarTrailing) {
                 if editMode.isEditing {
@@ -496,7 +497,7 @@ struct FixtureBanner: View {
         Label {
             VStack(alignment: .leading, spacing: 2) {
                 Text("Sample experience").font(.subheadline.weight(.semibold))
-                Text("Synthetic test patterns served from this device. These are not real channels.")
+                Text("A made-up sample catalogue served from this device. These are not real channels.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)

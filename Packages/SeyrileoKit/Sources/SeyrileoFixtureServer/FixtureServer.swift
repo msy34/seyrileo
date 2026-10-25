@@ -27,6 +27,12 @@ public final class FixtureServer: @unchecked Sendable {
         case mp2Audio = "205"
     }
 
+    /// What the server lists. `.test` exercises edge cases (tests, the sample experience);
+    /// `.showcase` is a tidy fictional catalogue for App Store screenshots.
+    public enum Catalog: Sendable {
+        case test, showcase
+    }
+
     public enum ServerError: Error, Equatable {
         case mediaMissing
         case listenerFailed(String)
@@ -39,10 +45,12 @@ public final class FixtureServer: @unchecked Sendable {
     private var listener: NWListener?
     private var boundPort: UInt16?
     private let media: FixtureMedia
+    private let catalog: Catalog
 
-    public init(port: UInt16 = 0, now: @escaping @Sendable () -> Date = Date.init) throws {
+    public init(port: UInt16 = 0, catalog: Catalog = .test, now: @escaping @Sendable () -> Date = Date.init) throws {
         guard let media = FixtureMedia(bundle: .module) else { throw ServerError.mediaMissing }
         self.requestedPort = port
+        self.catalog = catalog
         self.now = now
         self.media = media
     }
@@ -190,6 +198,10 @@ public final class FixtureServer: @unchecked Sendable {
         if segments.count == 4, segments[0] == "movie" || segments[0] == "series" {
             return onDemandStream(kind: segments[0], username: segments[1], password: segments[2], file: segments[3])
         }
+        if segments.count == 3, segments == ["fixture-media", "showcase", segments[2]] {
+            guard let data = media.showcaseFile(segments[2]) else { return .text(404, "not found") }
+            return .data(200, segments[2].hasSuffix(".mp4") ? "video/mp4" : "image/jpeg", data)
+        }
         if segments.count == 3, segments[0] == "fixture-media" {
             return mediaFile(directory: segments[1], file: segments[2])
         }
@@ -252,6 +264,10 @@ public final class FixtureServer: @unchecked Sendable {
         switch query["action"] {
         case nil:
             return .json(FixtureCatalog.authJSON(username: query["username"] ?? "", status: status, port: lock.withLock { boundPort } ?? 0))
+        default:
+            if catalog == .showcase { return showcaseAPI(query: query) }
+        }
+        switch query["action"] {
         case "get_live_categories":
             return .json(FixtureCatalog.liveCategoriesJSON)
         case "get_live_streams":
@@ -275,10 +291,35 @@ public final class FixtureServer: @unchecked Sendable {
         }
     }
 
+    private func showcaseAPI(query: [String: String]) -> FixtureResponse {
+        let base = "http://localhost:\(lock.withLock { boundPort } ?? 0)"
+        switch query["action"] {
+        case "get_live_categories": return .json(ShowcaseCatalog.liveCategoriesJSON)
+        case "get_live_streams": return .json(ShowcaseCatalog.liveStreamsJSON(categoryID: query["category_id"]))
+        case "get_short_epg":
+            return .json(ShowcaseCatalog.epgJSON(streamID: query["stream_id"] ?? "", now: now(), limit: Int(query["limit"] ?? "") ?? 4))
+        case "get_simple_data_table":
+            return .json(ShowcaseCatalog.epgJSON(streamID: query["stream_id"] ?? "", now: now(), limit: nil))
+        case "get_vod_categories": return .json(ShowcaseCatalog.vodCategoriesJSON)
+        case "get_vod_streams": return .json(ShowcaseCatalog.vodStreamsJSON(base: base, now: now()))
+        case "get_vod_info": return .json(ShowcaseCatalog.vodInfoJSON(id: query["vod_id"] ?? "", base: base))
+        case "get_series_categories": return .json(ShowcaseCatalog.seriesCategoriesJSON)
+        case "get_series": return .json(ShowcaseCatalog.seriesJSON(base: base))
+        case "get_series_info": return .json(ShowcaseCatalog.seriesInfoJSON(id: query["series_id"] ?? "", base: base))
+        default: return .json("[]")
+        }
+    }
+
     private func liveStream(username: String, password: String, file: String) -> FixtureResponse {
         guard status(for: username, password: password) == "Active" else { return .text(403, "forbidden") }
         let id = file.split(separator: ".").first.map(String.init) ?? ""
         let ext = file.split(separator: ".").dropFirst().first.map(String.init) ?? ""
+        if catalog == .showcase {
+            guard ShowcaseCatalog.channels.contains(where: { String($0.id) == id }), ext == "m3u8",
+                  let playlist = media.livePlaylist(directory: "showcase-live", now: now())
+            else { return .text(404, "unknown stream") }
+            return .data(200, "application/vnd.apple.mpegurl", Data(playlist.utf8))
+        }
         guard let channel = Channel(rawValue: id) else { return .text(404, "unknown stream") }
         switch channel {
         case .patternA, .patternB, .mp2Audio:
@@ -316,6 +357,13 @@ public final class FixtureServer: @unchecked Sendable {
     /// Progressive files with byte ranges (as real Xtream VOD outputs are served).
     private func onDemandStream(kind: String, username: String, password: String, file: String) -> FixtureResponse {
         guard status(for: username, password: password) == "Active" else { return .text(403, "forbidden") }
+        if catalog == .showcase {
+            let id = Int(file.dropLast(4)) ?? 0
+            guard file.hasSuffix(".mp4"), kind == "movie" ? ShowcaseCatalog.isFilm(id) : ShowcaseCatalog.isEpisode(id),
+                  let data = media.showcaseFile("feature.mp4")
+            else { return .text(404, "not found") }
+            return .data(200, "video/mp4", data)
+        }
         switch (kind, file) {
         case ("movie", "301.mp4"), ("series", "501.mp4"), ("series", "502.mp4"), ("series", "503.mp4"):
             return .data(200, "video/mp4", media.featureMP4)

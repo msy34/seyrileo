@@ -40,7 +40,7 @@ Severity: H/M/L. Owner: **Dev** (code), **Owner** (business/legal/Apple account)
 
 ## Release blockers (owner-supplied; nothing invented)
 
-- Final bundle ID (currently placeholder `com.example.seyrileo`); development team set to the owner's team for device testing
+- Bundle ID `com.msy.seyrileo` (chosen 2026-10-25); development team set to the owner's team for device testing
 - Privacy policy URL, support URL, business/contact details
 - App Store product ID for Pro, pricing (StoreKit, M5)
 - Authorized live review account + review notes; rights documentation for screenshots

@@ -11,7 +11,7 @@ final class AccessibilityAuditTests: XCTestCase {
     override func setUp() async throws {
         continueAfterFailure = true
         app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoFixturePort", "47917", "-SeyrileoResetParental"]
+        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoTestCatalog", "-SeyrileoFixturePort", "47917", "-SeyrileoResetParental"]
         app.launch()
         let sample = app.buttons["Try the sample experience"]
         if sample.waitForExistence(timeout: 8) { sample.tap() }

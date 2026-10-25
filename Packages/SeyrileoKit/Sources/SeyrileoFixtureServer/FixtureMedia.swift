@@ -14,6 +14,8 @@ struct FixtureMedia: @unchecked Sendable {
     let shortMKV: Data
     /// 20 s MP4 with English + Turkish audio and English + Turkish (mov_text) subtitles.
     let multiLanguageMP4: Data
+    /// `Media/showcase`: artwork and the showcase VOD file, read on request.
+    let showcaseRoot: URL
 
     static let windowSize = 4
 
@@ -33,6 +35,15 @@ struct FixtureMedia: @unchecked Sendable {
             guard !segments.isEmpty else { return nil }
             loops[directory] = Loop(segments: segments, durations: durations)
         }
+        // The showcase live loop (served as "showcase-live").
+        let showcaseLive = root.appendingPathComponent("showcase/live")
+        if let text = try? String(contentsOf: showcaseLive.appendingPathComponent("durations.txt"), encoding: .utf8) {
+            let durations = text.split(whereSeparator: \.isNewline).compactMap { Double($0) }
+            let segments = durations.indices.compactMap { try? Data(contentsOf: showcaseLive.appendingPathComponent("seg\($0).ts")) }
+            if !segments.isEmpty, segments.count == durations.count {
+                loops["showcase-live"] = Loop(segments: segments, durations: durations)
+            }
+        }
         guard let raw = try? Data(contentsOf: root.appendingPathComponent("raw-pattern-a.ts")),
               let mp4 = try? Data(contentsOf: root.appendingPathComponent("vod/feature.mp4")),
               let mkv = try? Data(contentsOf: root.appendingPathComponent("vod/short.mkv")),
@@ -43,6 +54,13 @@ struct FixtureMedia: @unchecked Sendable {
         self.featureMP4 = mp4
         self.shortMKV = mkv
         self.multiLanguageMP4 = multi
+        showcaseRoot = root.appendingPathComponent("showcase")
+    }
+
+    /// A showcase JPEG (poster/backdrop) or the showcase film.
+    func showcaseFile(_ name: String) -> Data? {
+        guard name.range(of: #"^(poster|backdrop)-\d+\.jpg$|^feature\.mp4$"#, options: .regularExpression) != nil else { return nil }
+        return try? Data(contentsOf: showcaseRoot.appendingPathComponent(name), options: .mappedIfSafe)
     }
 
     func segment(directory: String, file: String) -> Data? {

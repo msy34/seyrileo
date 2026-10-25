@@ -10,6 +10,8 @@ struct LicensesView: View {
                     Text(verbatim: "MobileVLCKit 3.7.4 (VLCKit / libVLC)").font(.headline)
                     Text("Used to play formats the built-in iOS player cannot (for example MKV and AVI). Licensed under the GNU Lesser General Public License, version 2.1 or later. It is included unmodified and dynamically linked, so it can be replaced with a compatible build.")
                         .font(.footnote)
+                    Text("Written offer: for at least three years after we last distribute this version, we will give anyone who asks the VLCKit source code it uses and the object files needed to relink Seyrileo with a modified VLCKit, at no more than the cost of providing them. Ask through the support link on Seyrileo's App Store page. You may modify Seyrileo for your own use and reverse engineer it to debug such modifications.")
+                        .font(.footnote)
                     Link(destination: URL(string: "https://code.videolan.org/videolan/VLCKit")!) {
                         Text(verbatim: "code.videolan.org/videolan/VLCKit")
                     }

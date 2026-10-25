@@ -8,7 +8,7 @@ final class LibraryUITests: XCTestCase {
     override func setUp() async throws {
         continueAfterFailure = false
         app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoFixturePort", "47917"]
+        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoTestCatalog", "-SeyrileoFixturePort", "47917"]
         app.launch()
         XCUIDevice.shared.orientation = .portrait
         let sample = app.buttons["Try the sample experience"]
@@ -163,7 +163,7 @@ final class LivePlaybackFallbackUITests: XCTestCase {
     /// 'fmt?', the session falls back once to VLC and plays.
     func testLiveMP2AudioFallsBackToVLC() throws {
         let app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoFixturePort", "47917"]
+        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoTestCatalog", "-SeyrileoFixturePort", "47917"]
         app.launch()
         let sample = app.buttons["Try the sample experience"]
         if sample.waitForExistence(timeout: 8) { sample.tap() }

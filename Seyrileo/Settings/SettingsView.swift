@@ -21,7 +21,7 @@ struct SettingsView: View {
 
                 LanguageSettingsSection()
 
-                ProSettingsSection()
+                if ProStore.isOffered { ProSettingsSection() }
 
                 Section {
                     NavigationLink {

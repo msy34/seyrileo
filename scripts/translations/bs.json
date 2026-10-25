@@ -263,7 +263,6 @@
  "Resume from %@": "Nastavi od %@",
  "S%lld E%lld": "S%lld E%lld",
  "Sample": "Demo",
- "Sample (fixture)": "Demo (fixture)",
  "Sample experience": "Demo iskustvo",
  "Sample streams are served from this phone only. An AirPlay receiver cannot reach them.": "Demo streamovi dolaze samo s ovog telefona. AirPlay prijemnik ih ne može dosegnuti.",
  "Sample streams are served from this phone only; an AirPlay receiver cannot reach them.": "Demo streamovi dolaze samo s ovog telefona; AirPlay prijemnik ih ne može dosegnuti.",
@@ -319,7 +318,7 @@
  "Stream unavailable": "Stream nije dostupan",
  "Subtitles": "Titlovi",
  "Swipe left on a channel, or touch and hold it, to add it to your favorites.": "Prevucite kanal ulijevo ili ga dodirnite i držite da ga dodate u favorite.",
- "Synthetic test patterns served from this device. These are not real channels.": "Sintetički testni uzorci koje šalje ovaj uređaj. To nisu pravi kanali.",
+ "A made-up sample catalogue served from this device. These are not real channels.": "Izmišljeni demo katalog koji šalje ovaj uređaj. To nisu pravi kanali.",
  "TV connected. The video is shown on the TV in full screen.": "Televizor je povezan. Video se prikazuje preko cijelog ekrana televizora.",
  "TV guide": "TV vodič",
  "Tap a source to make it active. Swipe to remove it.": "Dodirnite izvor da ga aktivirate. Prevucite da ga uklonite.",
@@ -370,7 +369,7 @@
  "The purchase is waiting for approval (for example Ask to Buy). Pro unlocks when it is approved.": "Kupovina čeka odobrenje (na primjer „Zatraži kupovinu“). Pro se otključava nakon odobrenja.",
  "The report leaves out passwords, usernames and stream addresses. Nothing is sent unless you share it.": "Izvještaj ne sadrži lozinke, korisnička imena ni adrese streamova. Ništa se ne šalje dok ga sami ne podijelite.",
  "The request was cancelled.": "Zahtjev je otkazan.",
- "The sample uses synthetic test patterns served from this device. No real channels.": "Demo koristi sintetičke testne uzorke s ovog uređaja. Nema pravih kanala.",
+ "The sample is a made-up catalogue served from this device. No real channels or films.": "Demo je izmišljeni katalog s ovog uređaja. Nema pravih kanala ni filmova.",
  "The saved catalogue could not be searched.": "Sačuvani katalog nije moguće pretražiti.",
  "The server answered 401 (unauthorized).": "Server je odgovorio 401 (neovlašteno).",
  "The server answered 403 (forbidden). It did not say why. Possible reasons include an inactive account, a blocked region or network, or a connection limit.": "Server je odgovorio 403 (zabranjeno) bez objašnjenja. Mogući razlozi: neaktivan račun, blokirana regija ili mreža ili ograničenje veza.",
@@ -488,5 +487,6 @@
  "iOS blocked an unencrypted connection": "iOS je blokirao nešifriranu vezu",
  "unknown": "nepoznato",
  "unknown device": "nepoznat uređaj",
- "“Not verified” means the engine can do this in principle, but it has not been tested on a physical device yet.": "„Nije provjereno“ znači da pokretač to u principu može, ali još nije testirano na stvarnom uređaju."
+ "“Not verified” means the engine can do this in principle, but it has not been tested on a physical device yet.": "„Nije provjereno“ znači da pokretač to u principu može, ali još nije testirano na stvarnom uređaju.",
+ "Written offer: for at least three years after we last distribute this version, we will give anyone who asks the VLCKit source code it uses and the object files needed to relink Seyrileo with a modified VLCKit, at no more than the cost of providing them. Ask through the support link on Seyrileo's App Store page. You may modify Seyrileo for your own use and reverse engineer it to debug such modifications.": "Pisana ponuda: najmanje tri godine nakon što posljednji put distribuiramo ovu verziju, svakome ko zatraži dat ćemo izvorni kod korištenog VLCKit-a i objektne datoteke potrebne da se Seyrileo ponovo poveže s izmijenjenim VLCKit-om, po cijeni koja ne prelazi trošak ustupanja. Zatražite putem linka za podršku na App Store stranici Seyrileo. Seyrileo smijete mijenjati za vlastitu upotrebu i reverzno ga analizirati radi otklanjanja grešaka u takvim izmjenama."
 }

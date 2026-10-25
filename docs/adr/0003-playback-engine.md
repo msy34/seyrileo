@@ -98,3 +98,12 @@ Mirroring (or HDMI): video is drawn full screen on the TV, controls stay on the 
 stream. Alternative considered and **not** taken: remuxing MKV on the device into HLS and
 serving it from the phone to the TV over the LAN — that is a local stream proxy (ruled out
 earlier), costs CPU/battery and would need an FFmpeg licensing review.
+
+## Update 2026-10-25 — App Store distribution
+
+The owner accepted the LGPL/App Store risk for version 1.0 after Claude explained the worst
+realistic case (a copyright holder's complaint leads Apple to remove the app; installed copies keep
+working). Mitigations in place: unmodified dynamic framework, notice and licence text in the app, a
+§6(c) written offer (VLCKit source + relink object files for three years) in the app and on the
+support page, and a per-build relink kit (`scripts/make-lgpl-relink-kit.sh`, relink verified).
+Not legal advice; a lawyer's review remains recommended. Details: docs/RELEASE.md.

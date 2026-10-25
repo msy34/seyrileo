@@ -263,7 +263,6 @@
  "Resume from %@": "Продолжить с %@",
  "S%lld E%lld": "С%lld Э%lld",
  "Sample": "Демо",
- "Sample (fixture)": "Демо (fixture)",
  "Sample experience": "Демо-режим",
  "Sample streams are served from this phone only. An AirPlay receiver cannot reach them.": "Демо-потоки передаются только с этого телефона. Приёмник AirPlay не может до них добраться.",
  "Sample streams are served from this phone only; an AirPlay receiver cannot reach them.": "Демо-потоки передаются только с этого телефона; приёмник AirPlay не может до них добраться.",
@@ -319,7 +318,7 @@
  "Stream unavailable": "Поток недоступен",
  "Subtitles": "Субтитры",
  "Swipe left on a channel, or touch and hold it, to add it to your favorites.": "Смахните канал влево или нажмите и удерживайте его, чтобы добавить в избранное.",
- "Synthetic test patterns served from this device. These are not real channels.": "Синтетические тестовые таблицы с этого устройства. Это не настоящие каналы.",
+ "A made-up sample catalogue served from this device. These are not real channels.": "Вымышленный демо-каталог, который отдаёт это устройство. Это не настоящие каналы.",
  "TV connected. The video is shown on the TV in full screen.": "Телевизор подключён. Видео показывается на телевизоре на весь экран.",
  "TV guide": "Телепрограмма",
  "Tap a source to make it active. Swipe to remove it.": "Коснитесь источника, чтобы сделать его активным. Смахните, чтобы удалить.",
@@ -370,7 +369,7 @@
  "The purchase is waiting for approval (for example Ask to Buy). Pro unlocks when it is approved.": "Покупка ожидает одобрения (например, «Попросить купить»). Pro откроется после одобрения.",
  "The report leaves out passwords, usernames and stream addresses. Nothing is sent unless you share it.": "В отчёт не входят пароли, имена пользователей и адреса потоков. Ничего не отправляется, пока вы сами им не поделитесь.",
  "The request was cancelled.": "Запрос был отменён.",
- "The sample uses synthetic test patterns served from this device. No real channels.": "Демо использует синтетические тестовые таблицы с этого устройства. Никаких настоящих каналов.",
+ "The sample is a made-up catalogue served from this device. No real channels or films.": "Демо — это вымышленный каталог с этого устройства. Никаких настоящих каналов и фильмов.",
  "The saved catalogue could not be searched.": "Не удалось выполнить поиск по сохранённому каталогу.",
  "The server answered 401 (unauthorized).": "Сервер ответил 401 (не авторизовано).",
  "The server answered 403 (forbidden). It did not say why. Possible reasons include an inactive account, a blocked region or network, or a connection limit.": "Сервер ответил 403 (запрещено) без объяснения. Возможные причины: неактивная учётная запись, заблокированный регион или сеть либо ограничение подключений.",
@@ -488,5 +487,6 @@
  "iOS blocked an unencrypted connection": "iOS заблокировала незашифрованное соединение",
  "unknown": "неизвестно",
  "unknown device": "неизвестное устройство",
- "“Not verified” means the engine can do this in principle, but it has not been tested on a physical device yet.": "«Не проверено» означает, что движок в принципе это умеет, но это ещё не проверялось на реальном устройстве."
+ "“Not verified” means the engine can do this in principle, but it has not been tested on a physical device yet.": "«Не проверено» означает, что движок в принципе это умеет, но это ещё не проверялось на реальном устройстве.",
+ "Written offer: for at least three years after we last distribute this version, we will give anyone who asks the VLCKit source code it uses and the object files needed to relink Seyrileo with a modified VLCKit, at no more than the cost of providing them. Ask through the support link on Seyrileo's App Store page. You may modify Seyrileo for your own use and reverse engineer it to debug such modifications.": "Письменное предложение: не менее трёх лет после последнего распространения этой версии мы предоставим любому, кто попросит, исходный код используемого VLCKit и объектные файлы, необходимые для повторной компоновки Seyrileo с изменённым VLCKit, по цене не выше стоимости их предоставления. Запрос — через ссылку поддержки на странице Seyrileo в App Store. Вы можете изменять Seyrileo для собственного использования и применять обратную разработку для отладки таких изменений."
 }

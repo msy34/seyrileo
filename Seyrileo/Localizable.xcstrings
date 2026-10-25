@@ -379,6 +379,46 @@
         }
       }
     },
+    "A made-up sample catalogue served from this device. These are not real channels.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كتالوج تجريبي خيالي يُبث من هذا الجهاز. هذه ليست قنوات حقيقية."
+          }
+        },
+        "bs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Izmišljeni demo katalog koji šalje ovaj uređaj. To nisu pravi kanali."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein erfundener Beispielkatalog, der von diesem Gerät kommt. Das sind keine echten Sender."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un catalogue d'exemple fictif servi depuis cet appareil. Ce ne sont pas de vraies chaînes."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вымышленный демо-каталог, который отдаёт это устройство. Это не настоящие каналы."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu cihazdan sunulan uydurma bir örnek katalog. Bunlar gerçek kanallar değildir."
+          }
+        }
+      }
+    },
     "A programme is starting soon": {
       "localizations": {
         "ar": {
@@ -10579,46 +10619,6 @@
         }
       }
     },
-    "Sample (fixture)": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تجريبي (fixture)"
-          }
-        },
-        "bs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Demo (fixture)"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Demo (Fixture)"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Démo (fixture)"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Демо (fixture)"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Örnek (test verisi)"
-          }
-        }
-      }
-    },
     "Sample experience": {
       "localizations": {
         "ar": {
@@ -12819,46 +12819,6 @@
         }
       }
     },
-    "Synthetic test patterns served from this device. These are not real channels.": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "أنماط اختبار اصطناعية تُبث من هذا الجهاز. ليست قنوات حقيقية."
-          }
-        },
-        "bs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sintetički testni uzorci koje šalje ovaj uređaj. To nisu pravi kanali."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Synthetische Testbilder, die von diesem Gerät gesendet werden. Das sind keine echten Sender."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mires de test synthétiques servies depuis cet appareil. Ce ne sont pas de vraies chaînes."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Синтетические тестовые таблицы с этого устройства. Это не настоящие каналы."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bu cihazdan sunulan yapay test desenleri. Bunlar gerçek kanallar değildir."
-          }
-        }
-      }
-    },
     "TV connected. The video is shown on the TV in full screen.": {
       "localizations": {
         "ar": {
@@ -14859,42 +14819,42 @@
         }
       }
     },
-    "The sample uses synthetic test patterns served from this device. No real channels.": {
+    "The sample is a made-up catalogue served from this device. No real channels or films.": {
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "تستخدم التجربة أنماط اختبار اصطناعية تُبث من هذا الجهاز. لا توجد قنوات حقيقية."
+            "value": "التجربة كتالوج خيالي يُبث من هذا الجهاز. لا توجد قنوات أو أفلام حقيقية."
           }
         },
         "bs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Demo koristi sintetičke testne uzorke s ovog uređaja. Nema pravih kanala."
+            "value": "Demo je izmišljeni katalog s ovog uređaja. Nema pravih kanala ni filmova."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die Demo nutzt synthetische Testbilder von diesem Gerät. Keine echten Sender."
+            "value": "Die Demo ist ein erfundener Katalog von diesem Gerät. Keine echten Sender oder Filme."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "La démo utilise des mires de test synthétiques servies depuis cet appareil. Aucune vraie chaîne."
+            "value": "La démo est un catalogue fictif servi depuis cet appareil. Aucune vraie chaîne ni aucun vrai film."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Демо использует синтетические тестовые таблицы с этого устройства. Никаких настоящих каналов."
+            "value": "Демо — это вымышленный каталог с этого устройства. Никаких настоящих каналов и фильмов."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Örnek deneyim bu cihazdan sunulan yapay test desenlerini kullanır. Gerçek kanal yoktur."
+            "value": "Örnek deneyim, bu cihazdan sunulan uydurma bir katalogdur. Gerçek kanal ya da film yoktur."
           }
         }
       }
@@ -18815,6 +18775,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ekran Yansıtma ile yayını bu iPhone yükleyip çözer ve görüntüyü TV'ye gönderir. MKV dosyaları ve sağlayıcının AirPlay ile doğrudan TV'ye göndermeyi reddettiği kanallar dahil her başlıkta çalışır."
+          }
+        }
+      }
+    },
+    "Written offer: for at least three years after we last distribute this version, we will give anyone who asks the VLCKit source code it uses and the object files needed to relink Seyrileo with a modified VLCKit, at no more than the cost of providing them. Ask through the support link on Seyrileo's App Store page. You may modify Seyrileo for your own use and reverse engineer it to debug such modifications.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عرض مكتوب: لمدة ثلاث سنوات على الأقل بعد آخر توزيع لهذا الإصدار، سنقدّم لكل من يطلب الشيفرة المصدرية لـ VLCKit المستخدمة وملفات الكائنات اللازمة لإعادة ربط Seyrileo بنسخة معدّلة من VLCKit، بتكلفة لا تتجاوز تكلفة توفيرها. اطلبها عبر رابط الدعم في صفحة Seyrileo على App Store. يمكنك تعديل Seyrileo لاستخدامك الخاص وإجراء الهندسة العكسية لتصحيح هذه التعديلات."
+          }
+        },
+        "bs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pisana ponuda: najmanje tri godine nakon što posljednji put distribuiramo ovu verziju, svakome ko zatraži dat ćemo izvorni kod korištenog VLCKit-a i objektne datoteke potrebne da se Seyrileo ponovo poveže s izmijenjenim VLCKit-om, po cijeni koja ne prelazi trošak ustupanja. Zatražite putem linka za podršku na App Store stranici Seyrileo. Seyrileo smijete mijenjati za vlastitu upotrebu i reverzno ga analizirati radi otklanjanja grešaka u takvim izmjenama."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schriftliches Angebot: Mindestens drei Jahre nach der letzten Verbreitung dieser Version geben wir allen, die danach fragen, den verwendeten VLCKit-Quellcode und die Objektdateien, die nötig sind, um Seyrileo mit einem geänderten VLCKit neu zu linken, zu höchstens den Kosten der Bereitstellung. Anfragen über den Support-Link auf der App-Store-Seite von Seyrileo. Du darfst Seyrileo für den eigenen Gebrauch ändern und zur Fehlersuche in solchen Änderungen zurückentwickeln."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offre écrite : pendant au moins trois ans après la dernière distribution de cette version, nous fournirons à toute personne qui le demande le code source de VLCKit utilisé et les fichiers objets nécessaires pour relier Seyrileo à une version modifiée de VLCKit, pour un coût ne dépassant pas celui de leur fourniture. Faites la demande via le lien d'assistance de la page App Store de Seyrileo. Vous pouvez modifier Seyrileo pour votre propre usage et en faire l'ingénierie inverse pour déboguer ces modifications."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Письменное предложение: не менее трёх лет после последнего распространения этой версии мы предоставим любому, кто попросит, исходный код используемого VLCKit и объектные файлы, необходимые для повторной компоновки Seyrileo с изменённым VLCKit, по цене не выше стоимости их предоставления. Запрос — через ссылку поддержки на странице Seyrileo в App Store. Вы можете изменять Seyrileo для собственного использования и применять обратную разработку для отладки таких изменений."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yazılı teklif: Bu sürümü son dağıttığımız tarihten sonra en az üç yıl boyunca, isteyen herkese bu sürümün kullandığı VLCKit kaynak kodunu ve Seyrileo'yu değiştirilmiş bir VLCKit ile yeniden bağlamak için gereken nesne dosyalarını, sağlama maliyetini aşmayan bir bedelle veririz. Seyrileo'nun App Store sayfasındaki destek bağlantısından isteyin. Seyrileo'yu kendi kullanımınız için değiştirebilir ve bu değişikliklerdeki hataları ayıklamak için tersine mühendislik yapabilirsiniz."
           }
         }
       }

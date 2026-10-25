@@ -355,3 +355,54 @@ enum LibraryFixtures {
         #expect(try await URLSessionTransport().get(try client.episodeStreamURL(series.allEpisodes[0]), maxBytes: 8 << 20).statusCode == 200)
     }
 }
+
+@Suite(.serialized) struct ShowcaseCatalogIntegrationTests {
+    /// The sample experience's fictional catalogue decodes cleanly through the real client.
+    @Test func showcaseCatalogueIsCompleteAndPlayable() async throws {
+        let server = try FixtureServer(port: 0, catalog: .showcase)
+        try await server.start()
+        defer { server.stop() }
+        let providerID = UUID()
+        let client = XtreamClient(
+            providerID: providerID, endpoint: try XtreamEndpoint(baseURL: try #require(server.baseURL)),
+            credentials: XtreamCredentials(username: FixtureServer.username, password: FixtureServer.password),
+            transport: URLSessionTransport(), retryPolicy: .none)
+        let transport = URLSessionTransport()
+
+        let categories = try await client.liveCategories()
+        let channels = try await client.liveStreams()
+        #expect(categories.items.count == ShowcaseCatalog.liveCategories.count && categories.droppedCount == 0)
+        #expect(channels.items.count == ShowcaseCatalog.channels.count && channels.droppedCount == 0)
+        #expect(channels.items.allSatisfy { $0.epgChannelID != nil })
+
+        let channel = try #require(channels.items.first)
+        let now = Date()
+        let short = try await client.shortEPG(for: channel.key, limit: 4, serverTimeZone: .current)
+        #expect(short.programs.count == 4 && short.droppedCount == 0)
+        #expect(NowNext(programs: short.programs, at: now).now != nil)
+        let day = try await client.fullEPG(for: channel.key, serverTimeZone: .current)
+        #expect(day.programs.count > 20)
+        let live = try await transport.get(client.liveStreamURL(for: channel, format: .hls), maxBytes: 1 << 20)
+        #expect(live.statusCode == 200)
+
+        let movies = try await client.vodStreams()
+        #expect(movies.items.count == ShowcaseCatalog.films.count && movies.droppedCount == 0)
+        let film = try #require(movies.items.first)
+        let poster = try await transport.get(try #require(film.posterURL), maxBytes: 1 << 20)
+        #expect(poster.statusCode == 200 && poster.contentType == "image/jpeg")
+        let detail = try await client.movieDetail(film.key)
+        #expect(detail.backdropURL != nil && detail.containerExtension == "mp4" && detail.plot != nil)
+        let movie = try await transport.get(try client.movieStreamURL(film.key, containerExtension: detail.containerExtension), maxBytes: 8 << 20)
+        #expect(movie.statusCode == 200 && movie.contentType == "video/mp4")
+
+        let shows = try await client.seriesList()
+        #expect(shows.items.count == ShowcaseCatalog.shows.count && shows.droppedCount == 0)
+        for show in shows.items {
+            let series = try await client.seriesDetail(show.key)
+            #expect(!series.allEpisodes.isEmpty && series.allEpisodes.allSatisfy { !$0.title.isEmpty })
+        }
+        let first = try await client.seriesDetail(try #require(shows.items.first).key)
+        let episode = try await transport.get(try client.episodeStreamURL(first.allEpisodes[0]), maxBytes: 8 << 20)
+        #expect(episode.statusCode == 200)
+    }
+}

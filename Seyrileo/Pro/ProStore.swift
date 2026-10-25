@@ -9,11 +9,16 @@ import StoreKit
 ///
 /// DEBUG builds treat Pro as unlocked so the owner's device testing is not interrupted;
 /// `-SeyrileoFreeTier` turns that off to test the free tier and the paywall.
+///
+/// Owner decision (2026-10-25): version 1 ships free, without Pro. While `isOffered` is false
+/// everything is unlocked, StoreKit is never contacted and no Pro UI is shown.
 @MainActor
 @Observable
 final class ProStore {
     /// Placeholder until the owner creates the product in App Store Connect (see docs/RELEASE.md).
-    static let productID = "com.example.seyrileo.pro"
+    static let productID = "com.msy.seyrileo.pro"
+    /// Flip to true (and set the real product ID) to sell Pro again.
+    static let isOffered = false
 
     enum PurchaseState: Equatable {
         case idle, purchasing, pending, failed(String)
@@ -36,16 +41,16 @@ final class ProStore {
 
     init() {
         #if DEBUG
-        debugUnlocked = !ProcessInfo.processInfo.arguments.contains("-SeyrileoFreeTier")
+        debugUnlocked = !Self.isOffered || !ProcessInfo.processInfo.arguments.contains("-SeyrileoFreeTier")
         #else
         debugUnlocked = false
         #endif
     }
 
-    var isPro: Bool { hasPurchased || debugUnlocked }
+    var isPro: Bool { !Self.isOffered || hasPurchased || debugUnlocked }
 
     func start() async {
-        guard updates == nil else { return }
+        guard Self.isOffered, updates == nil else { return }
         updates = Task { [weak self] in
             for await update in Transaction.updates {
                 if case .verified(let transaction) = update {

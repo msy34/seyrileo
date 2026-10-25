@@ -42,6 +42,10 @@ python3 -I scripts/build-string-catalog.py build/DerivedData   # add TR + every 
 The app scheme's Test action runs the UI tests only; package tests use the package scheme above.
 UI tests launch with `-SeyrileoFixturePort 47917` (DEBUG only) because simulators share the Mac's
 network stack and two running apps would otherwise collide on the fixture port.
+The sample experience serves the fictional **showcase** catalogue (`ShowcaseCatalog`, artwork/video
+from `scripts/generate-showcase-art.sh`); UI tests pass `-SeyrileoTestCatalog` for the edge-case
+test catalogue. App Store screenshots: `AppStoreScreenshotsUITests` (`-SeyrileoShowcase`, runs only
+with `TEST_RUNNER_SHOT_LANGS`); see docs/RELEASE.md. Store text: `docs/appstore/`.
 
 ## Real provider check (never commit credentials)
 
@@ -100,8 +104,10 @@ transaction). User data (favorites, recents, preferences) lives in separate tabl
   in Assets; `LaunchMark` are rounded resized copies for the launch screen. Never alter the icon.
 - VLCKit is LGPL: keep it unmodified and dynamically linked, keep Settings → Open-source licenses
   and the bundled license texts in `Seyrileo/Licenses/` in sync with the shipped version.
+  Every uploaded build needs its relink kit (`scripts/make-lgpl-relink-kit.sh`, keep 3 years); the
+  written offer in Licenses and on the support page must stay true.
 - Signing: Automatic, team `4GH66T5T9U` (owner's own Apple Development identity, needed to run on
-  the owner's iPhone). Bundle ID `com.example.seyrileo` is still a placeholder for release.
+  the owner's iPhone). Bundle ID `com.msy.seyrileo` (owner, 2026-10-25).
 - Never end the player session in a SwiftUI `onDisappear`: AVKit full screen and the AirPlay
   picker cover the view. The player is presented from the root (`AppModel.playerPresentation`);
   a session ends only on explicit close (`AppModel.playerDismissed` / `closeMiniPlayer`), never on
@@ -110,6 +116,8 @@ transaction). User data (favorites, recents, preferences) lives in separate tabl
 - Capability claims change only with evidence (update `EngineCapabilities` + COMPATIBILITY.md).
 - No arbitrary sleeps in tests; inject `Sleeper` / use `AsyncGate`.
 - Don't commit, push or publish without explicit instruction.
+- Version 1.0 ships free (owner decision 2026-10-25): `ProStore.isOffered = false` unlocks everything,
+  never contacts StoreKit and hides Pro UI. Keep the gates in place for a later Pro.
 - Pro gates only *new* Pro actions (`app.pro.require`); never remove or hide data when Pro is
   missing. DEBUG unlocks Pro; test the free tier with `-SeyrileoFreeTier`. Paywall/PIN prompts
   present from the topmost registered view (`.proPaywall()` / `.parentalPrompt()`), never from a

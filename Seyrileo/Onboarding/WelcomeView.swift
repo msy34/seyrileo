@@ -64,8 +64,9 @@ struct WelcomeView: View {
                         .tint(.white)
                         .controlSize(.large)
                         .disabled(startingSample)
+                        .accessibilityIdentifier("welcome.sample")
 
-                        Text("The sample uses synthetic test patterns served from this device. No real channels.")
+                        Text("The sample is a made-up catalogue served from this device. No real channels or films.")
                             .font(.footnote)
                             .foregroundStyle(.white.opacity(0.55))
                             .multilineTextAlignment(.center)

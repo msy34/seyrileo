@@ -1,0 +1,62 @@
+{
+  "_note": "App Store Connect text per store locale. Limits: name 30, subtitle 30, promotional_text 170, keywords 100 (comma separated, no spaces needed), description 4000. Bosnian is not an App Store locale; the app itself still offers Bosanski. Check with scripts/check-appstore-metadata.py.",
+  "en-US": {
+    "name": "Seyrileo",
+    "subtitle": "Player for your own IPTV",
+    "promotional_text": "Curl up. Press play. Live TV, films and series from your own IPTV source, with a TV guide, Picture in Picture and parental controls.",
+    "keywords": "iptv,xtream,player,live tv,tv guide,epg,series,movies,pip,parental controls,streaming,mkv",
+    "release_notes": "First release.",
+    "description": "Seyrileo is a calm, beautiful player for the IPTV service you already have.\n\nAdd your Xtream-compatible source and Seyrileo turns it into a clear, fast library: live channels with what's on now and next, a TV guide, films and series with posters, and \"continue watching\" right where you left off.\n\nSeyrileo does not include or sell any channels, films or series. You need your own subscription from a provider you are authorized to use. Not sure yet? Try the built-in sample: no account needed.\n\nWATCH\n• Live TV, films and series in one place\n• Picture in Picture, and a mini player while you browse\n• AirPlay and Screen Mirroring to your TV\n• Plays common formats, including MKV\n• Remembers your audio and subtitle choice for each series\n\nORGANIZE\n• Favorites, recently watched and continue watching\n• Your own collections of channels, films and series\n• Rename, hide and reorder channels and categories\n• Fast search across live TV, films and series\n\nTV GUIDE\n• Now and next on every channel that has a guide\n• Day-by-day programme list\n• Reminders 5 minutes before a programme starts\n\nFAMILY\n• Parental controls with a PIN, Face ID or Touch ID\n• Lock categories, channels, films and series\n\nPRIVATE\n• No account, no ads, no tracking\n• Your sources stay on your device; passwords are kept in the Keychain\n\nAvailable in English, Türkçe, Français, Deutsch, Русский, العربية and Bosanski."
+  },
+  "tr": {
+    "name": "Seyrileo",
+    "subtitle": "Kendi IPTV'niz için oynatıcı",
+    "promotional_text": "Kıvrıl, keyfini seyret. Kendi IPTV kaynağınızdan canlı TV, film ve diziler; yayın akışı, resim içinde resim ve ebeveyn denetimiyle.",
+    "keywords": "iptv,xtream,oynatıcı,canlı tv,yayın akışı,epg,dizi,film,pip,ebeveyn denetimi,mkv",
+    "release_notes": "İlk sürüm.",
+    "description": "Seyrileo, zaten sahip olduğunuz IPTV hizmeti için sakin ve şık bir oynatıcıdır.\n\nXtream uyumlu kaynağınızı ekleyin; Seyrileo onu düzenli ve hızlı bir kütüphaneye dönüştürsün: şu an ve sırada ne olduğunu gösteren canlı kanallar, yayın akışı, afişleriyle filmler ve diziler, kaldığınız yerden \"izlemeye devam et\".\n\nSeyrileo hiçbir kanal, film ya da dizi içermez ve satmaz. Kullanma yetkiniz olan bir sağlayıcıdan kendi aboneliğiniz gerekir. Emin değil misiniz? Yerleşik örnek deneyimi deneyin; hesap gerekmez.\n\nİZLE\n• Canlı TV, film ve diziler tek yerde\n• Resim içinde resim ve gezinirken mini oynatıcı\n• TV'ye AirPlay ve Ekran Yansıtma\n• MKV dahil yaygın biçimleri oynatır\n• Her dizi için ses ve altyazı seçiminizi hatırlar\n\nDÜZENLE\n• Favoriler, son izlenenler ve izlemeye devam et\n• Kanal, film ve dizilerden kendi koleksiyonlarınız\n• Kanalları ve kategorileri yeniden adlandırın, gizleyin, sıralayın\n• Canlı TV, film ve dizilerde hızlı arama\n\nYAYIN AKIŞI\n• Yayın akışı olan her kanalda şimdi ve sıradaki program\n• Gün gün program listesi\n• Program başlamadan 5 dakika önce hatırlatma\n\nAİLE\n• PIN, Face ID veya Touch ID ile ebeveyn denetimi\n• Kategori, kanal, film ve dizileri kilitleyin\n\nGİZLİLİK\n• Hesap yok, reklam yok, izleme yok\n• Kaynaklarınız cihazınızda kalır; parolalar Anahtar Zinciri'nde saklanır\n\nEnglish, Türkçe, Français, Deutsch, Русский, العربية ve Bosanski dillerinde."
+  },
+  "fr-FR": {
+    "name": "Seyrileo",
+    "subtitle": "Lecteur pour votre IPTV",
+    "promotional_text": "Installez-vous, lancez. TV en direct, films et séries depuis votre propre source IPTV, avec guide TV, image dans l'image et contrôle parental.",
+    "keywords": "iptv,xtream,lecteur,tv en direct,guide tv,epg,séries,films,pip,contrôle parental,mkv",
+    "release_notes": "Première version.",
+    "description": "Seyrileo est un lecteur élégant et apaisant pour le service IPTV que vous avez déjà.\n\nAjoutez votre source compatible Xtream et Seyrileo la transforme en une bibliothèque claire et rapide : chaînes en direct avec le programme en cours et le suivant, guide TV, films et séries avec affiches, et « reprendre la lecture » là où vous vous étiez arrêté.\n\nSeyrileo ne contient ni ne vend aucune chaîne, aucun film ni aucune série. Il vous faut votre propre abonnement auprès d'un fournisseur que vous êtes autorisé à utiliser. Pas encore sûr ? Essayez la démo intégrée, sans compte.\n\nREGARDER\n• TV en direct, films et séries au même endroit\n• Image dans l'image et mini-lecteur pendant la navigation\n• AirPlay et recopie de l'écran vers votre téléviseur\n• Lit les formats courants, y compris MKV\n• Mémorise vos choix de langue audio et de sous-titres pour chaque série\n\nORGANISER\n• Favoris, récemment regardés et reprise de lecture\n• Vos propres collections de chaînes, films et séries\n• Renommez, masquez et réordonnez chaînes et catégories\n• Recherche rapide dans le direct, les films et les séries\n\nGUIDE TV\n• Programme en cours et suivant sur chaque chaîne disposant d'un guide\n• Programmes jour par jour\n• Rappels 5 minutes avant le début d'une émission\n\nFAMILLE\n• Contrôle parental avec code, Face ID ou Touch ID\n• Verrouillez catégories, chaînes, films et séries\n\nCONFIDENTIALITÉ\n• Sans compte, sans publicité, sans pistage\n• Vos sources restent sur votre appareil ; les mots de passe sont dans le trousseau\n\nDisponible en English, Türkçe, Français, Deutsch, Русский, العربية et Bosanski."
+  },
+  "de-DE": {
+    "name": "Seyrileo",
+    "subtitle": "Player für dein eigenes IPTV",
+    "promotional_text": "Zurücklehnen, abspielen. Live-TV, Filme und Serien aus deiner eigenen IPTV-Quelle, mit TV-Guide, Bild-in-Bild und Kindersicherung.",
+    "keywords": "iptv,xtream,player,live tv,tv guide,epg,serien,filme,bild in bild,kindersicherung,mkv",
+    "release_notes": "Erste Version.",
+    "description": "Seyrileo ist ein ruhiger, schöner Player für den IPTV-Dienst, den du schon hast.\n\nFüge deine Xtream-kompatible Quelle hinzu, und Seyrileo macht daraus eine klare, schnelle Mediathek: Live-Sender mit dem, was jetzt und danach läuft, ein TV-Guide, Filme und Serien mit Postern und „Weiterschauen“ genau dort, wo du aufgehört hast.\n\nSeyrileo enthält und verkauft keine Sender, Filme oder Serien. Du brauchst ein eigenes Abo bei einem Anbieter, den du nutzen darfst. Noch unsicher? Probiere die eingebaute Demo aus, ganz ohne Konto.\n\nANSEHEN\n• Live-TV, Filme und Serien an einem Ort\n• Bild-in-Bild und Mini-Player beim Stöbern\n• AirPlay und Bildschirmsynchronisierung auf den Fernseher\n• Spielt gängige Formate ab, auch MKV\n• Merkt sich Tonspur und Untertitel für jede Serie\n\nORGANISIEREN\n• Favoriten, zuletzt gesehen und Weiterschauen\n• Eigene Sammlungen aus Sendern, Filmen und Serien\n• Sender und Kategorien umbenennen, ausblenden und sortieren\n• Schnelle Suche in Live-TV, Filmen und Serien\n\nTV-GUIDE\n• Jetzt und danach auf jedem Sender mit Programmdaten\n• Programm Tag für Tag\n• Erinnerung 5 Minuten vor Sendungsbeginn\n\nFAMILIE\n• Kindersicherung mit PIN, Face ID oder Touch ID\n• Kategorien, Sender, Filme und Serien sperren\n\nPRIVAT\n• Kein Konto, keine Werbung, kein Tracking\n• Deine Quellen bleiben auf deinem Gerät; Passwörter liegen im Schlüsselbund\n\nVerfügbar auf English, Türkçe, Français, Deutsch, Русский, العربية und Bosanski."
+  },
+  "ru": {
+    "name": "Seyrileo",
+    "subtitle": "Плеер для вашего IPTV",
+    "promotional_text": "Устройтесь поудобнее и смотрите. Прямой эфир, фильмы и сериалы из вашего IPTV-источника, с телепрограммой, «картинкой в картинке» и родительским контролем.",
+    "keywords": "iptv,xtream,плеер,тв онлайн,телепрограмма,epg,сериалы,фильмы,pip,родительский контроль,mkv",
+    "release_notes": "Первая версия.",
+    "description": "Seyrileo — спокойный и красивый плеер для IPTV-сервиса, который у вас уже есть.\n\nДобавьте свой Xtream-совместимый источник, и Seyrileo превратит его в понятную и быструю библиотеку: каналы с текущей и следующей передачей, телепрограмма, фильмы и сериалы с постерами и «Продолжить просмотр» с того места, где вы остановились.\n\nSeyrileo не содержит и не продаёт каналы, фильмы или сериалы. Нужна ваша собственная подписка у провайдера, которым вы вправе пользоваться. Ещё не уверены? Попробуйте встроенное демо — без учётной записи.\n\nСМОТРЕТЬ\n• Прямой эфир, фильмы и сериалы в одном месте\n• «Картинка в картинке» и мини-плеер во время просмотра каталога\n• AirPlay и повтор экрана на телевизор\n• Воспроизводит распространённые форматы, включая MKV\n• Запоминает выбор озвучки и субтитров для каждого сериала\n\nУПОРЯДОЧИТЬ\n• Избранное, недавние и «Продолжить просмотр»\n• Собственные подборки каналов, фильмов и сериалов\n• Переименование, скрытие и сортировка каналов и категорий\n• Быстрый поиск по эфиру, фильмам и сериалам\n\nТЕЛЕПРОГРАММА\n• Текущая и следующая передача на каждом канале с программой\n• Программа по дням\n• Напоминание за 5 минут до начала передачи\n\nСЕМЬЯ\n• Родительский контроль с PIN-кодом, Face ID или Touch ID\n• Блокировка категорий, каналов, фильмов и сериалов\n\nКОНФИДЕНЦИАЛЬНОСТЬ\n• Без учётной записи, рекламы и отслеживания\n• Источники остаются на устройстве, пароли хранятся в связке ключей\n\nЯзыки: English, Türkçe, Français, Deutsch, Русский, العربية и Bosanski."
+  },
+  "ar-SA": {
+    "name": "Seyrileo",
+    "subtitle": "مشغّل لخدمة IPTV الخاصة بك",
+    "promotional_text": "استرخِ واضغط تشغيل. بث مباشر وأفلام ومسلسلات من مصدر IPTV الخاص بك، مع دليل البرامج وصورة داخل صورة والرقابة الأبوية.",
+    "keywords": "iptv,xtream,مشغل,بث مباشر,دليل البرامج,epg,مسلسلات,أفلام,pip,رقابة أبوية,mkv",
+    "release_notes": "الإصدار الأول.",
+    "description": "Seyrileo مشغّل هادئ وأنيق لخدمة IPTV التي لديك بالفعل.\n\nأضف مصدرك المتوافق مع Xtream وسيحوّله Seyrileo إلى مكتبة واضحة وسريعة: قنوات مباشرة تعرض البرنامج الحالي والتالي، ودليل برامج، وأفلام ومسلسلات بملصقاتها، و«متابعة المشاهدة» من حيث توقفت.\n\nلا يتضمن Seyrileo أي قنوات أو أفلام أو مسلسلات ولا يبيعها. تحتاج إلى اشتراكك الخاص لدى مزوّد يحق لك استخدامه. لست متأكدًا بعد؟ جرّب العرض التجريبي المدمج دون حساب.\n\nالمشاهدة\n• البث المباشر والأفلام والمسلسلات في مكان واحد\n• صورة داخل صورة ومشغّل مصغّر أثناء التصفح\n• AirPlay ومرآة الشاشة إلى التلفاز\n• يشغّل الصيغ الشائعة ومنها MKV\n• يتذكّر اختيارك للصوت والترجمة لكل مسلسل\n\nالتنظيم\n• المفضلة وما شاهدته مؤخرًا ومتابعة المشاهدة\n• مجموعاتك الخاصة من القنوات والأفلام والمسلسلات\n• إعادة تسمية القنوات والفئات وإخفاؤها وترتيبها\n• بحث سريع في البث المباشر والأفلام والمسلسلات\n\nدليل البرامج\n• البرنامج الحالي والتالي في كل قناة لها دليل\n• قائمة البرامج يومًا بيوم\n• تذكير قبل بدء البرنامج بخمس دقائق\n\nالعائلة\n• رقابة أبوية برمز PIN أو Face ID أو Touch ID\n• قفل الفئات والقنوات والأفلام والمسلسلات\n\nالخصوصية\n• بلا حساب وبلا إعلانات وبلا تتبّع\n• تبقى مصادرك على جهازك وتُحفظ كلمات المرور في سلسلة المفاتيح\n\nمتوفر بـ English وTürkçe وFrançais وDeutsch وРусский والعربية وBosanski."
+  },
+  "urls": {
+    "privacy_policy": "https://msy34.github.io/seyrileo/appstore/site/privacy.html",
+    "support": "https://msy34.github.io/seyrileo/appstore/site/support.html",
+    "marketing": ""
+  },
+  "category": {
+    "primary": "Entertainment",
+    "secondary": "Photo & Video"
+  },
+  "age_rating_note": "Seyrileo plays whatever the user's own provider offers, which Seyrileo cannot see or filter. Most IPTV players answer the age-rating questionnaire for 17+ (mature content may appear through the user's source). The owner answers the questionnaire in App Store Connect.",
+  "copyright": "2026 Mehmet Samet Yildiz"
+}

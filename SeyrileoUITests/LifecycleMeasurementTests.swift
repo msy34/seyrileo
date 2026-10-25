@@ -11,7 +11,7 @@ final class LifecycleMeasurementTests: XCTestCase {
     override func setUp() async throws {
         continueAfterFailure = false
         app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoFixturePort", "47917", "-SeyrileoResetParental"]
+        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoTestCatalog", "-SeyrileoFixturePort", "47917", "-SeyrileoResetParental"]
     }
 
     var session: XCUIElement { app.otherElements["player.session"] }

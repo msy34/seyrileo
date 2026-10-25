@@ -8,7 +8,7 @@ final class ScreenshotTourUITests: XCTestCase {
 
     func launch(_ extra: [String] = []) {
         app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoFixturePort", "47918",
+        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US", "-SeyrileoTestCatalog", "-SeyrileoFixturePort", "47918",
                                 "-SeyrileoResetParental"] + extra
         app.launch()
         XCUIDevice.shared.orientation = .portrait
@@ -154,16 +154,5 @@ final class ScreenshotTourUITests: XCTestCase {
         wait(1)
         shot("settings")
         app.terminate()
-
-        launch(["-SeyrileoFreeTier"])
-        _ = tapIf(app.tabBars.buttons["Live"].firstMatch)
-        if tapIf(button("Fixture · Pattern Lab"), 20), button("Pattern A (HLS)").waitForExistence(timeout: 10) {
-            button("Pattern A (HLS)").press(forDuration: 1.2)
-            if tapIf(app.buttons["Rename"].firstMatch, 3) {
-                wait(2)
-                shot("paywall")
-                app.buttons["Close"].firstMatch.tapIfExists()
-            }
-        }
     }
 }

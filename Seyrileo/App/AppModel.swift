@@ -142,7 +142,7 @@ final class AppModel {
             try await fixtureStart.value
             return
         }
-        let server = try fixtureServer ?? FixtureServer(port: Self.fixturePort)
+        let server = try fixtureServer ?? FixtureServer(port: Self.fixturePort, catalog: Self.fixtureCatalog)
         fixtureServer = server
         let task = Task { _ = try await server.start() }
         fixtureStart = task
@@ -384,6 +384,25 @@ final class AppModel {
         return FixtureServer.defaultPort
     }
 
+    /// The sample experience lists the fictional showcase catalogue. DEBUG `-SeyrileoTestCatalog`
+    /// switches to the edge-case test catalogue (UI tests).
+    static var fixtureCatalog: FixtureServer.Catalog {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-SeyrileoTestCatalog") { return .test }
+        #endif
+        return .showcase
+    }
+
+    /// DEBUG `-SeyrileoShowcase`: App Store screenshots (sample source named like a real one, no
+    /// "Sample" badge in the player).
+    static var isScreenshotMode: Bool {
+        #if DEBUG
+        ProcessInfo.processInfo.arguments.contains("-SeyrileoShowcase")
+        #else
+        false
+        #endif
+    }
+
     /// Creates the clearly labeled sample source backed by the on-device fixture server.
     /// Goes through the same verify-and-save path as a real source.
     func addFixtureSource() async throws {
@@ -394,7 +413,7 @@ final class AppModel {
         try await startFixtureServer()
         let endpoint = try XtreamEndpoint(serverAddress: "http://localhost:\(Self.fixturePort)")
         let credentials = XtreamCredentials(username: FixtureServer.username, password: FixtureServer.password)
-        let source = ProviderSource(name: String(app: "Sample (fixture)"), kind: .fixture, serverURL: endpoint.baseURL)
+        let source = ProviderSource(name: Self.isScreenshotMode ? "Home TV" : String(app: "Sample"), kind: .fixture, serverURL: endpoint.baseURL)
         _ = try await makeClient(endpoint: endpoint, credentials: credentials, providerID: source.id).authenticate()
         try await save(source, credentials: credentials)
     }

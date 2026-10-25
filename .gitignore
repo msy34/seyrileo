@@ -11,3 +11,6 @@ Config/Local.xcconfig
 
 # Third-party binaries fetched by scripts/fetch-vlckit.sh
 Vendor/
+
+# App Store screenshots: regenerate with AppStoreScreenshotsUITests (see docs/RELEASE.md)
+docs/appstore/screenshots/

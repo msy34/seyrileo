@@ -263,7 +263,6 @@
  "Resume from %@": "Reprendre à %@",
  "S%lld E%lld": "S%lld E%lld",
  "Sample": "Démo",
- "Sample (fixture)": "Démo (fixture)",
  "Sample experience": "Expérience de démonstration",
  "Sample streams are served from this phone only. An AirPlay receiver cannot reach them.": "Les flux de démonstration sont servis uniquement depuis ce téléphone. Un récepteur AirPlay ne peut pas les atteindre.",
  "Sample streams are served from this phone only; an AirPlay receiver cannot reach them.": "Les flux de démonstration sont servis uniquement depuis ce téléphone ; un récepteur AirPlay ne peut pas les atteindre.",
@@ -319,7 +318,7 @@
  "Stream unavailable": "Flux indisponible",
  "Subtitles": "Sous-titres",
  "Swipe left on a channel, or touch and hold it, to add it to your favorites.": "Balayez une chaîne vers la gauche, ou touchez-la longuement, pour l’ajouter à vos favoris.",
- "Synthetic test patterns served from this device. These are not real channels.": "Mires de test synthétiques servies depuis cet appareil. Ce ne sont pas de vraies chaînes.",
+ "A made-up sample catalogue served from this device. These are not real channels.": "Un catalogue d'exemple fictif servi depuis cet appareil. Ce ne sont pas de vraies chaînes.",
  "TV connected. The video is shown on the TV in full screen.": "Téléviseur connecté. La vidéo s’affiche en plein écran sur le téléviseur.",
  "TV guide": "Guide TV",
  "Tap a source to make it active. Swipe to remove it.": "Touchez une source pour l’activer. Balayez pour la supprimer.",
@@ -370,7 +369,7 @@
  "The purchase is waiting for approval (for example Ask to Buy). Pro unlocks when it is approved.": "L’achat attend une approbation (par exemple « Demander l’autorisation »). Pro sera activé une fois approuvé.",
  "The report leaves out passwords, usernames and stream addresses. Nothing is sent unless you share it.": "Le rapport exclut les mots de passe, noms d’utilisateur et adresses de flux. Rien n’est envoyé si vous ne le partagez pas.",
  "The request was cancelled.": "La requête a été annulée.",
- "The sample uses synthetic test patterns served from this device. No real channels.": "La démo utilise des mires de test synthétiques servies depuis cet appareil. Aucune vraie chaîne.",
+ "The sample is a made-up catalogue served from this device. No real channels or films.": "La démo est un catalogue fictif servi depuis cet appareil. Aucune vraie chaîne ni aucun vrai film.",
  "The saved catalogue could not be searched.": "Impossible de rechercher dans le catalogue enregistré.",
  "The server answered 401 (unauthorized).": "Le serveur a répondu 401 (non autorisé).",
  "The server answered 403 (forbidden). It did not say why. Possible reasons include an inactive account, a blocked region or network, or a connection limit.": "Le serveur a répondu 403 (interdit) sans en donner la raison. Causes possibles : compte inactif, région ou réseau bloqués, ou limite de connexions.",
@@ -488,5 +487,6 @@
  "iOS blocked an unencrypted connection": "iOS a bloqué une connexion non chiffrée",
  "unknown": "inconnu",
  "unknown device": "appareil inconnu",
- "“Not verified” means the engine can do this in principle, but it has not been tested on a physical device yet.": "« Non vérifié » signifie que le moteur peut le faire en principe, mais que cela n’a pas encore été testé sur un appareil physique."
+ "“Not verified” means the engine can do this in principle, but it has not been tested on a physical device yet.": "« Non vérifié » signifie que le moteur peut le faire en principe, mais que cela n’a pas encore été testé sur un appareil physique.",
+ "Written offer: for at least three years after we last distribute this version, we will give anyone who asks the VLCKit source code it uses and the object files needed to relink Seyrileo with a modified VLCKit, at no more than the cost of providing them. Ask through the support link on Seyrileo's App Store page. You may modify Seyrileo for your own use and reverse engineer it to debug such modifications.": "Offre écrite : pendant au moins trois ans après la dernière distribution de cette version, nous fournirons à toute personne qui le demande le code source de VLCKit utilisé et les fichiers objets nécessaires pour relier Seyrileo à une version modifiée de VLCKit, pour un coût ne dépassant pas celui de leur fourniture. Faites la demande via le lien d'assistance de la page App Store de Seyrileo. Vous pouvez modifier Seyrileo pour votre propre usage et en faire l'ingénierie inverse pour déboguer ces modifications."
 }
